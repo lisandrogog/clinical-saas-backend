@@ -1,4 +1,4 @@
-import { IsOptional, IsUUID } from 'class-validator';
+import { IsUUID } from 'class-validator';
 
 export class CreateDocumentEngineItemDto {
   @IsUUID()
@@ -9,7 +9,4 @@ export class CreateDocumentEngineItemDto {
   fromStateId: number;
 
   toStateId: number;
-
-  @IsOptional()
-  allowBackwards?: boolean;
 }

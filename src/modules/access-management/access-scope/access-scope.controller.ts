@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { AccessScopeService } from './access-scope.service';
 import { CreateAccessScopeDto } from './dto/create-access-scope.dto';
 import { UpdateAccessScopeDto } from './dto/update-access-scope.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('access-scope')
 @Controller('access-scope')
 export class AccessScopeController {
   constructor(private readonly accessScopeService: AccessScopeService) {}

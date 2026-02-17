@@ -16,4 +16,16 @@ export class UtilsService {
 
     return regex.test(time);
   }
+
+  toPascalCase(str: string, separator: string = ' '): string {
+    if (str.trim().length < 2) {
+      return str.toUpperCase();
+    }
+
+    return str
+      .toLowerCase()
+      .split(separator)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(separator);
+  }
 }

@@ -14,6 +14,7 @@ export class DocumentStatusService {
         name: dto.name,
         is_editable: dto.isEditable ?? false,
         is_final: dto.isFinal ?? false,
+        allow_backwards: dto.allowBackwards ?? false,
       },
     });
   }
@@ -42,6 +43,9 @@ export class DocumentStatusService {
         name: dto.name,
         ...(dto.isEditable !== undefined && { is_editable: dto.isEditable }),
         ...(dto.isFinal !== undefined && { is_final: dto.isFinal }),
+        ...(dto.allowBackwards !== undefined && {
+          allow_backwards: dto.allowBackwards,
+        }),
       },
     });
   }
@@ -53,12 +57,16 @@ export class DocumentStatusService {
         name: dto.name,
         ...(dto.isEditable !== undefined && { is_editable: dto.isEditable }),
         ...(dto.isFinal !== undefined && { is_final: dto.isFinal }),
+        ...(dto.allowBackwards !== undefined && {
+          allow_backwards: dto.allowBackwards,
+        }),
       },
       create: {
         code: dto.code!,
         name: dto.name!,
         is_editable: dto.isEditable ?? false,
         is_final: dto.isFinal ?? false,
+        allow_backwards: dto.allowBackwards ?? false,
       },
     });
   }

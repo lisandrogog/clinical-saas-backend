@@ -6,3 +6,5 @@ export * from './document-engine/document-type.enum';
 export * from './identification-type.enum';
 export * from './access-management/permission-type.enum';
 export * from './platform-catalog/platform.enum';
+export * from './platform-catalog/app-module.enum';
+export * from './access-management/app-user-role.enum';

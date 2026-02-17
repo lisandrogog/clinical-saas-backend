@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { ProviderScheduleService } from './provider-schedule.service';
 import { CreateServiceProviderScheduleDto } from './dto/create-service-provider-schedule.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('service-provider-schedule')
 @Controller('service-provider-schedule')
 export class ProviderScheduleController {
   constructor(

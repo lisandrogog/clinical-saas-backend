@@ -11,7 +11,9 @@ import {
 import { AppUserService } from './app-user.service';
 import { CreateAppUserDto } from './dto/create-app-user.dto';
 import { UpdateAppUserDto } from './dto/update-app-user.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('app-user')
 @Controller('app-user')
 export class AppUserController {
   constructor(private readonly appUserService: AppUserService) {}

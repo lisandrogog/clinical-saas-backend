@@ -11,7 +11,9 @@ import {
 import { BusinessUnitService } from './business-unit.service';
 import { CreateBusinessUnitDto } from './dto/create-business-unit.dto';
 import { UpdateBusinessUnitDto } from './dto/update-business-unit.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('business-unit')
 @Controller('business-unit')
 export class BusinessUnitController {
   constructor(private readonly businessUnitService: BusinessUnitService) {}

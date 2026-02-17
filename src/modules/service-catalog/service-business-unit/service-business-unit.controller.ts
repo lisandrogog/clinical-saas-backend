@@ -11,7 +11,9 @@ import {
 import { ServiceBusinessUnitService } from './service-business-unit.service';
 import { CreateServiceBusinessUnitDto } from './dto/create-service-business-unit.dto';
 import { UpdateServiceBusinessUnitDto } from './dto/update-service-business-unit.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('service-business-unit')
 @Controller('service-business-unit')
 export class ServiceBusinessUnitController {
   constructor(

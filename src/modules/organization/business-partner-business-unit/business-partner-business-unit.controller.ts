@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { BusinessPartnerBusinessUnitService } from './business-partner-business-unit.service';
 import { CreateBusinessPartnerBusinessUnitDto } from './dto/create-business-partner-business-unit.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('business-partner-business-unit')
 @Controller('business-partner-business-unit')
 export class BusinessPartnerBusinessUnitController {
   constructor(

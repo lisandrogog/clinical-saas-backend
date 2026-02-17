@@ -7,6 +7,7 @@ CREATE TABLE if not exists  public.identification_type (
 	id serial4 NOT NULL,
 	code varchar(20) NOT NULL, -- passport, driver_license, tax_id, cedula
   "name" varchar(250) NOT NULL,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -221,6 +222,8 @@ CREATE TABLE if not exists  public.document_status (
 	is_editable bool DEFAULT false not NULL,
 	is_final bool DEFAULT false not NULL,
 	is_posted bool DEFAULT false not NULL,
+	allow_backwards bool DEFAULT false NOT null,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -229,6 +232,7 @@ CREATE TABLE if not exists  public.document_action (
   id serial4 NOT NULL,
   code varchar(50) NOT NULL, -- confirm(draft->pending), schedule(pending->scheduled), start(scheduled->in_progress), complete(in_progress->completed), cancel(any->cancelled), void(completed->voided).
   "name" varchar(100) NOT NULL,
+	readonly bool DEFAULT false not null,
   UNIQUE (code),
   PRIMARY KEY (id)
 );
@@ -238,6 +242,7 @@ CREATE TABLE if not exists  public.document_type (
 	id serial4 NOT NULL,
 	code varchar(20) NOT NULL,
   "name" varchar(250) NOT NULL,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -263,7 +268,6 @@ CREATE TABLE if not exists  public.document_engine_item (
 	document_action_id int4 NOT NULL,
 	from_state_id int4 NOT NULL,
 	to_state_id int4 NOT NULL,
-	allow_backwards bool DEFAULT false NOT NULL,
 	UNIQUE (document_engine_id, from_state_id, to_state_id),
 	PRIMARY KEY (id),
 	FOREIGN KEY (document_engine_id) REFERENCES public.document_engine(id) ON DELETE CASCADE,
@@ -340,6 +344,7 @@ CREATE TABLE if not exists  public.platform (
 	id serial4 NOT NULL,
 	"name" varchar(100) NULL,
 	code varchar(50) NULL,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -351,6 +356,7 @@ CREATE TABLE if not exists  public.app_module (
 	"name" varchar(100) NULL,
 	code varchar(50) NULL,
 	item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
 	PRIMARY KEY (id),
 	FOREIGN KEY (platform_id) REFERENCES public.platform(id) ON DELETE CASCADE,
   unique (platform_id, code)
@@ -363,6 +369,7 @@ CREATE TABLE if not exists  public.app_sub_module (
 	"name" varchar(100) NULL,
 	code varchar(50) NULL,
 	item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
 	PRIMARY KEY (id),
 	FOREIGN KEY (app_module_id) REFERENCES public.app_module(id) ON DELETE CASCADE,
   unique (app_module_id, code)
@@ -396,6 +403,7 @@ CREATE TABLE if not exists  public.access_scope (
   "name" varchar(50) NOT NULL,
   description text NULL,
   item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -407,6 +415,7 @@ CREATE TABLE if not exists  public.permission_type (
 	code varchar(20) NOT NULL, -- read_only, read_write, full_access, admin_access.
   description text NULL,
   item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -492,6 +501,7 @@ CREATE TABLE if not exists public.app_user_status (
 	"name" varchar(50) NOT NULL,
 	description text NULL,
 	item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );

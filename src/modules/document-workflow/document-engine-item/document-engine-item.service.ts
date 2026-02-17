@@ -60,7 +60,6 @@ export class DocumentEngineItemService {
         document_action_id: documentAction.id,
         from_state_id: fromState.id,
         to_state_id: toState.id,
-        allow_backwards: dto.allowBackwards ?? false,
       },
     });
   }

@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { DocumentStatusService } from './document-status.service';
 import { CreateDocumentStatusDto } from './dto/create-document-status.dto';
 import { UpdateDocumentStatusDto } from './dto/update-document-status.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('document-status')
 @Controller('document-status')
 export class DocumentStatusController {
   constructor(private readonly documentStatusService: DocumentStatusService) {}

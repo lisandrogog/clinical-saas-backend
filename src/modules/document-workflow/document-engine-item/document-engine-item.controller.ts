@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { DocumentEngineItemService } from './document-engine-item.service';
 import { CreateDocumentEngineItemDto } from './dto/create-document-engine-item.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('document-engine-item')
 @Controller('document-engine-item')
 export class DocumentEngineItemController {
   constructor(

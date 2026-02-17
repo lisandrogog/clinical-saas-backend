@@ -1,4 +1,4 @@
-export enum AppModule {
+export enum ApplicationModule {
   ORGANIZATION = 'organization',
 
   SERVICE_CATALOG = 'service_catalog',
@@ -12,4 +12,6 @@ export enum AppModule {
 
   DOCUMENT_ENGINE_COMMON = 'document_engine_common',
   DOCUMENT_ENGINE = 'document_engine',
+
+  MONITORING = 'monitoring',
 }

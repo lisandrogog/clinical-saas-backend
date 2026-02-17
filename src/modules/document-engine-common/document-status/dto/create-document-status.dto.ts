@@ -7,4 +7,7 @@ export class CreateDocumentStatusDto extends BaseCodeNameDto {
 
   @IsOptional()
   isFinal?: boolean;
+
+  @IsOptional()
+  allowBackwards?: boolean;
 }

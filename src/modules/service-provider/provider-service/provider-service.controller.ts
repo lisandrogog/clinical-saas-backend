@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { ProviderServiceService } from './provider-service.service';
 import { CreateServiceProviderServiceDto } from './dto/create-service-provider-service.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('service-provider-service')
 @Controller('service-provider-service')
 export class ProviderServiceController {
   constructor(

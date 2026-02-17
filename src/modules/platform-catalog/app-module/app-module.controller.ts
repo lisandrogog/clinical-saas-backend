@@ -11,7 +11,9 @@ import {
 import { AppModuleService } from './app-module.service';
 import { CreateAppModuleDto } from './dto/create-app-module.dto';
 import { UpdateAppModuleDto } from './dto/update-app-module.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('app-module')
 @Controller('app-module')
 export class AppModuleController {
   constructor(private readonly appModuleService: AppModuleService) {}

@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { PlatformService } from './platform.service';
 import { CreatePlatformDto } from './dto/create-platform.dto';
 import { UpdatePlatformDto } from './dto/update-platform.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('platform')
 @Controller('platform')
 export class PlatformController {
   constructor(private readonly platformService: PlatformService) {}

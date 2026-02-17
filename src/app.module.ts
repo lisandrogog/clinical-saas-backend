@@ -19,7 +19,6 @@ import { HashService } from '@modules/utils/services/hash.service';
 
 @Module({
   imports: [
-    PrismaService,
     OrganizationModule,
     ServiceCatalogModule,
     ServiceProviderModule,

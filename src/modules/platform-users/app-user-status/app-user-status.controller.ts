@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { AppUserStatusService } from './app-user-status.service';
 import { CreateAppUserStatusDto } from './dto/create-app-user-status.dto';
 import { UpdateAppUserStatusDto } from './dto/update-app-user-status.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('app-user-status')
 @Controller('app-user-status')
 export class AppUserStatusController {
   constructor(private readonly appUserStatusService: AppUserStatusService) {}

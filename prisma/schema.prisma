@@ -13,6 +13,7 @@ model access_scope {
   name        String       @db.VarChar(50)
   description String?
   item_order  Int          @default(0)
+  readonly    Boolean      @default(false)
   permission  permission[]
 }
 
@@ -22,6 +23,7 @@ model app_module {
   name           String?          @db.VarChar(100)
   code           String?          @db.VarChar(50)
   item_order     Int              @default(0)
+  readonly       Boolean          @default(false)
   platform       platform?        @relation(fields: [platform_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   app_sub_module app_sub_module[]
 
@@ -34,6 +36,7 @@ model app_sub_module {
   name          String?      @db.VarChar(100)
   code          String?      @db.VarChar(50)
   item_order    Int          @default(0)
+  readonly      Boolean      @default(false)
   app_module    app_module?  @relation(fields: [app_module_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   permission    permission[]
 
@@ -81,6 +84,7 @@ model app_user_status {
   name        String     @db.VarChar(50)
   description String?
   item_order  Int        @default(0)
+  readonly    Boolean    @default(false)
   app_user    app_user[]
 }
 
@@ -145,6 +149,7 @@ model document_action {
   id                   Int                    @id @default(autoincrement())
   code                 String                 @unique @db.VarChar(50)
   name                 String                 @db.VarChar(100)
+  readonly             Boolean                @default(false)
   document_engine_item document_engine_item[]
 }
 
@@ -167,7 +172,6 @@ model document_engine_item {
   document_action_id                                                  Int
   from_state_id                                                       Int
   to_state_id                                                         Int
-  allow_backwards                                                     Boolean         @default(false)
   document_action                                                     document_action @relation(fields: [document_action_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   document_engine                                                     document_engine @relation(fields: [document_engine_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   document_status_document_engine_item_from_state_idTodocument_status document_status @relation("document_engine_item_from_state_idTodocument_status", fields: [from_state_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
@@ -183,6 +187,8 @@ model document_status {
   is_editable                                                              Boolean                @default(false)
   is_final                                                                 Boolean                @default(false)
   is_posted                                                                Boolean                @default(false)
+  allow_backwards                                                          Boolean                @default(false)
+  readonly                                                                 Boolean                @default(false)
   document_engine                                                          document_engine[]
   document_engine_item_document_engine_item_from_state_idTodocument_status document_engine_item[] @relation("document_engine_item_from_state_idTodocument_status")
   document_engine_item_document_engine_item_to_state_idTodocument_status   document_engine_item[] @relation("document_engine_item_to_state_idTodocument_status")
@@ -193,6 +199,7 @@ model document_type {
   id              Int               @id @default(autoincrement())
   code            String            @unique @db.VarChar(20)
   name            String            @db.VarChar(250)
+  readonly        Boolean           @default(false)
   document_engine document_engine[]
   service_order   service_order[]
 }
@@ -201,6 +208,7 @@ model identification_type {
   id               Int                @id @default(autoincrement())
   code             String             @unique @db.VarChar(20)
   name             String             @db.VarChar(250)
+  readonly         Boolean            @default(false)
   business_partner business_partner[]
   tenant           tenant[]
 }
@@ -233,6 +241,7 @@ model permission_type {
   code        String       @unique @db.VarChar(20)
   description String?
   item_order  Int          @default(0)
+  readonly    Boolean      @default(false)
   permission  permission[]
 }
 
@@ -240,6 +249,7 @@ model platform {
   id         Int          @id @default(autoincrement())
   name       String?      @db.VarChar(100)
   code       String?      @unique @db.VarChar(50)
+  readonly   Boolean      @default(false)
   app_module app_module[]
 }
 

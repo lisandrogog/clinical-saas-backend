@@ -9,7 +9,9 @@ import {
 } from '@nestjs/common';
 import { AppUserBusinessUnitService } from './app-user-business-unit.service';
 import { CreateAppUserBusinessUnitDto } from './dto/create-app-user-business-unit.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('app-user-business-unit')
 @Controller('app-user-business-unit')
 export class AppUserBusinessUnitController {
   constructor(

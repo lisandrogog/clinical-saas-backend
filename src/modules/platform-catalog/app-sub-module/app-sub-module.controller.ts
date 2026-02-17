@@ -11,7 +11,9 @@ import {
 import { AppSubModuleService } from './app-sub-module.service';
 import { CreateAppSubModuleDto } from './dto/create-app-sub-module.dto';
 import { UpdateAppSubModuleDto } from './dto/update-app-sub-module.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('app-sub-module')
 @Controller('app-sub-module')
 export class AppSubModuleController {
   constructor(private readonly appSubModuleService: AppSubModuleService) {}

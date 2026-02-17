@@ -1,6 +1,6 @@
 export enum AppUserStatus {
-  ACTIVE = 'active',
   PENDING = 'pending',
+  ACTIVE = 'active',
   INACTIVE = 'inactive',
   SUSPENDED = 'suspended',
   BLOCKED = 'blocked',
