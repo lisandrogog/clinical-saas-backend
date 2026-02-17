@@ -6,4 +6,5 @@ export enum IdentificationType {
   RUT = 'rut',
   NIT = 'nit',
   RIF = 'rif',
+  REFERENCE = 'reference',
 }

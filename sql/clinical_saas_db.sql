@@ -69,6 +69,7 @@ CREATE TABLE if not exists public.business_partner (
 	address text NULL,
 	is_customer bool DEFAULT false NOT NULL,
 	is_agent bool DEFAULT false NOT NULL,
+	is_supplier bool DEFAULT false NOT NULL,
 	active bool DEFAULT true NOT NULL,
 	extra_data jsonb NULL,
   created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,

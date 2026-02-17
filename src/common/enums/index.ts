@@ -8,3 +8,4 @@ export * from './access-management/permission-type.enum';
 export * from './platform-catalog/platform.enum';
 export * from './platform-catalog/app-module.enum';
 export * from './access-management/app-user-role.enum';
+export * from './day-of-week.enum';

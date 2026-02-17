@@ -108,6 +108,7 @@ model business_partner {
   updated_by                                                String?                          @db.Uuid
   removed_at                                                DateTime?                        @db.Timestamptz(6)
   removed_by                                                String?                          @db.Uuid
+  is_supplier                                               Boolean                          @default(false)
   app_user                                                  app_user[]
   identification_type                                       identification_type              @relation(fields: [identification_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   tenant                                                    tenant                           @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)

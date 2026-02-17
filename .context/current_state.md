@@ -2,13 +2,14 @@
 
 ## 🎯 Objetivo Inmediato
 
-- Seeders para agregar data de Tenant & usuario de sistemas, y Tenant/BU/usuarios demo.
+- Seeder Oŕdenes de servicio agendada y completada con su documento derivado.
 
 ## ✅ Avances Recientes
 
-- Se completaron los crud's basicos de las entidades del backend.
-- Se implementa Swagger/API-Docs en el proyecto.
 - Se agregan Seeders de data mínima necesaria para el uso de la plataforma.
+- Seeders para agregar data de Tenant & usuario de sistemas, y Tenant/BU/usuarios demo.
+- Seeders Servicios, Clientes, Profesionales(servicios).
+- Seeder Agenda de profesionales.
 
 ## 🚧 Bloqueos o Pendientes
 
@@ -19,6 +20,8 @@
 - Modulo de login y gestión del token jwt.
 - Integración oauth/oauth2.
 - Pruebas unitarias, modulares y e2e
+- Búsquedas con filter, search y paginación
+- permitir crear consulta médica(oder-details) sin cita previa(service-order). crear las dependencias en background.
 
 ## 📂 Archivos en Foco
 
