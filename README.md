@@ -59,8 +59,8 @@ Los documentos de órdenes de servicio siguen un flujo de estados bien definido:
 
 ```
 DRAFT → PENDING → SCHEDULED → IN_PROGRESS → COMPLETED
-                      ↓              ↓
-                  CANCELLED      CANCELLED
+            ↓          ↓
+        CANCELLED   CANCELLED
 ```
 
 **Estados disponibles:**
