@@ -8,10 +8,13 @@ import { systemSeeder } from './seeds/tenants/system-tenant.seed';
 import {
   demoHealthcareTenantSeeder,
   demoHealthcareUsersSeeder,
+} from './seeds/tenants/demo-healthcare-tenant/index';
+import {
   demoHealthcareServicesSeeder,
   demoHealthcarePartnersSeeder,
   demoHealthcareProviderScheduleSeeder,
-} from './seeds/tenants/demo-healthcare-tenant/index';
+} from './seeds/tenants/demo-healthcare-tenant-transactions/index';
+import { demoHealthcareServiceOrdersSeeder } from './seeds/tenants/demo-healthcare-tenant-transaction-documents/demo-healthcare-service-orders.seed';
 
 async function main() {
   await commonTypesSeeder();
@@ -37,6 +40,8 @@ async function main() {
   await demoHealthcarePartnersSeeder();
 
   await demoHealthcareProviderScheduleSeeder();
+
+  await demoHealthcareServiceOrdersSeeder();
 
   console.log('✅ All seeders executed successfully.');
 }
