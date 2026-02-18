@@ -34,7 +34,7 @@ export class DocumentTypeService {
 
   async update(id: number, dto: UpdateDocumentTypeDto) {
     return await this.prisma.document_type.update({
-      where: { id },
+      where: { id, readonly: false },
       data: {
         code: dto.code,
         name: dto.name,
@@ -44,7 +44,7 @@ export class DocumentTypeService {
 
   async upsert(dto: UpdateDocumentTypeDto) {
     return await this.prisma.document_type.upsert({
-      where: { code: dto.code! },
+      where: { code: dto.code!, readonly: false },
       update: {
         name: dto.name,
       },

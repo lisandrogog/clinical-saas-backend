@@ -47,7 +47,7 @@ export class RoleService {
 
   async update(id: string, dto: UpdateRoleDto, userId?: string) {
     return await this.prisma.role.update({
-      where: { id, removed_at: null },
+      where: { id, removed_at: null, readonly: false },
       data: {
         code: dto.code,
         name: dto.name,
@@ -61,7 +61,7 @@ export class RoleService {
 
   async remove(id: string, userId?: string) {
     return await this.prisma.role.update({
-      where: { id, removed_at: null },
+      where: { id, removed_at: null, readonly: false },
       data: {
         removed_at: new Date(),
         removed_by: userId,

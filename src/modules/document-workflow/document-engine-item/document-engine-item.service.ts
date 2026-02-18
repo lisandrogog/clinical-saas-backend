@@ -73,7 +73,7 @@ export class DocumentEngineItemService {
 
   async removeAll(documentEngineId: string) {
     return await this.prisma.document_engine_item.deleteMany({
-      where: { document_engine_id: documentEngineId },
+      where: { document_engine_id: documentEngineId, readonly: false },
     });
   }
 }

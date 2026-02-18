@@ -10,16 +10,21 @@ export async function commonTypesSeeder() {
   for (const identificationTypeCode of Object.values(IdentificationType)) {
     const name = utils.toPascalCase(identificationTypeCode.replace('_', ' '));
 
+    const itemOrder =
+      Object.values(IdentificationType).indexOf(identificationTypeCode) + 1;
+
     await prisma.identification_type.upsert({
       where: { code: identificationTypeCode },
       update: {
         name,
         readonly: true,
+        item_order: itemOrder,
       },
       create: {
         name,
         code: identificationTypeCode,
         readonly: true,
+        item_order: itemOrder,
       },
     });
   }

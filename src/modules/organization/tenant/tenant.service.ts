@@ -63,7 +63,7 @@ export class TenantService {
 
   async update(id: string, dto: UpdateTenantDto, userId?: string) {
     return await this.prisma.tenant.update({
-      where: { id },
+      where: { id, readonly: false },
       data: {
         identification_type_id: dto.identificationTypeId,
         identification_number: dto.identificationNumber,
@@ -76,9 +76,5 @@ export class TenantService {
         updated_by: userId,
       },
     });
-  }
-
-  remove(id: string) {
-    return `This action removes a #${id} tenant`;
   }
 }

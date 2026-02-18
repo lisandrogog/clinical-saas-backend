@@ -1,7 +1,9 @@
 import { DayOfWeek, IdentificationType } from '@enums/index';
 import { PrismaClient } from '@prisma/client';
+import { UtilsService } from '@modules/utils/services/utils.service';
 
 const prisma = new PrismaClient();
+const utils = new UtilsService();
 
 export async function demoHealthcareProviderScheduleSeeder() {
   // get identification type reference
@@ -92,8 +94,8 @@ export async function demoHealthcareProviderScheduleSeeder() {
         business_unit_id: consultUnit.id,
         service_provider_id: clinicalProvider.id,
         day_of_week: dayOfWeek,
-        start_time: '08:00',
-        end_time: '12:00',
+        start_time: utils.formatTimeToPrisma('08:00'),
+        end_time: utils.formatTimeToPrisma('12:00'),
         slot_duration_minutes: 60,
       },
     });
@@ -104,8 +106,8 @@ export async function demoHealthcareProviderScheduleSeeder() {
         business_unit_id: consultUnit.id,
         service_provider_id: clinicalProvider.id,
         day_of_week: dayOfWeek,
-        start_time: '14:00',
-        end_time: '18:00',
+        start_time: utils.formatTimeToPrisma('14:00'),
+        end_time: utils.formatTimeToPrisma('18:00'),
         slot_duration_minutes: 60,
       },
     });
@@ -117,8 +119,8 @@ export async function demoHealthcareProviderScheduleSeeder() {
         business_unit_id: laboratoryUnit.id,
         service_provider_id: laboratoryProvider.id,
         day_of_week: dayOfWeek,
-        start_time: '08:00',
-        end_time: '12:00',
+        start_time: utils.formatTimeToPrisma('08:00'),
+        end_time: utils.formatTimeToPrisma('12:00'),
         slot_duration_minutes: 60,
       },
     });
@@ -129,8 +131,8 @@ export async function demoHealthcareProviderScheduleSeeder() {
         business_unit_id: laboratoryUnit.id,
         service_provider_id: laboratoryProvider.id,
         day_of_week: dayOfWeek,
-        start_time: '14:00',
-        end_time: '18:00',
+        start_time: utils.formatTimeToPrisma('14:00'),
+        end_time: utils.formatTimeToPrisma('18:00'),
         slot_duration_minutes: 60,
       },
     });

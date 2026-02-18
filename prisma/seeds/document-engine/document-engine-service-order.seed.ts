@@ -12,6 +12,7 @@ export async function documentEngineServiceOrderSeeder() {
     where: {
       code: DocumentType.SERVICE_ORDER,
       is_default: true,
+      readonly: true,
     },
   });
 
@@ -50,6 +51,7 @@ export async function documentEngineServiceOrderSeeder() {
       document_type_id: documentTypeServiceOrder.id,
       initial_state_id: documentStatusDraft.id,
       is_default: true,
+      readonly: true,
     },
   });
 
@@ -145,6 +147,7 @@ export async function documentEngineServiceOrderSeeder() {
         document_action_id: action.id,
         from_state_id: fromStatus.id,
         to_state_id: toStatus.id,
+        readonly: true,
       },
     });
   }

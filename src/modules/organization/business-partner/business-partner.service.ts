@@ -79,6 +79,7 @@ export class BusinessPartnerService {
         id,
         tenant_id: tenantId,
         removed_at: null,
+        readonly: false,
       },
       data: {
         identification_type_id: dto.identificationTypeId,
@@ -102,6 +103,7 @@ export class BusinessPartnerService {
         id,
         tenant_id: tenantId,
         removed_at: null,
+        readonly: false,
       },
       data: {
         removed_at: new Date(),

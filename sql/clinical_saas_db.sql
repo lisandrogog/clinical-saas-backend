@@ -8,6 +8,7 @@ CREATE TABLE if not exists  public.identification_type (
 	code varchar(20) NOT NULL, -- passport, driver_license, tax_id, cedula
   "name" varchar(250) NOT NULL,
 	readonly bool DEFAULT false not null,
+	item_order int4 DEFAULT 0 not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -23,6 +24,7 @@ CREATE TABLE if not exists  public.tenant (
 	email varchar(255) NULL,
 	phone varchar(50) NULL,
 	active bool DEFAULT true NOT NULL,
+	readonly bool DEFAULT false not null,
 	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	created_by uuid NULL,
 	updated_at timestamptz NULL,
@@ -72,6 +74,7 @@ CREATE TABLE if not exists public.business_partner (
 	is_supplier bool DEFAULT false NOT NULL,
 	active bool DEFAULT true NOT NULL,
 	extra_data jsonb NULL,
+	readonly bool DEFAULT false not null,
   created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	created_by uuid NULL,
 	updated_at timestamptz NULL,
@@ -257,6 +260,7 @@ CREATE TABLE if not exists  public.document_engine (
 	document_type_id int4 NOT NULL,
   initial_state_id int4 not NULL,
   is_default bool DEFAULT false not NULL, -- only one default per document type
+	readonly bool DEFAULT false not null,
 	PRIMARY KEY (id),
   FOREIGN KEY (document_type_id) REFERENCES public.document_type(id) ON DELETE CASCADE,
 	FOREIGN KEY (initial_state_id) REFERENCES public.document_status(id) ON DELETE cascade
@@ -269,6 +273,7 @@ CREATE TABLE if not exists  public.document_engine_item (
 	document_action_id int4 NOT NULL,
 	from_state_id int4 NOT NULL,
 	to_state_id int4 NOT NULL,
+	readonly bool DEFAULT false not null,
 	UNIQUE (document_engine_id, from_state_id, to_state_id),
 	PRIMARY KEY (id),
 	FOREIGN KEY (document_engine_id) REFERENCES public.document_engine(id) ON DELETE CASCADE,
@@ -516,6 +521,7 @@ CREATE TABLE if not exists  public.app_user (
 	username varchar(100) NOT NULL,
 	password_hash text NOT NULL,
 	profile_data jsonb NULL,
+	readonly boolean not null default false,
 	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	created_by uuid NULL,
 	updated_at timestamptz NULL,

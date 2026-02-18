@@ -76,7 +76,11 @@ export class DocumentEngineService {
   async update(id: string, dto: UpdateDocumentEngineDto) {
     if (dto.isDefault || false) {
       const existingDefault = await this.prisma.document_engine.count({
-        where: { document_type_id: dto.documentTypeId, is_default: true },
+        where: {
+          document_type_id: dto.documentTypeId,
+          is_default: true,
+          NOT: { id },
+        },
       });
 
       if (existingDefault > 0) {
@@ -87,7 +91,7 @@ export class DocumentEngineService {
     }
 
     return await this.prisma.document_engine.update({
-      where: { id },
+      where: { id, readonly: false },
       data: {
         code: dto.code,
         name: dto.name,
@@ -99,7 +103,7 @@ export class DocumentEngineService {
 
   async remove(id: string) {
     return await this.prisma.document_engine.delete({
-      where: { id },
+      where: { id, readonly: false },
     });
   }
 }

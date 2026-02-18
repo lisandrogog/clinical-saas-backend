@@ -81,7 +81,7 @@ export class AppUserService {
       throw new Error('Role not found');
     }
 
-    const hashedPassword = await this.hashService.hashData(dto.password);
+    const hashedPassword = await this.hashService.hashPassword(dto.password);
     const id = uuidv7();
 
     return await this.prisma.app_user.create({
@@ -182,7 +182,7 @@ export class AppUserService {
     let newHashedPassword: string | undefined = undefined;
 
     if (dto.password) {
-      newHashedPassword = await this.hashService.hashData(dto.password);
+      newHashedPassword = await this.hashService.hashPassword(dto.password);
     }
 
     if (dto.appUserStatusId) {
@@ -213,6 +213,7 @@ export class AppUserService {
           tenant_id: tenantId,
           removed_at: null,
         },
+        readonly: false,
       },
       data: {
         username: dto.username,
@@ -235,6 +236,7 @@ export class AppUserService {
           tenant_id: tenantId,
           removed_at: null,
         },
+        readonly: false,
       },
       data: {
         removed_at: new Date(),

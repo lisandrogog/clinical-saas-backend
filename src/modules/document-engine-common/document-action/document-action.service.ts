@@ -34,7 +34,7 @@ export class DocumentActionService {
 
   async update(id: number, dto: UpdateDocumentActionDto) {
     return await this.prisma.document_action.update({
-      where: { id },
+      where: { id, readonly: false },
       data: {
         code: dto.code,
         name: dto.name,
@@ -44,7 +44,7 @@ export class DocumentActionService {
 
   async upsert(dto: UpdateDocumentActionDto) {
     return await this.prisma.document_action.upsert({
-      where: { code: dto.code! },
+      where: { code: dto.code!, readonly: false },
       update: {
         name: dto.name,
       },

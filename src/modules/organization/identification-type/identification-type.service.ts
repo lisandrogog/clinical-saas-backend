@@ -12,6 +12,7 @@ export class IdentificationTypeService {
       data: {
         code: dto.code,
         name: dto.name,
+        item_order: dto.itemOrder || 0,
       },
     });
   }
@@ -38,6 +39,7 @@ export class IdentificationTypeService {
       data: {
         code: dto.code,
         name: dto.name,
+        item_order: dto.itemOrder,
       },
     });
   }
@@ -47,10 +49,12 @@ export class IdentificationTypeService {
       where: { code: dto.code! },
       update: {
         name: dto.name,
+        item_order: dto.itemOrder,
       },
       create: {
         code: dto.code!,
         name: dto.name!,
+        item_order: dto.itemOrder || 0,
       },
     });
   }

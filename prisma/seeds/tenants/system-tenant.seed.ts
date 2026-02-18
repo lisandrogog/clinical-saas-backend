@@ -26,6 +26,7 @@ export async function systemSeeder() {
       identification_type_id: identificationTypeTaxId.id,
       identification_number: '0000000000',
       created_at: new Date(),
+      readonly: true,
     },
   });
 
@@ -54,6 +55,7 @@ export async function systemSeeder() {
     where: {
       tenant_id: systemTenant.id,
       email: 'admin@system.com',
+      readonly: true,
     },
   });
 
@@ -67,6 +69,7 @@ export async function systemSeeder() {
         is_agent: true,
         identification_type_id: identificationTypeRif.id,
         identification_number: '010101010',
+        readonly: true,
       },
     });
   }
@@ -86,7 +89,7 @@ export async function systemSeeder() {
   });
 
   if (!appUser) {
-    const appUserPassword = await hashService.hashData('admin123');
+    const appUserPassword = await hashService.hashPassword('admin123');
 
     if (!appUserPassword) {
       throw new Error('Error al generar el hash de la contraseña.');
@@ -101,6 +104,7 @@ export async function systemSeeder() {
         password_hash: appUserPassword,
         status_id: statusActive.id,
         role_id: adminRole.id,
+        readonly: true,
       },
     });
   }

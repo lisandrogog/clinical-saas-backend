@@ -37,7 +37,7 @@ export class DocumentStatusService {
 
   async update(id: number, dto: UpdateDocumentStatusDto) {
     return await this.prisma.document_status.update({
-      where: { id },
+      where: { id, readonly: false },
       data: {
         code: dto.code,
         name: dto.name,
@@ -52,7 +52,7 @@ export class DocumentStatusService {
 
   async upsert(dto: UpdateDocumentStatusDto) {
     return await this.prisma.document_status.upsert({
-      where: { code: dto.code! },
+      where: { code: dto.code!, readonly: false },
       update: {
         name: dto.name,
         ...(dto.isEditable !== undefined && { is_editable: dto.isEditable }),

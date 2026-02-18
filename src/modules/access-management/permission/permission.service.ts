@@ -69,7 +69,7 @@ export class PermissionService {
 
   async update(id: string, dto: UpdatePermissionDto, userId?: string) {
     return await this.prisma.permission.update({
-      where: { id, removed_at: null },
+      where: { id, removed_at: null, readonly: false },
       data: {
         role_id: dto.roleId,
         app_sub_module_id: dto.subModuleId,
@@ -84,7 +84,7 @@ export class PermissionService {
 
   async remove(id: string, userId?: string) {
     return await this.prisma.permission.update({
-      where: { id, removed_at: null },
+      where: { id, removed_at: null, readonly: false },
       data: {
         removed_at: new Date(),
         removed_by: userId,

@@ -108,6 +108,7 @@ export async function demoHealthcareUsersSeeder() {
           business_partner_id: partner.id,
         };
       }),
+      skipDuplicates: true,
     });
   }
 
@@ -128,7 +129,7 @@ export async function demoHealthcareUsersSeeder() {
   });
 
   if (!appUserTenantAdmin) {
-    const passwordHash = await hashService.hashData('Admin123.');
+    const passwordHash = await hashService.hashPassword('Admin123.');
 
     if (!passwordHash) {
       throw new Error('Error al generar el hash de la contraseña.');
@@ -166,7 +167,7 @@ export async function demoHealthcareUsersSeeder() {
   });
 
   if (!appUserUnitAdmin) {
-    const passwordHash = await hashService.hashData('Unit123.');
+    const passwordHash = await hashService.hashPassword('Unit123.');
 
     if (!passwordHash) {
       throw new Error('Error al generar el hash de la contraseña.');
@@ -204,7 +205,7 @@ export async function demoHealthcareUsersSeeder() {
   });
 
   if (!appUserUnitOperator) {
-    const passwordHash = await hashService.hashData('Opera123.');
+    const passwordHash = await hashService.hashPassword('Opera123.');
 
     if (!passwordHash) {
       throw new Error('Error al generar el hash de la contraseña.');
@@ -237,6 +238,19 @@ export async function demoHealthcareUsersSeeder() {
   // AppUser business Partner relation
   for (const appUser of [appUserUnitAdmin, appUserUnitOperator]) {
     for (const businessUnit of businessUnits) {
+      const appUserBusinessUnit = await prisma.app_user_business_unit.findFirst(
+        {
+          where: {
+            app_user_id: appUser.id,
+            business_unit_id: businessUnit.id,
+          },
+        },
+      );
+
+      if (appUserBusinessUnit) {
+        continue;
+      }
+
       await prisma.app_user_business_unit.create({
         data: {
           app_user_id: appUser.id,

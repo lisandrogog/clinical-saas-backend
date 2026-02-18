@@ -108,7 +108,6 @@ export async function rolePermissionsSeeder() {
     await prisma.permission.createMany({
       data: rolePermissions.map((permission) => ({
         role_id: permission.roleId,
-        app_module_id: permission.moduleId,
         app_sub_module_id: permission.subModuleId,
         access_scope_id: permission.accessScopeId,
         permission_type_id: permission.permissionTypeId,

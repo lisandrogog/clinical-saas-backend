@@ -170,7 +170,7 @@ export async function demoHealthcareServiceOrdersSeeder() {
       },
     });
 
-  const serviceOrderPending = await prisma.service_order.create({
+  await prisma.service_order.create({
     data: {
       id: uuidv7(),
       tenant_id: demoHealthcareTenant.id,

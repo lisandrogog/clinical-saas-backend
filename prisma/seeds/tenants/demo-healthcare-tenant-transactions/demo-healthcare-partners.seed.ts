@@ -122,6 +122,7 @@ export async function demoHealthcarePartnersSeeder() {
           business_partner_id: partner.id,
         };
       }),
+      skipDuplicates: true,
     });
   }
 
@@ -132,6 +133,18 @@ export async function demoHealthcarePartnersSeeder() {
   const providers: service_provider[] = [];
 
   for (const provider of [clinicalProviderPartner, laboratoryProviderPartner]) {
+    const existsProvider = await prisma.service_provider.findFirst({
+      where: {
+        tenant_id: demoHealthcareTenant.id,
+        business_partner_id: provider.id,
+      },
+    });
+
+    if (existsProvider) {
+      providers.push(existsProvider);
+      continue;
+    }
+
     const index =
       [clinicalProviderPartner, laboratoryProviderPartner].indexOf(provider) +
       1;
@@ -225,6 +238,7 @@ export async function demoHealthcarePartnersSeeder() {
         business_unit_id: laboratoryUnit.id,
       },
     ],
+    skipDuplicates: true,
   });
 
   console.log(
