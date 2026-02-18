@@ -153,6 +153,7 @@ model document_action {
   code                 String                 @unique @db.VarChar(50)
   name                 String                 @db.VarChar(100)
   readonly             Boolean                @default(false)
+  item_order           Int                    @default(0)
   document_engine_item document_engine_item[]
 }
 
@@ -194,6 +195,7 @@ model document_status {
   is_posted                                                                Boolean                @default(false)
   allow_backwards                                                          Boolean                @default(false)
   readonly                                                                 Boolean                @default(false)
+  item_order                                                               Int                    @default(0)
   document_engine                                                          document_engine[]
   document_engine_item_document_engine_item_from_state_idTodocument_status document_engine_item[] @relation("document_engine_item_from_state_idTodocument_status")
   document_engine_item_document_engine_item_to_state_idTodocument_status   document_engine_item[] @relation("document_engine_item_to_state_idTodocument_status")

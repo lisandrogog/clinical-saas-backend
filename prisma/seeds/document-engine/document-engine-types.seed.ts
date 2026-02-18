@@ -11,16 +11,20 @@ export async function documentEngineTypesSeeder() {
   for (const documentAction of Object.values(DocumentAction)) {
     const name = utils.toPascalCase(documentAction.replace('_', ' '));
 
+    const index = Object.values(DocumentAction).indexOf(documentAction);
+
     await prisma.document_action.upsert({
       where: { code: documentAction },
       update: {
         name,
         readonly: true,
+        item_order: index,
       },
       create: {
         name,
         code: documentAction,
         readonly: true,
+        item_order: index,
       },
     });
   }
@@ -50,6 +54,8 @@ export async function documentEngineTypesSeeder() {
   for (const documentStatus of Object.values(DocumentStatus)) {
     const name = utils.toPascalCase(documentStatus.replace('_', ' '));
 
+    const index = Object.values(DocumentStatus).indexOf(documentStatus);
+
     await prisma.document_status.upsert({
       where: { code: documentStatus },
       update: {
@@ -59,6 +65,7 @@ export async function documentEngineTypesSeeder() {
         is_final: isFinal(documentStatus),
         allow_backwards: allowBackwards(documentStatus),
         readonly: true,
+        item_order: index,
       },
       create: {
         name,
@@ -68,6 +75,7 @@ export async function documentEngineTypesSeeder() {
         is_final: isFinal(documentStatus),
         allow_backwards: allowBackwards(documentStatus),
         readonly: true,
+        item_order: index,
       },
     });
   }

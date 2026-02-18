@@ -2,15 +2,17 @@
 
 ## 🎯 Objetivo Inmediato
 
-- Probar seeder y corregir errores (si los hay).
+- Implementar document workflow: executeAction
 
 ## ✅ Avances Recientes
 
+- Implementar document workflow: getActions,
 - Se agregan Seeders de data mínima necesaria para el uso de la plataforma.
 - Seeders para agregar data de Tenant & usuario de sistemas, y Tenant/BU/usuarios demo.
 - Seeders Servicios, Clientes, Profesionales(servicios).
 - Seeder Agenda de profesionales.
 - Seeder Oŕdenes de servicio agendada y completada con su documento derivado.
+- Probar seeder y corregir errores (si los hay).
 
 ## 🚧 Bloqueos o Pendientes
 

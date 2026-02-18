@@ -228,6 +228,7 @@ CREATE TABLE if not exists  public.document_status (
 	is_posted bool DEFAULT false not NULL,
 	allow_backwards bool DEFAULT false NOT null,
 	readonly bool DEFAULT false not null,
+	item_order int4 DEFAULT 0 not null,
 	UNIQUE (code),
 	PRIMARY KEY (id)
 );
@@ -237,6 +238,7 @@ CREATE TABLE if not exists  public.document_action (
   code varchar(50) NOT NULL, -- confirm(draft->pending), schedule(pending->scheduled), start(scheduled->in_progress), complete(in_progress->completed), cancel(any->cancelled), void(completed->voided).
   "name" varchar(100) NOT NULL,
 	readonly bool DEFAULT false not null,
+	item_order int4 DEFAULT 0 not null,
   UNIQUE (code),
   PRIMARY KEY (id)
 );
