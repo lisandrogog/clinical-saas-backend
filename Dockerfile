@@ -15,7 +15,7 @@ COPY . .
 RUN npx prisma generate
 RUN npm run build
 
-# Fase 2: Ejecución (Se mantiene igual)
+# Fase 2: Ejecución
 FROM node:20-alpine
 WORKDIR /app
 COPY --from=builder /app/node_modules ./node_modules
@@ -24,4 +24,6 @@ COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 3000
-CMD ["node", "dist/main"]
+
+# Apuntamos a la ruta real que viste con ls -R dist
+CMD ["node", "dist/src/main.js"]
