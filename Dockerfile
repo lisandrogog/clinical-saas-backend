@@ -1,11 +1,19 @@
 # Fase 1: Construcción
 FROM node:20-alpine AS builder
 WORKDIR /app
+
+# Build arg para autenticar npm con GitHub Packages (scope @nestjs, etc.)
+ARG NPM_TOKEN
+
 COPY package*.json ./
 COPY prisma ./prisma/ 
 # ^ IMPORTANTE: Copiar la carpeta prisma antes del install
 
-RUN npm ci
+# Configurar el token para el registry de GitHub Packages y luego instalar
+RUN echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc && \
+    npm ci && \
+    rm -f .npmrc
+
 COPY . .
 
 # Generar el cliente de Prisma para Linux Alpine

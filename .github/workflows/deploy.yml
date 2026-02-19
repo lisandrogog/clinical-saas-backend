@@ -32,6 +32,9 @@ jobs:
           push: true
           # La imagen se guardará con el nombre de tu repo en minúsculas
           tags: ghcr.io/${{ github.repository }}:latest
+          # Pasamos el GITHUB_TOKEN para que npm pueda autenticarse con GitHub Packages
+          build-args: |
+            NPM_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
       # 3. Avisar a Render que hay una imagen nueva lista
       - name: Trigger Render Deploy
