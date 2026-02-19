@@ -7,16 +7,15 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    # Necesitamos permisos para escribir en el registro de paquetes de GitHub
     permissions:
       contents: read
-      packages: write
-
+      packages: write # Para subir la imagen a GHCR
+      # IMPORTANTE: A veces npm necesita permiso explícito de lectura aquí
+    
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      # 1. Iniciar sesión en el registro de GitHub (donde se guardará la imagen)
       - name: Log in to GHCR
         uses: docker/login-action@v3
         with:
@@ -24,19 +23,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Construir la imagen de Docker y subirla
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
           push: true
-          # La imagen se guardará con el nombre de tu repo en minúsculas
           tags: ghcr.io/${{ github.repository }}:latest
-          # Pasamos el GITHUB_TOKEN para que npm pueda autenticarse con GitHub Packages
-          build-args: |
-            NPM_TOKEN=${{ secrets.GITHUB_TOKEN }}
 
-      # 3. Avisar a Render que hay una imagen nueva lista
       - name: Trigger Render Deploy
         run: |
           curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK_URL }}

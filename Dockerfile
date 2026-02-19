@@ -2,37 +2,26 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
-# Build arg para autenticar npm con GitHub Packages (scope @nestjs, etc.)
-ARG NPM_TOKEN
-
+# No necesitamos ARG NPM_TOKEN ni .npmrc si no hay paquetes privados
 COPY package*.json ./
 COPY prisma ./prisma/ 
-# ^ IMPORTANTE: Copiar la carpeta prisma antes del install
 
-# Configurar el token para el registry de GitHub Packages y luego instalar
-RUN echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc && \
-    npm ci && \
-    rm -f .npmrc
+# OPCIONAL: Si sospechas del .npmrc, esta línea lo borra dentro de la imagen
+# antes de intentar instalar nada, asegurando que use el registro público.
+RUN rm -f .npmrc && npm install
 
 COPY . .
 
-# Generar el cliente de Prisma para Linux Alpine
 RUN npx prisma generate
 RUN npm run build
 
-# Fase 2: Ejecución
+# Fase 2: Ejecución (Se mantiene igual)
 FROM node:20-alpine
 WORKDIR /app
-
-# Necesitamos las dependencias de producción y el cliente de Prisma generado
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package*.json ./
 COPY --from=builder /app/prisma ./prisma
 
-# Render asigna el puerto automáticamente, EXPOSE es más informativo
 EXPOSE 3000
-
-# Ejecutamos las migraciones antes de iniciar (opcional pero recomendado)
-# O simplemente iniciamos la app
 CMD ["node", "dist/main"]
