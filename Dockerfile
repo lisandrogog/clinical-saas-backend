@@ -5,7 +5,7 @@ COPY package*.json ./
 COPY prisma ./prisma/ 
 # ^ IMPORTANTE: Copiar la carpeta prisma antes del install
 
-RUN npm install
+RUN npm ci
 COPY . .
 
 # Generar el cliente de Prisma para Linux Alpine
