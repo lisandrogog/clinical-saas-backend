@@ -2,10 +2,20 @@
 
 ## 🎯 Objetivo Inmediato
 
-- Implementar document workflow: executeAction
+- Agregar servicio para crear orden con itemes en una transacción en estado inicial
+
+## 📑 Objetivos Próximos
+
+- Agregar servicio para agendar orden
+- Agregar servicio para gestionar cambio de estados de orden
+- Agregar servicio para crear consulta (service-order-detail) a partir de una cita (service-order)
+- Agregar servicio para crear consulta sin partir de una cita previa
+- Búsquedas con filter, search y paginación
+- Historial/log de cambios de estado de documentos (state_from, state_to, date_time, user_id)
 
 ## ✅ Avances Recientes
 
+- Implementar document workflow: executeAction
 - Implementar document workflow: getActions,
 - Se agregan Seeders de data mínima necesaria para el uso de la plataforma.
 - Seeders para agregar data de Tenant & usuario de sistemas, y Tenant/BU/usuarios demo.
@@ -17,15 +27,12 @@
 ## 🚧 Bloqueos o Pendientes
 
 - Agregar detalles de documentación Swagger, en métodos de Controladores y DTOs.
-- Historial/log de cambios de estado de documentos (state_from, state_to, date_time, user_id)
-- Servicio documentworkflowService para gestionar las acciones del document-engine.
-- Servicios de acciones y flujos operativos.
 - Modulo de login y gestión del token jwt.
 - Integración oauth/oauth2.
 - Pruebas unitarias, modulares y e2e
-- Búsquedas con filter, search y paginación
-- permitir crear consulta médica(oder-details) sin cita previa(service-order). crear las dependencias en background.
 - Agregar entidad transaccional de "permiso" o "vacación", para bloquear espacios de agenda de profesionales.
+- Investigar integración supabase.
+- Investigar gestión de sesión supabase.
 
 ## 📂 Archivos en Foco
 

@@ -73,6 +73,12 @@ export async function documentEngineServiceOrderSeeder() {
       from: DocumentStatus.PENDING,
       to: DocumentStatus.SCHEDULED,
     },
+    // action re_schedule (scheduled -> scheduled)
+    {
+      actionCode: DocumentAction.RE_SCHEDULE,
+      from: DocumentStatus.SCHEDULED,
+      to: DocumentStatus.SCHEDULED,
+    },
     // action start (pending/scheduled -> in_progress)
     {
       actionCode: DocumentAction.START,
