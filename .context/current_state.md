@@ -12,9 +12,13 @@
 - Agregar servicio para crear consulta sin partir de una cita previa
 - Búsquedas con filter, search y paginación
 - Historial/log de cambios de estado de documentos (state_from, state_to, date_time, user_id)
+- Remover controladores/métodos que no necesitan estar expuestos
 
 ## ✅ Avances Recientes
 
+- Establece conexión con supabase
+- Agrega manejo de env files
+- Agrega Dockerfile y deploy.yml
 - Implementar document workflow: executeAction
 - Implementar document workflow: getActions,
 - Se agregan Seeders de data mínima necesaria para el uso de la plataforma.
