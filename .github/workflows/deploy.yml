@@ -22,9 +22,9 @@ jobs:
         with:
           args: >
             --changelog-file=liquibase/changelog-master.xml
-            --url=jdbc:postgresql://${{ env.DB_HOST }}:${{ env.DB_PORT }}/${{ env.DB_NAME }}
-            --username=${{ env.DB_USER }}
-            --password=${{ env.DB_PASSWORD }}
+            --url="jdbc:postgresql://${{ env.DB_HOST }}:${{ env.DB_PORT }}/${{ env.DB_NAME }}?ssl=true"
+            --username="${{ env.DB_USER }}"
+            --password="${{ env.DB_PASSWORD }}"
             update
             --context-filter=qa
 
