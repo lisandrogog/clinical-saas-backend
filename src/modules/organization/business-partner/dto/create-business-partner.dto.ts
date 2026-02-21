@@ -1,35 +1,9 @@
-import {
-  IsBoolean,
-  IsEmail,
-  IsNumber,
-  IsOptional,
-  IsUUID,
-} from 'class-validator';
+import { IsBoolean, IsOptional, IsUUID } from 'class-validator';
+import { BaseBusinessPartnerDto } from 'src/modules/utils/dto/base-business-partner.dto';
 
-export class CreateBusinessPartnerDto {
+export class CreateBusinessPartnerDto extends BaseBusinessPartnerDto {
   @IsUUID()
   tenantId: string;
-
-  @IsNumber()
-  identificationTypeId: number;
-
-  identificationNumber: string;
-
-  @IsOptional()
-  firstName?: string;
-
-  @IsOptional()
-  lastName?: string;
-
-  @IsOptional()
-  @IsEmail()
-  email?: string;
-
-  @IsOptional()
-  phone?: string;
-
-  @IsOptional()
-  address?: string;
 
   @IsOptional()
   @IsBoolean()
@@ -41,8 +15,5 @@ export class CreateBusinessPartnerDto {
 
   @IsOptional()
   @IsBoolean()
-  active?: boolean;
-
-  @IsOptional()
-  extraData?: Record<string, any>;
+  active?: boolean = true;
 }

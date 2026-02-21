@@ -66,10 +66,7 @@ export class ProviderScheduleService {
         business_unit_id: businessUnitId,
         service_provider_id: serviceProviderId,
       },
-      orderBy: {
-        day_of_week: 'asc',
-        start_time: 'asc',
-      },
+      orderBy: [{ day_of_week: 'asc' }, { start_time: 'asc' }],
     });
   }
 

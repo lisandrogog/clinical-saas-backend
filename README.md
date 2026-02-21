@@ -38,6 +38,7 @@ Sistema backend para gestión clínica multi-tenant que permite a múltiples org
 | **Framework** | NestJS | ^11.0.1 |
 | **Lenguaje** | TypeScript | ^5.7.3 |
 | **ORM** | Prisma | ^6.19.2 |
+| **Migraciones** | Liquibase | 4.25.0 |
 | **Base de Datos** | PostgreSQL | - |
 | **Testing** | Jest | ^30.0.0 |
 | **Validación** | class-validator | ^0.14.3 |
@@ -119,16 +120,28 @@ npm install
 
 Crear un archivo `.env` en la raíz del proyecto (ver sección [Configuración](#️-configuración))
 
-4. **Ejecutar migraciones de Prisma**
+4. **Ejecutar migraciones de Base de Datos**
+
+Se utiliza Liquibase para gestionar las migraciones de la base de datos. Para el entorno local:
 
 ```bash
-npx prisma migrate dev
+npm run db:migrate:local
 ```
 
-5. **Ejecutar seeders (opcional)**
+5. **Generar Cliente Prisma**
+
+Para actualizar los tipos de TypeScript y el cliente Prisma después de las migraciones:
 
 ```bash
-npx prisma db seed
+npm run prisma:pull
+
+npm run prisma:gen
+```
+
+6. **Ejecutar seeders (opcional)**
+
+```bash
+npm run seed:dev
 ```
 
 ## ⚙️ Configuración
@@ -176,20 +189,27 @@ Una vez iniciado el servidor, acceder a:
 http://localhost:3000/api-docs
 ```
 
-### Comandos Prisma Útiles
+### Comandos de Base de Datos
 
+#### Prisma (ORM & Types)
 ```bash
-# Generar cliente Prisma
-npx prisma generate
+# Refrescar el esquema de la base de datos
+npm run prisma:pull
 
-# Crear nueva migración
-npx prisma migrate dev --name nombre_migracion
+# Generar cliente Prisma (actualiza tipos a partir del esquema)
+npm run prisma:gen
 
 # Ver base de datos en navegador
 npx prisma studio
 
 # Ejecutar seeders
-npx prisma db seed
+npm run seed:dev
+```
+
+#### Liquibase (Migraciones)
+```bash
+# Ejecutar migraciones en entorno local
+npm run db:migrate:local
 ```
 
 ## 🧪 Testing

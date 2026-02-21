@@ -112,6 +112,8 @@ model business_partner {
   removed_by                                                String?                          @db.Uuid
   is_supplier                                               Boolean                          @default(false)
   readonly                                                  Boolean                          @default(false)
+  birth_date                                                DateTime?                        @db.Date
+  short_address                                             String?
   app_user                                                  app_user[]
   identification_type                                       identification_type              @relation(fields: [identification_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   tenant                                                    tenant                           @relation(fields: [tenant_id], references: [id], onDelete: Cascade, onUpdate: NoAction)

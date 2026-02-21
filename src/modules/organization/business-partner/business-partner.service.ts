@@ -36,10 +36,14 @@ export class BusinessPartnerService {
         tenant_id: tenantId,
         removed_at: null,
       },
-      orderBy: {
-        first_name: 'asc',
-        last_name: 'asc',
-      },
+      orderBy: [
+        {
+          first_name: 'asc',
+        },
+        {
+          last_name: 'asc',
+        },
+      ],
     });
   }
 

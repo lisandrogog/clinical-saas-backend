@@ -2,10 +2,12 @@
 
 ## 🎯 Objetivo Inmediato
 
-- Agregar servicio para crear orden con itemes en una transacción en estado inicial
+- Verificar que la migración de liquibase se ejecute correctamente en el entorno remoto (CI/CD).
 
 ## 📑 Objetivos Próximos
 
+- Agregar fecha de nacimiento y dirección corta al cliente/paciente
+- Agregar servicio para crear orden con itemes en una transacción en estado inicial
 - Agregar servicio para agendar orden
 - Agregar servicio para gestionar cambio de estados de orden
 - Agregar servicio para crear consulta (service-order-detail) a partir de una cita (service-order)
@@ -16,6 +18,8 @@
 
 ## ✅ Avances Recientes
 
+- Implementar liquibase para migraciones de BD
+- Agrega controlador+servicio de clientes/pacientes
 - Establece conexión con supabase
 - Agrega manejo de env files
 - Agrega Dockerfile y deploy.yml

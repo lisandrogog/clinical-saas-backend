@@ -16,6 +16,7 @@ import { AppUserModule } from './modules/platform-users/app-user/app-user.module
 import { AppUserBusinessUnitModule } from './modules/platform-users/app-user-business-unit/app-user-business-unit.module';
 import { UtilsModule } from '@modules/utils/utils.module';
 import { HashService } from '@modules/utils/services/hash.service';
+import { CustomerModule } from './modules/customer/customer.module';
 
 @Module({
   imports: [
@@ -32,6 +33,7 @@ import { HashService } from '@modules/utils/services/hash.service';
     AppUserModule,
     AppUserBusinessUnitModule,
     UtilsModule,
+    CustomerModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService, HashService],

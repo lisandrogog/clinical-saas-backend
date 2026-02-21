@@ -18,4 +18,5 @@
 ## Reglas de Negocio Técnicas
 
 - **ServiceOrder:** El documento se crea en estado `DRAFT`, pasa a estado `PENDING` hasta que es agendado. Luego de `SCHEDULED` a `IN_PROGRESS`, y finalmente pasa a estado `COMPLETADO`. Si algo sale mal operativamente, pasa a estado `CANCELADO`,
-- **DocumentEngine:** Es el encargado de mover el documento por estos estados cuando se le indiquen las acciones correspondientes.
+- **DocumentEngine**: Es el encargado de mover el documento por estos estados cuando se le indiquen las acciones correspondientes.
+- **Base de Datos**: Las migraciones se definen como scripts SQL puros dentro de `liquibase/changelog/` y se gestionan a través de Liquibase para asegurar la compatibilidad con diferentes entornos.

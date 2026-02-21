@@ -2,9 +2,9 @@
   "name": "clinical-saas-backend",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "lisandrogelder@gmail.com",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "MIT",
   "engines": {
     "node": "~20.20.0"
   },
@@ -25,7 +25,8 @@
     "seed:dev": "dotenv -e env/.env.dev -- ts-node -r tsconfig-paths/register prisma/seed.ts",
     "seed:qa": "dotenv -e env/.env.qa -- ts-node -r tsconfig-paths/register prisma/seed.ts",
     "prisma:pull": "npx prisma db pull",
-    "prisma:gen": "npx prisma generate"
+    "prisma:gen": "npx prisma generate",
+    "db:migrate:local": "dotenv -e env/.env.dev -- sh -c 'docker run --rm --network=host -v .:/liquibase/changelog:Z liquibase/liquibase:4.25.0 --changelog-file=liquibase/changelog-master.xml --url=jdbc:postgresql://$DB_HOST:$DB_PORT/$DB_NAME --username=$DB_USER --password=$DB_PASSWORD update --context-filter=dev'"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

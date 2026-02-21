@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="20260220-01" author="lisandro.ortega">
+        <sqlFile path="changelog/001-ddl-create-organization-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-02" author="lisandro.ortega">
+        <sqlFile path="changelog/002-ddl-create-service-catalog-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-03" author="lisandro.ortega">
+        <sqlFile path="changelog/003-ddl-create-service-provider-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-04" author="lisandro.ortega">
+        <sqlFile path="changelog/004-ddl-create-document-workflow-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-05" author="lisandro.ortega">
+        <sqlFile path="changelog/005-ddl-create-service-order-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-06" author="lisandro.ortega">
+        <sqlFile path="changelog/006-ddl-create-platform-catalog-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-07" author="lisandro.ortega">
+        <sqlFile path="changelog/007-ddl-create-role-permission-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="20260220-08" author="lisandro.ortega">
+        <sqlFile path="changelog/008-ddl-create-app-user-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>

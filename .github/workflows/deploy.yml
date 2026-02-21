@@ -5,12 +5,37 @@ on:
     branches: [ main ]
 
 jobs:
+  migrate-db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Liquibase Migration
+        uses: docker://liquibase/liquibase:4.25.0
+        env:
+          DB_HOST: ${{ secrets.SUPABASE_HOST }}
+          DB_PORT: ${{ secrets.SUPABASE_PORT }}
+          DB_NAME: ${{ secrets.SUPABASE_DB_NAME }}
+          DB_USER: ${{ secrets.SUPABASE_USER }}
+          DB_PASSWORD: ${{ secrets.SUPABASE_PASSWORD }}
+        with:
+          args: >
+            --changelog-file=liquibase/changelog-master.xml
+            --url=jdbc:postgresql://${{ env.DB_HOST }}:${{ env.DB_PORT }}/${{ env.DB_NAME }}
+            --username=${{ env.DB_USER }}
+            --password=${{ env.DB_PASSWORD }}
+            --driver=org.postgresql.Driver
+            --classpath=/liquibase/lib/postgresql.jar
+            update
+            --context-filter=qa
+
   build-and-push:
+    needs: migrate-db
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write # Para subir la imagen a GHCR
-      # IMPORTANTE: A veces npm necesita permiso explícito de lectura aquí
+      packages: write
     
     steps:
       - name: Checkout Code

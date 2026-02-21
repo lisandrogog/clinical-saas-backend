@@ -57,4 +57,25 @@ export class UtilsService {
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(separator);
   }
+
+  /**
+   * Calculates the age of a person based on their birth date.
+   * @param birthDate The birth date of the person.
+   * @returns The age of the person.
+   */
+  calculateAge(birthDate: Date | null): number | null {
+    if (!birthDate) {
+      return null;
+    }
+
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
 }

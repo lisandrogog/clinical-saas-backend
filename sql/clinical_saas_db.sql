@@ -3,7 +3,7 @@ CREATE EXTENSION if not exists "uuid-ossp";
 -- ** Common types **
 
 -- Tenant/BusinessPartner Identification Types
-CREATE TABLE if not exists  public.identification_type (
+CREATE TABLE if not exists public.identification_type (
 	id serial4 NOT NULL,
 	code varchar(20) NOT NULL, -- passport, driver_license, tax_id, cedula
   "name" varchar(250) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE if not exists  public.identification_type (
 
 -- ** Organizational Structure Tables **
 -- ** Tenant **
-CREATE TABLE if not exists  public.tenant (
+CREATE TABLE if not exists public.tenant (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
   identification_type_id int4 NOT NULL,
 	identification_number varchar(255) NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE if not exists  public.tenant (
 );
 
 -- ** BusinessUnit **
-CREATE TABLE if not exists  public.business_unit (
+CREATE TABLE if not exists public.business_unit (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid NOT NULL,
 	code varchar(50) NOT NULL,
@@ -68,6 +68,8 @@ CREATE TABLE if not exists public.business_partner (
 	last_name varchar(100) NULL,
 	email varchar(255) NULL,
 	phone varchar(50) NULL,
+	birth_date date null,
+	short_address text null,
 	address text NULL,
 	is_customer bool DEFAULT false NOT NULL,
 	is_agent bool DEFAULT false NOT NULL,
@@ -103,7 +105,7 @@ create table if not exists business_partner_business_unit(
 
 -- ** Service Catalog tables **
 -- service_category: e.g. Electronics, Furniture, etc. (linked to product_category_type)
-CREATE TABLE if not exists  public.service_category (
+CREATE TABLE if not exists public.service_category (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid NOT NULL,
 	code varchar(50) NOT NULL,
@@ -123,7 +125,7 @@ ON public.service_category (tenant_id, code, removed_at)
 NULLS NOT DISTINCT;
 
 -- service: e.g. TV, Sofa, etc. (linked to category)
-CREATE TABLE if not exists  public.service (
+CREATE TABLE if not exists public.service (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid NOT NULL,
 	service_category_id uuid NOT NULL,
@@ -147,7 +149,7 @@ ON public.service (tenant_id, code, removed_at)
 NULLS NOT DISTINCT;
 
 -- service_business_unit: linking services to business units with specific price, cost and stock
-CREATE TABLE if not exists  public.service_business_unit (
+CREATE TABLE if not exists public.service_business_unit (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	service_id uuid NOT NULL,
 	business_unit_id uuid NOT NULL,
@@ -167,7 +169,7 @@ CREATE TABLE if not exists  public.service_business_unit (
 
 -- ** Service Provider tables **
 -- service_provider: define service providers of a tenant
-CREATE TABLE if not exists  public.service_provider (
+CREATE TABLE if not exists public.service_provider (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid NOT NULL,
 	business_partner_id uuid NOT NULL,
@@ -218,10 +220,9 @@ create table if not exists public.service_provider_schedule (
 );
 
 -- ** Work-Flow/Status-Flow tables **
--- document_status: e.g. draft, pending, scheduled, in_progress, completed, cancelled, voided.
-CREATE TABLE if not exists  public.document_status (
+CREATE TABLE if not exists public.document_status (
 	id serial4 NOT NULL,
-	code varchar(20) NOT NULL,
+	code varchar(20) NOT NULL, -- e.g. draft, pending, scheduled, in_progress, completed, cancelled, voided.
   "name" varchar(50) NOT NULL,
 	is_editable bool DEFAULT false not NULL,
 	is_final bool DEFAULT false not NULL,
@@ -233,7 +234,7 @@ CREATE TABLE if not exists  public.document_status (
 	PRIMARY KEY (id)
 );
 
-CREATE TABLE if not exists  public.document_action (
+CREATE TABLE if not exists public.document_action (
   id serial4 NOT NULL,
   code varchar(50) NOT NULL, -- confirm(draft->pending), schedule(pending->scheduled), start(scheduled->in_progress), complete(in_progress->completed), cancel(any->cancelled), void(completed->voided).
   "name" varchar(100) NOT NULL,
@@ -244,7 +245,7 @@ CREATE TABLE if not exists  public.document_action (
 );
 
 -- document_type: e.g. SalesOrder (out), PurchaseOrder(in), Invoice(out), ReceiptNote(in), etc. 
-CREATE TABLE if not exists  public.document_type (
+CREATE TABLE if not exists public.document_type (
 	id serial4 NOT NULL,
 	code varchar(20) NOT NULL,
   "name" varchar(250) NOT NULL,
@@ -254,7 +255,7 @@ CREATE TABLE if not exists  public.document_type (
 );
 
 -- ** DocumentEngine **
-CREATE TABLE if not exists  public.document_engine (
+CREATE TABLE if not exists public.document_engine (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	code varchar(100) NOT NULL,
   "name" varchar(250) NOT NULL,
@@ -269,7 +270,7 @@ CREATE TABLE if not exists  public.document_engine (
 );
 
 -- document_engine_item: defining allowed state transitions and actions for a document engine
-CREATE TABLE if not exists  public.document_engine_item (
+CREATE TABLE if not exists public.document_engine_item (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	document_engine_id uuid NOT NULL,
 	document_action_id int4 NOT NULL,
@@ -286,7 +287,7 @@ CREATE TABLE if not exists  public.document_engine_item (
 
 -- **Service Order tables**
 -- service_order: header table linked to tenant, business unit, customer, agent, and document status (workflow state)
-CREATE TABLE if not exists  public.service_order (
+CREATE TABLE if not exists public.service_order (
   id uuid DEFAULT uuid_generate_v4() NOT NULL,
   tenant_id uuid not NULL,
   business_unit_id uuid not NULL,
@@ -313,7 +314,7 @@ CREATE TABLE if not exists  public.service_order (
 );
 
 -- service_order_item: linked to service_order and product, with quantity, price and discount information
-CREATE TABLE if not exists  public.service_order_item (
+CREATE TABLE if not exists public.service_order_item (
   id uuid DEFAULT uuid_generate_v4() NOT NULL,
   service_order_id uuid not NULL,
   service_id uuid not NULL,
@@ -348,7 +349,7 @@ create table if not exists public.service_order_details (
 
 -- ** Platform-Catalog tables **
 -- platform: defining platforms that can be linked to tenants for multi-platform support (e.g. web, mobile, pos, etc.)
-CREATE TABLE if not exists  public.platform (
+CREATE TABLE if not exists public.platform (
 	id serial4 NOT NULL,
 	"name" varchar(100) NULL,
 	code varchar(50) NULL,
@@ -358,7 +359,7 @@ CREATE TABLE if not exists  public.platform (
 );
 
 -- app_module: defining application modules that can be linked to platforms (e.g. inventory, sales, reporting, etc.)
-CREATE TABLE if not exists  public.app_module (
+CREATE TABLE if not exists public.app_module (
 	id serial4 NOT NULL,
 	platform_id int4 NULL,
 	"name" varchar(100) NULL,
@@ -371,7 +372,7 @@ CREATE TABLE if not exists  public.app_module (
 );
 
 -- app_sub_module: defining sub-modules linked to app modules (e.g. under inventory module: stock management, purchase orders, etc.)
-CREATE TABLE if not exists  public.app_sub_module (
+CREATE TABLE if not exists public.app_sub_module (
 	id serial4 NOT NULL,
 	app_module_id int4 NULL,
 	"name" varchar(100) NULL,
@@ -385,7 +386,7 @@ CREATE TABLE if not exists  public.app_sub_module (
 
 -- ** Gobernanza/Permisología **
 -- role: defining roles within a tenant, with code, name, description, and readonly flag (e.g. admin, sales_rep, warehouse_manager, etc.)
-CREATE TABLE if not exists  public."role" (
+CREATE TABLE if not exists public."role" (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
   code varchar(50) not NULL,
   "name" varchar(100) not NULL,
@@ -405,7 +406,7 @@ ON public."role" (code, removed_at)
 NULLS NOT DISTINCT;
 
 -- access_scope: defining access scopes/permissions that can be assigned to roles (e.g. manage_orders, view_reports, etc.)
-CREATE TABLE if not exists  public.access_scope (
+CREATE TABLE if not exists public.access_scope (
 	id serial4 NOT NULL,
 	code varchar(30) NOT NULL,-- own_records, unit_records, tenant_records
   "name" varchar(50) NOT NULL,
@@ -417,7 +418,7 @@ CREATE TABLE if not exists  public.access_scope (
 );
 
 -- permission_type: defining types of permissions that can be assigned to roles for specific app modules/sub-modules (e.g. full_access, read_only, etc.)
-CREATE TABLE if not exists  public.permission_type (
+CREATE TABLE if not exists public.permission_type (
 	id serial4 NOT NULL,
 	"name" varchar(50) NOT NULL,
 	code varchar(20) NOT NULL, -- read_only, read_write, full_access, admin_access.
@@ -429,7 +430,7 @@ CREATE TABLE if not exists  public.permission_type (
 );
 
 -- permission: linking roles to specific permissions for app sub-modules, with access scope and permission type
-CREATE TABLE if not exists  public."permission" (
+CREATE TABLE if not exists public."permission" (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	role_id uuid not NULL,
 	app_sub_module_id int4 not NULL,
@@ -457,7 +458,7 @@ NULLS NOT DISTINCT;
 
 -- // ** Licensing/Subscription tables ** //
 -- tenant_document_engine: linking tenants to document engines they can use
-CREATE TABLE if not exists  public.tenant_document_engine (
+CREATE TABLE if not exists public.tenant_document_engine (
   id uuid DEFAULT uuid_generate_v4() NOT NULL,
   tenant_id uuid NOT NULL,
   document_engine_id uuid NOT NULL,
@@ -471,7 +472,7 @@ CREATE TABLE if not exists  public.tenant_document_engine (
 );
 
 -- tenant_module: linking tenants to app modules they have access to, with active flag and optional expiration date for module access (e.g. for trial periods or subscription-based access)
-CREATE TABLE if not exists  public.tenant_module (
+CREATE TABLE if not exists public.tenant_module (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid not NULL,
 	app_module_id int4 not NULL,
@@ -485,7 +486,7 @@ CREATE TABLE if not exists  public.tenant_module (
   unique (tenant_id, app_module_id)
 );
 
-CREATE TABLE if not exists  public.tenant_role (
+CREATE TABLE if not exists public.tenant_role (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid not NULL,
 	role_id int4 not NULL,
@@ -515,7 +516,7 @@ CREATE TABLE if not exists public.app_user_status (
 );
 
 -- app_user: defining application users linked to business partners, with username, password hash, status, role, and profile data
-CREATE TABLE if not exists  public.app_user (
+CREATE TABLE if not exists public.app_user (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	business_partner_id uuid not NULL,
 	role_id uuid not NULL,
@@ -543,7 +544,7 @@ ON public.app_user (username, removed_at)
 NULLS NOT DISTINCT;
 
 -- app_user_business_unit: linking application users to business units they have access to
-CREATE TABLE if not exists  public.app_user_business_unit (
+CREATE TABLE if not exists public.app_user_business_unit (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	app_user_id uuid not NULL,
 	business_unit_id uuid not NULL,
@@ -559,7 +560,7 @@ CREATE TABLE if not exists  public.app_user_business_unit (
 
 -- ** Translation tables **
 -- base_translation: defining base translation keys and default values for the application
-CREATE TABLE if not exists  public.base_translation (
+CREATE TABLE if not exists public.base_translation (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	code varchar(100) NOT NULL, -- {platform.module.submodule.key} e.g. {web.inventory.stock_management.add_product}
 	default_value text NOT NULL, -- preset/placeholder value that can be used if tenant has not customized the translation for a specific key
@@ -568,7 +569,7 @@ CREATE TABLE if not exists  public.base_translation (
 );
 
 -- tenant_translation: allowing tenants to customize translation values for specific keys
-CREATE TABLE if not exists  public.tenant_translation (
+CREATE TABLE if not exists public.tenant_translation (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	tenant_id uuid not NULL,
 	base_translation_id uuid not NULL,
@@ -581,7 +582,7 @@ CREATE TABLE if not exists  public.tenant_translation (
 
 -- ** Session and Audit Logs **
 -- event_type: defining types of events for audit logging (e.g. login_success, login_failed, logout, password_change, etc.)
-CREATE TABLE if not exists  public.event_type (
+CREATE TABLE if not exists public.event_type (
 	id serial4 NOT NULL,
 	code varchar(30) NOT NULL, -- login_success, login_failed, logout, password_change
  	"name" varchar(50) NOT NULL,
@@ -590,7 +591,7 @@ CREATE TABLE if not exists  public.event_type (
 );
 
 -- auth_audit_log: storing authentication-related events for application users, linked to event types, with optional identifier (e.g. IP address) and extra data for additional context (e.g. user agent, error messages, etc.) for security auditing and monitoring purposes
-CREATE TABLE if not exists  public.auth_audit_log (
+CREATE TABLE if not exists public.auth_audit_log (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	app_user_id uuid not NULL,
 	identifier varchar(255) not NULL, -- username or email used for login attempt, or IP address for suspicious activity
@@ -603,7 +604,7 @@ CREATE TABLE if not exists  public.auth_audit_log (
 );
 
 -- user_session: tracking user sessions with app user reference, IP address, user agent, last active timestamp, and active flag for session management
-CREATE TABLE if not exists  public.user_session (
+CREATE TABLE if not exists public.user_session (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	app_user_id uuid not NULL,
 	ip_address varchar(45) NULL,
@@ -615,7 +616,7 @@ CREATE TABLE if not exists  public.user_session (
 );
 
 -- refresh_token: storing refresh tokens for application users with expiration and revocation information for secure session management and token-based authentication
-CREATE TABLE if not exists  public.refresh_token (
+CREATE TABLE if not exists public.refresh_token (
 	id uuid DEFAULT uuid_generate_v4() NOT NULL,
 	app_user_id uuid not NULL,
 	"token" text NOT NULL,

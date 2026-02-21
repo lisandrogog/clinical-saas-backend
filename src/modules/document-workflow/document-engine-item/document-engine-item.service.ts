@@ -67,7 +67,7 @@ export class DocumentEngineItemService {
   async findAll(documentEngineId: string) {
     return await this.prisma.document_engine_item.findMany({
       where: { document_engine_id: documentEngineId },
-      orderBy: { from_state_id: 'asc', to_state_id: 'asc' },
+      orderBy: [{ from_state_id: 'asc' }, { to_state_id: 'asc' }],
     });
   }
 
