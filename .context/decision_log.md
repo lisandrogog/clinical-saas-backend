@@ -8,4 +8,5 @@
 | 2026-02-17 | Algunas entidades tienen **clave de unicidad** compuesta que incluye `removed_at` no nullable para `prisma.findUnique` o `prisma.upsert`. | Se usa `findFirst` en lugar de `findUnique` o `upsert` para entidades con `removed_at`. | Para evitar errores ya que `removed_at` es **nullable** en la BD. |
 | 2026-02-20 | Se requiere un sistema de **migraciones** para la base de datos. | Se elige **Liquibase** como sistema de migraciones. | Es un sistema robusto y resultó ser mas fácil de integrar con la infraestructura elegida, durante el CI/CD.|
 | 2026-02-20 | Las versiones mas recientes de liquibase tienen cambios que rompen la retrocompatibilidad | Se usa **Liquibase v4.25.0**. | Es una versión de liquibase estable, con buena documentación y se tiene experiencia previa en el uso de la misma. |
-
+| 2026-02-21 | Se requiere un sistema de **decorators** para centralizar la documentación de los endpoints de la API sin sobrecargar el código de los controladores. | Se crea un archivo de **decorators** por cada controlador de la API. | Para mantener el código organizado y facilitar el mantenimiento de la documentación. |
+| 2026-02-21 | En los metodos http para Update/Delete, cuando el registro a ser afectado no existe, se retorna 404. | Se retorna 404. | Para seguir el estándar de la API y evitar errores. |

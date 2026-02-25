@@ -8,31 +8,32 @@ import {
   IsString,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { DtoI18nKeys } from '../constants/i18n.constants';
 
 export class BaseBusinessPartnerDto {
-  @ApiProperty({ description: 'ID del tipo de identificación', example: 1 })
+  @ApiProperty({ description: DtoI18nKeys.identificationTypeId, example: 1 })
   @IsNumber()
   identificationTypeId: number;
 
   @ApiProperty({
-    description: 'Número de identificación',
+    description: DtoI18nKeys.identificationNumber,
     example: 'V-12345678',
   })
   @IsString()
   identificationNumber: string;
 
-  @ApiPropertyOptional({ description: 'Nombres', example: 'John' })
+  @ApiPropertyOptional({ description: DtoI18nKeys.firstName, example: 'John' })
   @IsOptional()
   @IsString()
   firstName?: string;
 
-  @ApiPropertyOptional({ description: 'Apellidos', example: 'Doe' })
+  @ApiPropertyOptional({ description: DtoI18nKeys.lastName, example: 'Doe' })
   @IsOptional()
   @IsString()
   lastName?: string;
 
   @ApiPropertyOptional({
-    description: 'Correo electrónico',
+    description: DtoI18nKeys.email,
     example: 'juan.perez@example.com',
   })
   @IsOptional()
@@ -40,7 +41,7 @@ export class BaseBusinessPartnerDto {
   email?: string;
 
   @ApiPropertyOptional({
-    description: 'Número de teléfono',
+    description: DtoI18nKeys.phone,
     example: '+58912345678',
   })
   @IsOptional()
@@ -48,7 +49,7 @@ export class BaseBusinessPartnerDto {
   phone?: string;
 
   @ApiPropertyOptional({
-    description: 'Fecha de nacimiento',
+    description: DtoI18nKeys.birthDate,
     example: '1990-01-01',
   })
   @IsOptional()
@@ -57,19 +58,19 @@ export class BaseBusinessPartnerDto {
   birthDate?: Date;
 
   @ApiPropertyOptional({
-    description: 'Dirección corta/referencia',
+    description: DtoI18nKeys.shortAddress,
     example: 'Av. Siempre Viva 742',
   })
   @IsOptional()
   @IsString()
   shortAddress?: string;
 
-  @ApiPropertyOptional({ description: 'Dirección completa' })
+  @ApiPropertyOptional({ description: DtoI18nKeys.address })
   @IsOptional()
   @IsString()
   address?: string;
 
-  @ApiPropertyOptional({ description: 'Datos adicionales en formato JSON' })
+  @ApiPropertyOptional({ description: DtoI18nKeys.extraData })
   @IsOptional()
   @IsObject()
   extraData?: Record<string, any>;

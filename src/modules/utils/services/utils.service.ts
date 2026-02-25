@@ -78,4 +78,61 @@ export class UtilsService {
 
     return age;
   }
+
+  /**
+   * Sanitiza un string de búsqueda.
+   * @param search El string de búsqueda a sanitizar.
+   * @returns El string de búsqueda sanitizado.
+   */
+  sanitizeSearch(search?: string) {
+    if (!search) {
+      return '';
+    }
+
+    return search.trim().toLowerCase();
+  }
+
+  /**
+   * Calcula el skip para la paginación.
+   * @param page El número de página.
+   * @param limit El número de elementos por página.
+   * @returns El skip para la paginación.
+   */
+  calculateSkip(page: number, limit: number): number {
+    return (page - 1) * limit;
+  }
+
+  /**
+   * Calcula el last page para la paginación.
+   * @param total El número total de elementos.
+   * @param limit El número de elementos por página.
+   * @returns El last page para la paginación.
+   */
+  calculateLastPage(total: number, limit: number): number {
+    return Math.ceil(total / limit);
+  }
+
+  /**
+   * Envolve una respuesta paginada.
+   * @param data Los datos de la respuesta.
+   * @param total El número total de elementos.
+   * @param page El número de página.
+   * @param limit El número de elementos por página.
+   * @returns La respuesta paginada.
+   */
+  wrapPaginatedResponse<T>(
+    data: T[],
+    total: number,
+    page: number,
+    limit: number,
+  ) {
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        lastPage: this.calculateLastPage(total, limit),
+      },
+    };
+  }
 }

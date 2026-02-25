@@ -27,6 +27,7 @@
       "@utils/*": ["src/utils/*"],
       "@enums/*": ["src/common/enums/*"],
       "@constants/*": ["src/common/constants/*"],
+      "@i18n/*": ["src/common/i18n/*"],
     }
   },
 }

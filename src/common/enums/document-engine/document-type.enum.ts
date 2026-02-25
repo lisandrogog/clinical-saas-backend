@@ -1,3 +1,5 @@
-export enum DocumentType {
-  SERVICE_ORDER = 'service_order',
-}
+export const DocumentType = {
+  SERVICE_ORDER: 'service_order',
+} as const;
+
+export type DocumentType = (typeof DocumentType)[keyof typeof DocumentType];

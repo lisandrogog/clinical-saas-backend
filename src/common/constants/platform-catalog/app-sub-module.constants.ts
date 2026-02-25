@@ -1,6 +1,5 @@
 import { ApplicationModule } from '@enums/index';
-import { IAppModule } from './app-module.interface';
-import { IAppSubModule } from './app-sub-module.interface';
+import { IAppModule, IAppSubModule } from '../../interfaces/platform-catalog';
 
 /**
  * This file centralizes the definition of sub-modules for each application module in the platform catalog.
@@ -47,9 +46,17 @@ export const ApplicationSubModules: IAppModule[] = [
     ] as IAppSubModule[],
   } as IAppModule,
   {
+    code: ApplicationModule.PLATFORM_CUSTOMER,
+    name: 'Clientes de la Plataforma',
+    itemOrder: 4,
+    subModules: [
+      { name: 'Clientes de la Plataforma', code: 'customer', itemOrder: 1 },
+    ] as IAppSubModule[],
+  } as IAppModule,
+  {
     code: ApplicationModule.SERVICE_CATALOG,
     name: 'Catálogo de Servicios',
-    itemOrder: 4,
+    itemOrder: 5,
     subModules: [
       {
         name: 'Categoría de Servicios',
@@ -67,7 +74,7 @@ export const ApplicationSubModules: IAppModule[] = [
   {
     code: ApplicationModule.SERVICE_PROVIDER,
     name: 'Especialistas',
-    itemOrder: 5,
+    itemOrder: 6,
     subModules: [
       {
         name: 'Especialistas',
@@ -84,7 +91,7 @@ export const ApplicationSubModules: IAppModule[] = [
   {
     code: ApplicationModule.SERVICE_ORDER,
     name: 'Citas Médicas',
-    itemOrder: 6,
+    itemOrder: 7,
     subModules: [
       {
         name: 'Citas Médicas',

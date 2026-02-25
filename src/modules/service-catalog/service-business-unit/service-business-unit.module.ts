@@ -1,10 +1,21 @@
 import { Module } from '@nestjs/common';
-import { ServiceBusinessUnitService } from './service-business-unit.service';
-import { ServiceBusinessUnitController } from './service-business-unit.controller';
+import { ServiceBusinessUnitController } from './controllers/service-business-unit.controller';
 import { PrismaService } from '@core/prisma.service';
+import {
+  ServiceBusinessUnitService,
+  ServiceBusinessUnitHelperService,
+  ServiceBusinessUnitAssociationService,
+} from './services';
+import { UtilsService } from '@modules/utils/services';
 
 @Module({
   controllers: [ServiceBusinessUnitController],
-  providers: [ServiceBusinessUnitService, PrismaService],
+  providers: [
+    ServiceBusinessUnitService,
+    ServiceBusinessUnitHelperService,
+    PrismaService,
+    UtilsService,
+    ServiceBusinessUnitAssociationService,
+  ],
 })
 export class ServiceBusinessUnitModule {}

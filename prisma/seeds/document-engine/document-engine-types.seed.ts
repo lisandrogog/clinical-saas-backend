@@ -31,24 +31,28 @@ export async function documentEngineTypesSeeder() {
 
   // Seed Document Statuses
   const isPosted = (status: DocumentStatus) => {
-    return [DocumentStatus.COMPLETED].includes(status);
+    return status === DocumentStatus.COMPLETED;
   };
 
   const isEditable = (status: DocumentStatus) => {
-    return [DocumentStatus.DRAFT, DocumentStatus.PENDING].includes(status);
+    return (
+      [DocumentStatus.DRAFT, DocumentStatus.PENDING] as DocumentStatus[]
+    ).includes(status);
   };
   const isFinal = (status: DocumentStatus) => {
-    return [
-      DocumentStatus.CANCELED,
-      DocumentStatus.CLOSED,
-      DocumentStatus.VOIDED,
-    ].includes(status);
+    return (
+      [
+        DocumentStatus.CANCELED,
+        DocumentStatus.CLOSED,
+        DocumentStatus.VOIDED,
+      ] as DocumentStatus[]
+    ).includes(status);
   };
 
   const allowBackwards = (status: DocumentStatus) => {
-    return [DocumentStatus.SCHEDULED, DocumentStatus.IN_PROGRESS].includes(
-      status,
-    );
+    return (
+      [DocumentStatus.SCHEDULED, DocumentStatus.IN_PROGRESS] as DocumentStatus[]
+    ).includes(status);
   };
 
   for (const documentStatus of Object.values(DocumentStatus)) {

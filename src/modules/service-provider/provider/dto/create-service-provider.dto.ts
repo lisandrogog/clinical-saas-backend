@@ -1,12 +1,3 @@
-import { IsOptional, IsUUID } from 'class-validator';
+import { BaseBusinessPartnerDto } from '@modules/utils/dto';
 
-export class CreateServiceProviderDto {
-  @IsUUID()
-  businessPartnerId: string;
-
-  @IsOptional()
-  active?: boolean = true;
-
-  @IsOptional()
-  extraData?: Record<string, any>;
-}
+export class CreateServiceProviderDto extends BaseBusinessPartnerDto {}

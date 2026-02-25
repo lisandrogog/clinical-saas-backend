@@ -88,8 +88,20 @@ export async function demoHealthcareProviderScheduleSeeder() {
     }
 
     // clinical
-    await prisma.service_provider_schedule.create({
-      data: {
+    await prisma.service_provider_schedule.upsert({
+      where: {
+        tenant_id_business_unit_id_service_provider_id_day_of_week_start_time_end_time:
+          {
+            tenant_id: demoHealthcareTenant.id,
+            business_unit_id: consultUnit.id,
+            service_provider_id: clinicalProvider.id,
+            day_of_week: dayOfWeek,
+            start_time: utils.formatTimeToPrisma('08:00'),
+            end_time: utils.formatTimeToPrisma('12:00'),
+          },
+      },
+      update: {},
+      create: {
         tenant_id: demoHealthcareTenant.id,
         business_unit_id: consultUnit.id,
         service_provider_id: clinicalProvider.id,
@@ -100,8 +112,20 @@ export async function demoHealthcareProviderScheduleSeeder() {
       },
     });
 
-    await prisma.service_provider_schedule.create({
-      data: {
+    await prisma.service_provider_schedule.upsert({
+      where: {
+        tenant_id_business_unit_id_service_provider_id_day_of_week_start_time_end_time:
+          {
+            tenant_id: demoHealthcareTenant.id,
+            business_unit_id: consultUnit.id,
+            service_provider_id: clinicalProvider.id,
+            day_of_week: dayOfWeek,
+            start_time: utils.formatTimeToPrisma('14:00'),
+            end_time: utils.formatTimeToPrisma('18:00'),
+          },
+      },
+      update: {},
+      create: {
         tenant_id: demoHealthcareTenant.id,
         business_unit_id: consultUnit.id,
         service_provider_id: clinicalProvider.id,
@@ -113,8 +137,20 @@ export async function demoHealthcareProviderScheduleSeeder() {
     });
 
     // laboratory
-    await prisma.service_provider_schedule.create({
-      data: {
+    await prisma.service_provider_schedule.upsert({
+      where: {
+        tenant_id_business_unit_id_service_provider_id_day_of_week_start_time_end_time:
+          {
+            tenant_id: demoHealthcareTenant.id,
+            business_unit_id: laboratoryUnit.id,
+            service_provider_id: laboratoryProvider.id,
+            day_of_week: dayOfWeek,
+            start_time: utils.formatTimeToPrisma('08:00'),
+            end_time: utils.formatTimeToPrisma('12:00'),
+          },
+      },
+      update: {},
+      create: {
         tenant_id: demoHealthcareTenant.id,
         business_unit_id: laboratoryUnit.id,
         service_provider_id: laboratoryProvider.id,
@@ -125,8 +161,20 @@ export async function demoHealthcareProviderScheduleSeeder() {
       },
     });
 
-    await prisma.service_provider_schedule.create({
-      data: {
+    await prisma.service_provider_schedule.upsert({
+      where: {
+        tenant_id_business_unit_id_service_provider_id_day_of_week_start_time_end_time:
+          {
+            tenant_id: demoHealthcareTenant.id,
+            business_unit_id: laboratoryUnit.id,
+            service_provider_id: laboratoryProvider.id,
+            day_of_week: dayOfWeek,
+            start_time: utils.formatTimeToPrisma('14:00'),
+            end_time: utils.formatTimeToPrisma('18:00'),
+          },
+      },
+      update: {},
+      create: {
         tenant_id: demoHealthcareTenant.id,
         business_unit_id: laboratoryUnit.id,
         service_provider_id: laboratoryProvider.id,

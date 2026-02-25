@@ -6,35 +6,42 @@
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <changeSet id="20260220-01" author="lisandro.ortega">
-        <sqlFile path="changelog/001-ddl-create-organization-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/001-ddl-create-organization-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-02" author="lisandro.ortega">
-        <sqlFile path="changelog/002-ddl-create-service-catalog-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/002-ddl-create-service-catalog-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-03" author="lisandro.ortega">
-        <sqlFile path="changelog/003-ddl-create-service-provider-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/003-ddl-create-service-provider-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-04" author="lisandro.ortega">
-        <sqlFile path="changelog/004-ddl-create-document-workflow-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/004-ddl-create-document-workflow-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-05" author="lisandro.ortega">
-        <sqlFile path="changelog/005-ddl-create-service-order-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/005-ddl-create-service-order-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-06" author="lisandro.ortega">
-        <sqlFile path="changelog/006-ddl-create-platform-catalog-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/006-ddl-create-platform-catalog-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-07" author="lisandro.ortega">
-        <sqlFile path="changelog/007-ddl-create-role-permission-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/007-ddl-create-role-permission-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
     <changeSet id="20260220-08" author="lisandro.ortega">
-        <sqlFile path="changelog/008-ddl-create-app-user-tables.sql" relativeToChangelogFile="true"/>
+        <sqlFile path="changelog/20260220-ddl/008-ddl-create-app-user-tables.sql" relativeToChangelogFile="true"/>
     </changeSet>
-
+    <changeSet id="20260221-01" author="lisandro.ortega">
+        <sqlFile path="changelog/20260221-ddl/009-ddl-alter-service-business-unit.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="20260222-01" author="lisandro.ortega">
+        <sqlFile path="changelog/20260222-dml/010-dml-insert-commons.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="20260222-02" author="lisandro.ortega">
+        <sqlFile path="changelog/20260222-dml/011-dml-insert-roles-permissions.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="20260222-03" author="lisandro.ortega">
+        <sqlFile path="changelog/20260222-dml/012-dml-insert-system-tenant-user.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="20260222-04" author="lisandro.ortega">
+        <sqlFile path="changelog/20260222-dml/013-dml-insert-demo-tenant.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 </databaseChangeLog>

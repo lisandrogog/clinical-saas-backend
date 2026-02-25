@@ -1,5 +1,5 @@
 import { AccessScope, AppUserRole, PermissionType } from '@enums/index';
-import { IPermissionRole } from './permission-role.interface';
+import { IPermissionRole } from '../../interfaces/access-management/permission-role.interface';
 import { ApplicationSubModules } from '@constants/platform-catalog/app-sub-module.constants';
 
 export const AppUserRolePermissions: IPermissionRole[] = [

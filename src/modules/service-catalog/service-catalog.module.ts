@@ -3,9 +3,10 @@ import { ServiceCategoryModule } from './service-category/service-category.modul
 import { ServiceModule } from './service/service.module';
 import { ServiceBusinessUnitModule } from './service-business-unit/service-business-unit.module';
 import { PrismaService } from '@core/prisma.service';
+import { UtilsService } from '@modules/utils/services';
 
 @Module({
   imports: [ServiceCategoryModule, ServiceModule, ServiceBusinessUnitModule],
-  providers: [PrismaService],
+  providers: [PrismaService, UtilsService],
 })
 export class ServiceCatalogModule {}

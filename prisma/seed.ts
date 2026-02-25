@@ -1,20 +1,22 @@
-import { commonTypesSeeder } from './seeds/common-types.seed';
-import { documentEngineTypesSeeder } from './seeds/document-engine/document-engine-types.seed';
-import { documentEngineServiceOrderSeeder } from './seeds/document-engine/document-engine-service-order.seed';
-import { platformCatalogTypesSeeder } from './seeds/platform-permissions/platform-catalog-types.seed';
-import { accessManagementTypesSeeder } from './seeds/platform-permissions/access-management-types.seed';
-import { rolePermissionsSeeder } from './seeds/platform-permissions/role-permissions.seed';
-import { systemSeeder } from './seeds/tenants/system-tenant.seed';
+import { commonTypesSeeder } from './seeds';
 import {
+  documentEngineTypesSeeder,
+  documentEngineServiceOrderSeeder,
+} from './seeds/document-engine';
+import {
+  platformCatalogTypesSeeder,
+  accessManagementTypesSeeder,
+  rolePermissionsSeeder,
+} from './seeds/platform-permissions';
+import {
+  systemSeeder,
   demoHealthcareTenantSeeder,
   demoHealthcareUsersSeeder,
-} from './seeds/tenants/demo-healthcare-tenant/index';
-import {
   demoHealthcareServicesSeeder,
   demoHealthcarePartnersSeeder,
   demoHealthcareProviderScheduleSeeder,
-} from './seeds/tenants/demo-healthcare-tenant-transactions/index';
-import { demoHealthcareServiceOrdersSeeder } from './seeds/tenants/demo-healthcare-tenant-transaction-documents/demo-healthcare-service-orders.seed';
+  demoHealthcareServiceOrdersSeeder,
+} from './seeds/tenants';
 
 async function main() {
   await commonTypesSeeder();
