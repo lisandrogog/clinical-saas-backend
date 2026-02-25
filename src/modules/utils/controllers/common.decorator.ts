@@ -1,32 +1,33 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiHeader, ApiResponse } from '@nestjs/swagger';
-import {
-  I18nKeys as TenantI18nKeys,
-  DtoI18nKeys as TenantDtoI18nKeys,
-} from '@modules/organization/tenant/constants/i18n.constants';
 
 export function ApiCommonDecorator() {
   return applyDecorators(
     ApiHeader({
       name: 'tenant-id',
-      description: TenantDtoI18nKeys.tenantId,
+      description:
+        'ID del Tenant para identificar el contexto de la organización',
       required: true,
     }),
     ApiResponse({
       status: 400,
-      description: TenantI18nKeys.errors.invalidData,
+      description:
+        'Petición incorrecta: los datos enviados son inválidos o faltan campos obligatorios',
     }),
     ApiResponse({
       status: 401,
-      description: TenantI18nKeys.errors.unauthorized,
+      description:
+        'No autorizado: falta el token de autenticación o es inválido',
     }),
     ApiResponse({
       status: 403,
-      description: TenantI18nKeys.errors.forbidden,
+      description:
+        'Prohibido: no tienes permisos suficientes para realizar esta acción',
     }),
     ApiResponse({
       status: 500,
-      description: TenantI18nKeys.errors.internalServerError,
+      description:
+        'Error interno del servidor: ocurrió un problema inesperado en el sistema',
     }),
   );
 }

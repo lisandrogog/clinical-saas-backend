@@ -7,6 +7,7 @@ export const MessagesI18n = {
   DISABLE_SUCCESS: 'disableSuccess',
   ENABLE_SUCCESS: 'enableSuccess',
   REMOVE_SUCCESS: 'removeSuccess',
+  UPSERT_SUCCESS: 'upsertSuccess',
 } as const;
 
 export type MessagesI18n = (typeof MessagesI18n)[keyof typeof MessagesI18n];

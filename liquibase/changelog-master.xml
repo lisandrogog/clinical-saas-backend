@@ -44,4 +44,13 @@
     <changeSet id="20260222-04" author="lisandro.ortega">
         <sqlFile path="changelog/20260222-dml/013-dml-insert-demo-tenant.sql" relativeToChangelogFile="true"/>
     </changeSet>
+    <changeSet id="20260226-01" author="lisandro.ortega">
+        <sqlFile path="changelog/20260226-ddl/014-ddl-create-business-unit-room-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="20260226-02" author="lisandro.ortega">
+        <sqlFile path="changelog/20260226-ddl/015-ddl-create-material-resource-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+    <changeSet id="20260226-03" author="lisandro.ortega">
+        <sqlFile path="changelog/20260226-ddl/016-ddl-business-unit-room-material-resource-tables.sql" relativeToChangelogFile="true"/>
+    </changeSet>
 </databaseChangeLog>

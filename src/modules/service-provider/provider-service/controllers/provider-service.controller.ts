@@ -6,12 +6,22 @@ import {
   Param,
   Delete,
   Put,
+  Query,
 } from '@nestjs/common';
-import { ProviderServiceService } from './provider-service.service';
-import { CreateServiceProviderServiceDto } from './dto/create-service-provider-service.dto';
+import { ProviderServiceService } from '../services/provider-service.service';
+import { CreateServiceProviderServiceDto } from '../dto';
 import { ApiTags } from '@nestjs/swagger';
+import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
+import {
+  ApiDeleteProviderService,
+  ApiFindProviderServiceByUnit,
+  ApiUpsertProviderService,
+} from './provider-service.decorator';
+import { TenantId } from '@modules/utils/decorators';
+import { BaseSearchPaginationDto } from '@modules/utils/dto';
 
 @ApiTags('service-provider-service')
+@ApiCommonDecorator()
 @Controller('service-provider-service')
 export class ProviderServiceController {
   constructor(
@@ -19,31 +29,36 @@ export class ProviderServiceController {
   ) {}
 
   @Put()
+  @ApiUpsertProviderService()
   async upsert(
-    @Body() dto: CreateServiceProviderServiceDto,
-    @Headers('tenant-id') tenantId: string,
+    @TenantId() tenantId: string,
+    @Body() payload: CreateServiceProviderServiceDto,
   ) {
-    return this.providerServiceService.upsert(tenantId, dto);
+    return this.providerServiceService.upsert(tenantId, payload);
   }
 
   @Get(':serviceProviderId/unit/:businessUnitId')
+  @ApiFindProviderServiceByUnit()
   async findByUnit(
+    @TenantId() tenantId: string,
     @Param('serviceProviderId') serviceProviderId: string,
     @Param('businessUnitId') businessUnitId: string,
-    @Headers('tenant-id') tenantId: string,
+    @Query() query: BaseSearchPaginationDto,
   ) {
     return await this.providerServiceService.findByUnit(
       tenantId,
       businessUnitId,
+      query,
       serviceProviderId,
     );
   }
 
   @Delete(':serviceProviderId/unit/:businessUnitId')
+  @ApiDeleteProviderService()
   async delete(
+    @TenantId() tenantId: string,
     @Param('serviceProviderId') serviceProviderId: string,
     @Param('businessUnitId') businessUnitId: string,
-    @Headers('tenant-id') tenantId: string,
   ) {
     return await this.providerServiceService.delete(
       tenantId,

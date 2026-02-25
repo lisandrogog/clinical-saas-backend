@@ -8,32 +8,31 @@ import {
   IsString,
 } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { DtoI18nKeys } from '../constants/i18n.constants';
 
 export class BaseBusinessPartnerDto {
-  @ApiProperty({ description: DtoI18nKeys.identificationTypeId, example: 1 })
+  @ApiProperty({ description: 'identificationTypeId', example: 1 })
   @IsNumber()
   identificationTypeId: number;
 
   @ApiProperty({
-    description: DtoI18nKeys.identificationNumber,
+    description: 'identificationNumber',
     example: 'V-12345678',
   })
   @IsString()
   identificationNumber: string;
 
-  @ApiPropertyOptional({ description: DtoI18nKeys.firstName, example: 'John' })
+  @ApiPropertyOptional({ description: 'firstName', example: 'John' })
   @IsOptional()
   @IsString()
   firstName?: string;
 
-  @ApiPropertyOptional({ description: DtoI18nKeys.lastName, example: 'Doe' })
+  @ApiPropertyOptional({ description: 'lastName', example: 'Doe' })
   @IsOptional()
   @IsString()
   lastName?: string;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.email,
+    description: 'email',
     example: 'juan.perez@example.com',
   })
   @IsOptional()
@@ -41,7 +40,7 @@ export class BaseBusinessPartnerDto {
   email?: string;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.phone,
+    description: 'phone',
     example: '+58912345678',
   })
   @IsOptional()
@@ -49,7 +48,7 @@ export class BaseBusinessPartnerDto {
   phone?: string;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.birthDate,
+    description: 'birthDate',
     example: '1990-01-01',
   })
   @IsOptional()
@@ -58,19 +57,19 @@ export class BaseBusinessPartnerDto {
   birthDate?: Date;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.shortAddress,
+    description: 'shortAddress',
     example: 'Av. Siempre Viva 742',
   })
   @IsOptional()
   @IsString()
   shortAddress?: string;
 
-  @ApiPropertyOptional({ description: DtoI18nKeys.address })
+  @ApiPropertyOptional({ description: 'address' })
   @IsOptional()
   @IsString()
   address?: string;
 
-  @ApiPropertyOptional({ description: DtoI18nKeys.extraData })
+  @ApiPropertyOptional({ description: 'extraData' })
   @IsOptional()
   @IsObject()
   extraData?: Record<string, any>;

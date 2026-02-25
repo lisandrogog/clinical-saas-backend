@@ -1,107 +1,106 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { I18nKeys } from '../constants/i18n.constants';
 
 export function ApiCreateCustomer() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.createSummary }),
+    ApiOperation({ summary: 'Crear un nuevo cliente' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 201,
-      description: I18nKeys.messages.createSuccess,
+      description: 'Cliente creado exitosamente',
     }),
     ApiResponse({
       status: 400,
-      description: I18nKeys.errors.invalidData,
+      description: 'Datos de entrada inválidos',
     }),
   );
 }
 
 export function ApiGetAllCustomers() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getAllSummary }),
+    ApiOperation({ summary: 'Obtener lista de todos los clientes' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getAllSuccess,
+      description: 'Lista de clientes obtenida correctamente',
     }),
   );
 }
 
 export function ApiGetCustomerById() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getByIdSummary }),
+    ApiOperation({ summary: 'Obtener un cliente por su ID' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByIdSuccess,
+      description: 'Cliente encontrado',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({ status: 404, description: 'Cliente no encontrado' }),
   );
 }
 
 export function ApiUpdateCustomer() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.updateSummary }),
+    ApiOperation({ summary: 'Actualizar la información de un cliente' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.updateSuccess,
+      description: 'Cliente actualizado correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({ status: 404, description: 'Cliente no encontrado' }),
   );
 }
 
 export function ApiDisableCustomer() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.disableSummary }),
+    ApiOperation({ summary: 'Deshabilitar un cliente' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.disableSuccess,
+      description: 'Cliente deshabilitado correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({ status: 404, description: 'Cliente no encontrado' }),
   );
 }
 
 export function ApiEnableCustomer() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.enableSummary }),
+    ApiOperation({ summary: 'Habilitar un cliente' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.enableSuccess,
+      description: 'Cliente habilitado correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({ status: 404, description: 'Cliente no encontrado' }),
   );
 }
 
 export function ApiRemoveCustomer() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.removeSummary }),
+    ApiOperation({ summary: 'Eliminar un cliente definitivamente' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.removeSuccess,
+      description: 'Cliente eliminado correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({ status: 404, description: 'Cliente no encontrado' }),
   );
 }

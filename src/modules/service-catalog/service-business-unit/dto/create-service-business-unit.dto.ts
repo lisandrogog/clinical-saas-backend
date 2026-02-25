@@ -1,12 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsNumber, IsOptional, IsUUID } from 'class-validator';
-import { DtoI18nKeys as ServiceDtoI18nKeys } from '@modules/service-catalog/service/constants/i18n.constants';
-import { DtoI18nKeys as BusinessUnitDtoI18nKeys } from '@modules/organization/business-unit/constants/i18n.constants';
-import { DtoI18nKeys } from '../constants/i18n.constants';
 
 export class CreateServiceBusinessUnitDto {
   @ApiProperty({
-    description: ServiceDtoI18nKeys.serviceId,
+    description: 'serviceId',
     example: 'uuid',
     required: true,
   })
@@ -14,7 +11,7 @@ export class CreateServiceBusinessUnitDto {
   serviceId: string;
 
   @ApiProperty({
-    description: BusinessUnitDtoI18nKeys.businessUnitId,
+    description: 'businessUnitId',
     example: 'uuid',
     required: true,
   })
@@ -22,7 +19,7 @@ export class CreateServiceBusinessUnitDto {
   businessUnitId: string;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.price,
+    description: 'price',
     example: 30,
     required: false,
   })
@@ -31,7 +28,7 @@ export class CreateServiceBusinessUnitDto {
   price?: number;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.cost,
+    description: 'cost',
     example: 10,
     required: false,
   })
@@ -40,7 +37,7 @@ export class CreateServiceBusinessUnitDto {
   cost?: number;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.duration,
+    description: 'duration',
     example: 40,
     required: false,
   })
@@ -49,7 +46,7 @@ export class CreateServiceBusinessUnitDto {
   duration?: number;
 
   @ApiPropertyOptional({
-    description: DtoI18nKeys.extraData,
+    description: 'extraData',
     example: { key: 'value' },
     required: false,
   })

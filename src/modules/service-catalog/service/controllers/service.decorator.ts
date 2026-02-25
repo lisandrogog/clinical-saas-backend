@@ -1,136 +1,135 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { I18nKeys } from '../constants/i18n.constants';
 
 export function ApiCreateService() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.createSummary }),
+    ApiOperation({ summary: 'Crear un nuevo servicio' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 201,
-      description: I18nKeys.messages.createSuccess,
+      description: 'Servicio creado exitosamente',
     }),
     ApiResponse({
       status: 400,
-      description: I18nKeys.errors.invalidData,
+      description: 'Datos de entrada inválidos',
     }),
   );
 }
 
 export function ApiGetServices() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getAllSummary }),
+    ApiOperation({ summary: 'Obtener catálogo de servicios' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getAllSuccess,
+      description: 'Lista de servicios obtenida correctamente',
     }),
   );
 }
 
 export function ApiGetOneServiceById() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getByIdSummary }),
+    ApiOperation({ summary: 'Obtener un servicio por su ID' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByIdSuccess,
+      description: 'Servicio encontrado',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }
 
 export function ApiGetOneServiceByCode() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getByCodeSummary }),
+    ApiOperation({ summary: 'Obtener un servicio por su código único' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByCodeSuccess,
+      description: 'Servicio encontrado',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }
 
 export function ApiUpdateService() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.updateSummary }),
+    ApiOperation({ summary: 'Actualizar los datos de un servicio' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.updateSuccess,
+      description: 'Servicio actualizado correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }
 
 export function ApiDisableService() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.disableSummary }),
+    ApiOperation({ summary: 'Deshabilitar un servicio' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.disableSuccess,
+      description: 'Servicio deshabilitado correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }
 
 export function ApiEnableService() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.enableSummary }),
+    ApiOperation({ summary: 'Habilitar un servicio' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.enableSuccess,
+      description: 'Servicio habilitado correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }
 
 export function ApiDeleteService() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.removeSummary }),
+    ApiOperation({ summary: 'Eliminar un servicio del sistema' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.removeSuccess,
+      description: 'Servicio eliminado correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }

@@ -6,17 +6,17 @@ import {
   CreateServiceBusinessUnitDto,
   UpdateServiceBusinessUnitDto,
 } from '../dto';
-import { I18nKeys } from '../constants/i18n.constants';
 
 export function ApiCreateServiceBusinessUnit() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.createSummary,
-      description: I18nKeys.labels.createSummary,
+      summary: 'Crear relación entre servicio y unidad de negocio',
+      description:
+        'Crea una nueva asociación entre un servicio y una unidad operativa.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiBody({
@@ -24,7 +24,7 @@ export function ApiCreateServiceBusinessUnit() {
     }),
     ApiResponse({
       status: 201,
-      description: I18nKeys.messages.createSuccess,
+      description: 'Relación creada exitosamente',
     }),
   );
 }
@@ -32,16 +32,17 @@ export function ApiCreateServiceBusinessUnit() {
 export function ApiGetUnitsByService() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.getUnitsSummary,
-      description: I18nKeys.labels.getUnitsSummary,
+      summary: 'Obtener unidades por servicio',
+      description:
+        'Lista todas las unidades de negocio asociadas a un servicio específico.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getAllSuccess,
+      description: 'Lista de unidades obtenida correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Servicio no encontrado',
     }),
   );
 }
@@ -49,16 +50,17 @@ export function ApiGetUnitsByService() {
 export function ApiGetServicesByUnit() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.getServicesSummary,
-      description: I18nKeys.labels.getServicesSummary,
+      summary: 'Obtener servicios por unidad',
+      description:
+        'Lista todos los servicios asociados a una unidad de negocio específica.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getAllSuccess,
+      description: 'Lista de servicios obtenida correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Unidad de negocio no encontrada',
     }),
   );
 }
@@ -66,16 +68,17 @@ export function ApiGetServicesByUnit() {
 export function ApiGetOneServiceBusinessUnitById() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.getByIdSummary,
-      description: I18nKeys.labels.getByIdSummary,
+      summary: 'Obtener relación por ID',
+      description:
+        'Busca una asociación específica mediante su identificador único.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByIdSuccess,
+      description: 'Asociación encontrada correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Relación no encontrada',
     }),
   );
 }
@@ -83,12 +86,12 @@ export function ApiGetOneServiceBusinessUnitById() {
 export function ApiUpdateServiceBusinessUnit() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.updateSummary,
-      description: I18nKeys.labels.updateSummary,
+      summary: 'Actualizar relación servicio-unidad',
+      description: 'Modifica los datos de una asociación existente.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiBody({
@@ -96,11 +99,11 @@ export function ApiUpdateServiceBusinessUnit() {
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.updateSuccess,
+      description: 'Relación actualizada correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Relación no encontrada',
     }),
   );
 }
@@ -108,12 +111,13 @@ export function ApiUpdateServiceBusinessUnit() {
 export function ApiAssociateServices() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.associateServicesSummary,
-      description: I18nKeys.labels.associateServicesSummary,
+      summary: 'Asociar múltiples servicios',
+      description:
+        'Vincula varios servicios a una unidad de negocio de forma masiva.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiBody({
@@ -121,11 +125,11 @@ export function ApiAssociateServices() {
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.associateServicesSuccess,
+      description: 'Servicios asociados exitosamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Recurso no encontrado',
     }),
   );
 }
@@ -133,12 +137,13 @@ export function ApiAssociateServices() {
 export function ApiAssociateUnits() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.associateUnitsSummary,
-      description: I18nKeys.labels.associateUnitsSummary,
+      summary: 'Asociar múltiples unidades',
+      description:
+        'Vincula varias unidades de negocio a un servicio de forma masiva.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiBody({
@@ -146,11 +151,11 @@ export function ApiAssociateUnits() {
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.associateUnitsSuccess,
+      description: 'Unidades asociadas exitosamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Recurso no encontrado',
     }),
   );
 }
@@ -158,16 +163,17 @@ export function ApiAssociateUnits() {
 export function ApiDeleteServiceBusinessUnit() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.removeSummary,
-      description: I18nKeys.labels.removeSummary,
+      summary: 'Eliminar relación servicio-unidad',
+      description:
+        'Elimina la asociación técnica entre el servicio y la unidad.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.removeSuccess,
+      description: 'Relación eliminada correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Relación no encontrada',
     }),
   );
 }

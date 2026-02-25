@@ -1,25 +1,25 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { I18nKeys } from '../constants/i18n.constants';
 
 export function ApiCreateServiceCategory() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.createSummary,
-      description: I18nKeys.labels.createSummary,
+      summary: 'Crear una nueva categoría de servicio',
+      description:
+        'Permite registrar una nueva categoría para agrupar servicios.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 201,
-      description: I18nKeys.messages.createSuccess,
+      description: 'Categoría creada exitosamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Recurso relacionado no encontrado',
     }),
   );
 }
@@ -27,16 +27,17 @@ export function ApiCreateServiceCategory() {
 export function ApiGetAllServiceCategories() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.getAllSummary,
-      description: I18nKeys.labels.getAllSummary,
+      summary: 'Obtener todas las categorías',
+      description:
+        'Retorna un listado completo de las categorías de servicios registradas.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getAllSuccess,
+      description: 'Listado obtenido correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'No se encontraron categorías',
     }),
   );
 }
@@ -44,16 +45,17 @@ export function ApiGetAllServiceCategories() {
 export function ApiGetServiceCategoryById() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.getByIdSummary,
-      description: I18nKeys.labels.getByIdSummary,
+      summary: 'Obtener categoría por ID',
+      description:
+        'Busca una categoría específica utilizando su identificador único.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByIdSuccess,
+      description: 'Categoría encontrada',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Categoría no encontrada',
     }),
   );
 }
@@ -61,16 +63,17 @@ export function ApiGetServiceCategoryById() {
 export function ApiGetServiceCategoryByCode() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.getByCodeSummary,
-      description: I18nKeys.labels.getByCodeSummary,
+      summary: 'Obtener categoría por código',
+      description:
+        'Busca una categoría utilizando su código interno o de negocio.',
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByCodeSuccess,
+      description: 'Categoría encontrada correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Categoría no encontrada',
     }),
   );
 }
@@ -78,21 +81,22 @@ export function ApiGetServiceCategoryByCode() {
 export function ApiUpdateServiceCategory() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.updateSummary,
-      description: I18nKeys.labels.updateSummary,
+      summary: 'Actualizar categoría',
+      description:
+        'Actualiza los datos de una categoría de servicio existente.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.updateSuccess,
+      description: 'Categoría actualizada correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Categoría no encontrada',
     }),
   );
 }
@@ -100,21 +104,22 @@ export function ApiUpdateServiceCategory() {
 export function ApiRemoveServiceCategory() {
   return applyDecorators(
     ApiOperation({
-      summary: I18nKeys.labels.removeSummary,
-      description: I18nKeys.labels.removeSummary,
+      summary: 'Eliminar categoría',
+      description:
+        'Elimina de forma lógica o física una categoría de servicio.',
     }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.removeSuccess,
+      description: 'Categoría eliminada correctamente',
     }),
     ApiResponse({
       status: 404,
-      description: I18nKeys.errors.notFound,
+      description: 'Categoría no encontrada',
     }),
   );
 }

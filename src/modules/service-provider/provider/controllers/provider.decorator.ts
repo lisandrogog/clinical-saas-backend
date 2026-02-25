@@ -1,107 +1,121 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApiHeader, ApiOperation, ApiResponse } from '@nestjs/swagger';
-import { I18nKeys } from '../constants/i18n.constants';
 
 export function ApiCreateProvider() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.createSummary }),
+    ApiOperation({ summary: 'Registrar un nuevo proveedor' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 201,
-      description: I18nKeys.messages.createSuccess,
+      description: 'Proveedor registrado exitosamente',
     }),
     ApiResponse({
       status: 400,
-      description: I18nKeys.errors.invalidData,
+      description: 'Los datos proporcionados son inválidos',
     }),
   );
 }
 
 export function ApiGetAllProviders() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getAllSummary }),
+    ApiOperation({ summary: 'Listar todos los proveedores' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getAllSuccess,
+      description: 'Lista de proveedores obtenida correctamente',
     }),
   );
 }
 
 export function ApiGetProviderById() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.getByIdSummary }),
+    ApiOperation({ summary: 'Obtener proveedor por ID' }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.getByIdSuccess,
+      description: 'Proveedor encontrado',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({
+      status: 404,
+      description: 'El proveedor no existe en el sistema',
+    }),
   );
 }
 
 export function ApiUpdateProvider() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.updateSummary }),
+    ApiOperation({ summary: 'Actualizar información del proveedor' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.updateSuccess,
+      description: 'Información actualizada correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({
+      status: 404,
+      description: 'Proveedor no encontrado',
+    }),
   );
 }
 
 export function ApiDisableProvider() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.disableSummary }),
+    ApiOperation({ summary: 'Deshabilitar un proveedor' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.disableSuccess,
+      description: 'Proveedor deshabilitado (inactivo) correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({
+      status: 404,
+      description: 'Proveedor no encontrado',
+    }),
   );
 }
 
 export function ApiEnableProvider() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.enableSummary }),
+    ApiOperation({ summary: 'Habilitar un proveedor' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.enableSuccess,
+      description: 'Proveedor habilitado (activo) correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({
+      status: 404,
+      description: 'Proveedor no encontrado',
+    }),
   );
 }
 
 export function ApiRemoveProvider() {
   return applyDecorators(
-    ApiOperation({ summary: I18nKeys.labels.removeSummary }),
+    ApiOperation({ summary: 'Eliminar un proveedor' }),
     ApiHeader({
       name: 'user-id',
-      description: I18nKeys.labels.userIdHeader,
+      description: 'ID del usuario que realiza la operación',
       required: false,
     }),
     ApiResponse({
       status: 200,
-      description: I18nKeys.messages.removeSuccess,
+      description: 'Proveedor eliminado del sistema correctamente',
     }),
-    ApiResponse({ status: 404, description: I18nKeys.errors.notFound }),
+    ApiResponse({
+      status: 404,
+      description: 'Proveedor no encontrado',
+    }),
   );
 }
