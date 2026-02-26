@@ -99,7 +99,7 @@ where not exists (select 1 from document_engine de where de.document_type_id =
 
 --rollback delete from public.document_engine where code in ('service_order');
 
---changeset lisandro.ortega:document_engine_item.002.1 context:dev,qa,prod
+--changeset lisandro.ortega:document_engine_item.002.2 context:dev,qa,prod
 --comment: Insert default document engine items
 
 INSERT INTO document_engine_item (id, document_engine_id, document_action_id, from_state_id, to_state_id, readonly)

@@ -6,12 +6,14 @@ import { HashService } from '@modules/utils/services/hash.service';
 import { UtilsService } from '@modules/utils/services';
 import { PlatformCustomerModule } from './modules/platform-customer/platform-customer.module';
 import { ServiceProviderModule } from './modules/service-provider/service-provider.module';
+import { MaterialsModule } from './modules/materials/materials.module';
 
 @Module({
   imports: [
     PlatformCustomerModule,
     ServiceCatalogModule,
     ServiceProviderModule,
+    MaterialsModule,
   ],
   providers: [AppService, PrismaService, HashService, UtilsService],
 })

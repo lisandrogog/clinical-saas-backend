@@ -67,7 +67,7 @@ CREATE TABLE if not exists public.document_engine (
 
 --drop table if exists public.document_engine;
 
---changeset lisandro.ortega:document_engine_item.001.1 context:dev,qa,prod
+--changeset lisandro.ortega:document_engine_item.001.2 context:dev,qa,prod
 --comment: Create document_engine_item table: defining allowed state transitions and actions for a document engine
 
 CREATE TABLE if not exists public.document_engine_item (
@@ -82,8 +82,7 @@ CREATE TABLE if not exists public.document_engine_item (
 	FOREIGN KEY (document_action_id) REFERENCES public.document_action(id) ON DELETE CASCADE,
 	FOREIGN KEY (from_state_id) REFERENCES public.document_status(id) ON DELETE CASCADE,
 	FOREIGN KEY (to_state_id) REFERENCES public.document_status(id) ON DELETE CASCADE,
-  UNIQUE (document_engine_id, from_state_id, to_state_id),
-  UNIQUE (document_engine_id, document_action_id)
+  UNIQUE (document_engine_id, from_state_id, to_state_id)
 );
 
 --drop table if exists public.document_engine_item;

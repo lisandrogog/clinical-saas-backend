@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Headers,
   Body,
   Param,
   Delete,
@@ -17,7 +16,7 @@ import {
   ApiRemoveProviderSchedule,
 } from './provider-schedule.decorator';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
-import { TenantId } from '@modules/utils/decorators';
+import { TenantId, BusinessUnitId } from '@modules/utils/decorators';
 
 @ApiTags('service-provider-schedule')
 @ApiCommonDecorator()
@@ -30,41 +29,41 @@ export class ProviderScheduleController {
   @Put()
   @ApiUpsertProviderSchedule()
   async create(
-    @Body() dto: CreateServiceProviderScheduleDto,
     @TenantId() tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Body() payload: CreateServiceProviderScheduleDto,
   ) {
     return await this.providerScheduleService.upsert(
       tenantId,
       businessUnitId,
-      dto,
+      payload,
     );
   }
 
-  @Get(':serviceProviderId/unit/:businessUnitId')
+  @Get(':serviceProviderId/unit')
   @ApiGetProviderScheduleByUnit()
   async findByUnit(
-    @Param('serviceProviderId', ParseUUIDPipe) serviceProviderId: string,
-    @Param('businessUnitId', ParseUUIDPipe) businessUnitIdParam: string,
     @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceProviderId', ParseUUIDPipe) serviceProviderId: string,
   ) {
     return await this.providerScheduleService.findByUnit(
       tenantId,
-      businessUnitIdParam,
+      businessUnitId,
       serviceProviderId,
     );
   }
 
-  @Delete(':serviceProviderId/unit/:businessUnitId')
+  @Delete(':serviceProviderId/unit')
   @ApiRemoveProviderSchedule()
   async delete(
-    @Param('serviceProviderId', ParseUUIDPipe) serviceProviderId: string,
-    @Param('businessUnitId', ParseUUIDPipe) businessUnitIdParam: string,
     @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceProviderId', ParseUUIDPipe) serviceProviderId: string,
   ) {
     return await this.providerScheduleService.delete(
       tenantId,
-      businessUnitIdParam,
+      businessUnitId,
       serviceProviderId,
     );
   }

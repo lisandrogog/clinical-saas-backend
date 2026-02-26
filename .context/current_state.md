@@ -7,6 +7,7 @@
 ## 📑 Objetivos Próximos
 - Crear modulo de traducciones simplificado (eventualmente será remplazado por módulo dinámico - DB)
 - Módulo de salas? (servicio fisioterapia)
+- Módulo de recursos materiales
 - Agregar servicio para crear orden con item's en una transacción en estado inicial
 - Agregar servicio para agendar orden
 - Agregar servicio para gestionar cambio de estados de orden

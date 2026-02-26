@@ -287,68 +287,6 @@ CREATE TABLE if not exists public.document_engine_item (
 	FOREIGN KEY (to_state_id) REFERENCES public.document_status(id) ON DELETE CASCADE
 );
 
--- **Service Order tables**
--- service_order: header table linked to tenant, business unit, customer, agent, and document status (workflow state)
-CREATE TABLE if not exists public.service_order (
-  id uuid DEFAULT uuid_generate_v4() NOT NULL,
-  tenant_id uuid not NULL,
-  business_unit_id uuid not NULL,
-  customer_id uuid not NULL,
-  agent_id uuid not NULL,
-  document_status_id int4 not NULL,
-  document_type_id int4 not null,
-  total_amount numeric(15, 2) DEFAULT 0 not NULL,
-  scheduled_at timestamptz NULL,
-  extra_data jsonb NULL,
-  created_at timestamptz DEFAULT CURRENT_TIMESTAMP not NULL,
-  created_by uuid NULL,
-  updated_at timestamptz NULL,
-  updated_by uuid NULL,
-  removed_at timestamptz NULL,
-  removed_by uuid NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (tenant_id) REFERENCES public.tenant(id) ON DELETE CASCADE,
-  FOREIGN KEY (business_unit_id) REFERENCES public.business_unit(id) ON DELETE CASCADE,
-  FOREIGN KEY (agent_id) REFERENCES public.business_partner(id) ON DELETE CASCADE,
-  FOREIGN KEY (customer_id) REFERENCES public.business_partner(id) ON DELETE CASCADE,
-  FOREIGN KEY (document_status_id) REFERENCES public.document_status(id) ON DELETE cascade,
-  foreign key (document_type_id) references document_type(id) on delete cascade
-);
-
--- service_order_item: linked to service_order and product, with quantity, price and discount information
-CREATE TABLE if not exists public.service_order_item (
-  id uuid DEFAULT uuid_generate_v4() NOT NULL,
-  service_order_id uuid not NULL,
-  service_id uuid not NULL,
-  quantity numeric(15, 3) NOT NULL,
-  unit_price numeric(15, 2) NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (service_order_id) REFERENCES public.service_order(id) ON DELETE CASCADE,
-	FOREIGN KEY (service_id) REFERENCES public.service(id) ON DELETE CASCADE,
-  UNIQUE (service_order_id, service_id)
-);
-
--- service_order_details: medical entry linked to service order, with symptoms, diagnosis, treatment plan, prescription and extra data in jsonb format for flexibility
-create table if not exists public.service_order_details (
-	id uuid DEFAULT uuid_generate_v4() NOT NULL,
-	service_order_id uuid not NULL,
-	symptoms text NULL,
-	diagnosis text NULL,
-	treatment_plan text NULL,
-	prescription jsonb NULL,
-	extra_data jsonb NULL,
-	start_at timestamptz NULL,
-	end_at timestamptz NULL,
-	created_at timestamptz DEFAULT CURRENT_TIMESTAMP not NULL,
-	created_by uuid NULL,
-	updated_at timestamptz NULL,
-	updated_by uuid NULL,
-	removed_at timestamptz NULL,
-	removed_by uuid NULL,
-	PRIMARY KEY (id),
-	FOREIGN KEY (service_order_id) REFERENCES public.service_order(id) ON DELETE CASCADE
-);
-
 -- ** Platform-Catalog tables **
 -- platform: defining platforms that can be linked to tenants for multi-platform support (e.g. web, mobile, pos, etc.)
 CREATE TABLE if not exists public.platform (
@@ -630,3 +568,211 @@ CREATE TABLE if not exists public.refresh_token (
 );
 
 */
+
+
+-- ** Service Rooms **
+-- Business Unit Room
+create table if not exists business_unit_room (
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	tenant_id uuid not null,
+	business_unit_id uuid not null, 
+	code varchar(20) NOT NULL,
+	"name" varchar(50) NOT NULL,
+	description text NULL,
+	item_order int4 DEFAULT 0 not null,
+	active bool DEFAULT true NOT NULL,
+	capacity int4 default 1 not null,
+	extra_data jsonb NULL,
+	readonly boolean not null default false,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by uuid NULL,
+	updated_at timestamptz NULL,
+	updated_by uuid NULL,
+	removed_at timestamptz NULL,
+	removed_by uuid null,
+	PRIMARY KEY (id),
+	FOREIGN KEY (tenant_id) REFERENCES public.tenant(id) ON DELETE CASCADE,
+	FOREIGN KEY (business_unit_id) REFERENCES public.business_unit(id) ON DELETE CASCADE	
+);
+CREATE UNIQUE INDEX uq_business_unit_room
+ON public.business_unit_room (tenant_id, business_unit_id, code, removed_at) 
+NULLS NOT DISTINCT;
+
+-- Business Unit Room Services
+create table if not exists business_unit_room_service (
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	business_unit_room_id uuid NOT NULL,
+	service_id uuid NOT NULL,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP not NULL,
+	updated_at timestamptz default null,
+	PRIMARY KEY (id),
+	FOREIGN KEY (business_unit_room_id) REFERENCES public.business_unit_room(id) ON DELETE CASCADE,
+	FOREIGN KEY (service_id) REFERENCES public.service(id) ON DELETE CASCADE,
+	UNIQUE (business_unit_room_id, service_id)
+);
+
+-- ** Service Materials (Inventory) **
+
+CREATE TABLE if not exists public.material_resource_type (
+	id serial4 NOT NULL,
+	code varchar(20) NOT NULL, -- materiales, instrumentos, uniformes
+	"name" varchar(50) NOT NULL,
+	description text NULL,
+	item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
+	is_consumable bool default false not null,
+	UNIQUE (code),
+	PRIMARY KEY (id)
+);
+-- Materials
+CREATE TABLE if not exists public.material_resource (
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	tenant_id uuid not null,
+	material_resource_type_id int4 not null,
+	code varchar(20) NOT NULL, 
+	"name" varchar(50) NOT NULL,
+	description text NULL,
+	item_order int4 DEFAULT 0 not null,
+	readonly bool DEFAULT false not null,
+	active bool DEFAULT true NOT NULL,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by uuid NULL,
+	updated_at timestamptz NULL,
+	updated_by uuid NULL,
+	removed_at timestamptz NULL,
+	removed_by uuid null,
+	FOREIGN KEY (tenant_id) REFERENCES public.tenant(id) ON DELETE CASCADE,
+	FOREIGN KEY (material_resource_type_id) REFERENCES public.material_resource_type(id) ON DELETE CASCADE,
+	PRIMARY KEY (id)
+);
+CREATE UNIQUE INDEX uq_material_resource
+ON public.material_resource (tenant_id, material_resource_type_id, code, removed_at) 
+NULLS NOT DISTINCT;
+
+-- Materials business-unit
+create table if not exists public.business_unit_material_resource(
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	business_unit_id uuid not null, 
+	material_resource_id uuid not null,
+	quantity numeric(15, 2) not null default 0,
+	quantity_available numeric(15, 2) not null default 0,
+	quantity_reserved numeric(15, 2) not null default 0,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by uuid NULL,
+	updated_at timestamptz NULL,
+	updated_by uuid null,
+	FOREIGN KEY (business_unit_id) REFERENCES public.business_unit(id) ON DELETE CASCADE,
+	FOREIGN KEY (material_resource_id) REFERENCES public.material_resource(id) ON DELETE CASCADE,
+	unique(business_unit_id, material_resource_id),
+	PRIMARY KEY (id)
+);
+
+-- disponibilidad de profesional + disponibilidad de sala + disponibilidad de materiales
+-- Service Materials
+create table if not exists service_material_resource(
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	service_id uuid not null, 
+	material_resource_id uuid not null,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	updated_at timestamptz NULL,
+	FOREIGN KEY (service_id) REFERENCES public.service(id) ON DELETE CASCADE,
+	FOREIGN KEY (material_resource_id) REFERENCES public.material_resource(id) ON DELETE CASCADE,
+	unique(service_id, material_resource_id),
+	PRIMARY KEY (id)
+);
+
+-- Business Unit Room Materials
+create table if not exists business_unit_room_material(
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	business_unit_room_id uuid not null, 
+	material_resource_id uuid not null,
+	quantity numeric(15, 2) not null default 0,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	created_by uuid NULL,
+	updated_at timestamptz NULL,
+	updated_by uuid NULL,
+	removed_at timestamptz NULL,
+	removed_by uuid null,
+	FOREIGN KEY (business_unit_room_id) REFERENCES public.business_unit_room(id) ON DELETE CASCADE,
+	FOREIGN KEY (material_resource_id) REFERENCES public.material_resource(id) ON DELETE CASCADE,
+	PRIMARY KEY (id)
+);
+CREATE UNIQUE INDEX uq_business_unit_room_material
+ON public.business_unit_room_material (business_unit_room_id, material_resource_id, removed_at) 
+NULLS NOT DISTINCT;
+
+
+-- **Service Order tables**
+-- service_order: header table linked to tenant, business unit, customer, agent, and document status (workflow state)
+CREATE TABLE if not exists public.service_order (
+  id uuid DEFAULT uuid_generate_v4() NOT NULL,
+  tenant_id uuid not NULL,
+  business_unit_id uuid not NULL,
+  customer_id uuid not NULL,
+  agent_id uuid not NULL,
+  document_status_id int4 not NULL,
+  document_type_id int4 not null,
+  total_amount numeric(15, 2) DEFAULT 0 not NULL,
+  scheduled_at timestamptz NULL,
+	business_unit_room_id uuid default null,
+  extra_data jsonb NULL,
+  created_at timestamptz DEFAULT CURRENT_TIMESTAMP not NULL,
+  created_by uuid NULL,
+  updated_at timestamptz NULL,
+  updated_by uuid NULL,
+  removed_at timestamptz NULL,
+  removed_by uuid NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (tenant_id) REFERENCES public.tenant(id) ON DELETE CASCADE,
+  FOREIGN KEY (business_unit_id) REFERENCES public.business_unit(id) ON DELETE CASCADE,
+  FOREIGN KEY (agent_id) REFERENCES public.business_partner(id) ON DELETE CASCADE,
+  FOREIGN KEY (customer_id) REFERENCES public.business_partner(id) ON DELETE CASCADE,
+  FOREIGN KEY (document_status_id) REFERENCES public.document_status(id) ON DELETE cascade,
+  foreign key (document_type_id) references document_type(id) on delete cascade,
+	FOREIGN KEY (business_unit_room_id) REFERENCES public.business_unit_room(id) ON DELETE cascade
+);
+
+-- service_order_item: linked to service_order and product, with quantity, price and discount information
+CREATE TABLE if not exists public.service_order_item (
+  id uuid DEFAULT uuid_generate_v4() NOT NULL,
+  service_order_id uuid not NULL,
+  service_id uuid not NULL,
+  quantity numeric(15, 3) NOT NULL,
+  unit_price numeric(15, 2) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (service_order_id) REFERENCES public.service_order(id) ON DELETE CASCADE,
+	FOREIGN KEY (service_id) REFERENCES public.service(id) ON DELETE CASCADE,
+  UNIQUE (service_order_id, service_id)
+);
+
+-- service_order_details: medical entry linked to service order, with symptoms, diagnosis, treatment plan, prescription and extra data in jsonb format for flexibility
+create table if not exists public.service_order_details (
+	id uuid DEFAULT uuid_generate_v4() NOT NULL,
+	service_order_id uuid not NULL,
+	symptoms text NULL,
+	diagnosis text NULL,
+	treatment_plan text NULL,
+	prescription jsonb NULL,
+	extra_data jsonb NULL,
+	start_at timestamptz NULL,
+	end_at timestamptz NULL,
+	created_at timestamptz DEFAULT CURRENT_TIMESTAMP not NULL,
+	created_by uuid NULL,
+	updated_at timestamptz NULL,
+	updated_by uuid NULL,
+	removed_at timestamptz NULL,
+	removed_by uuid NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY (service_order_id) REFERENCES public.service_order(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS service_order_resource_consumption (
+    id uuid DEFAULT uuid_generate_v4() PRIMARY KEY,
+    service_order_id uuid NOT NULL,
+    material_resource_id uuid NOT NULL,
+    quantity_used numeric(15, 2) default 1 NOT NULL,
+    FOREIGN KEY (service_order_id) REFERENCES public.service_order(id),
+    FOREIGN KEY (material_resource_id) REFERENCES public.material_resource(id),
+    unique(service_order_id, material_resource_id)
+);
+

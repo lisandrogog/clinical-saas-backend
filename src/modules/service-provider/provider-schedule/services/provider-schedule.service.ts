@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 import { UtilsService } from '@modules/utils/services/utils.service';
@@ -6,41 +6,48 @@ import {
   CreateServiceProviderScheduleDto,
   CreateScheduleDayBlockDto,
 } from '../dto';
+import { ProviderScheduleHelperService } from './provider-schedule-helper.service';
 
 @Injectable()
 export class ProviderScheduleService {
   constructor(
     private prisma: PrismaService,
     private utilsService: UtilsService,
+    private providerScheduleHelperService: ProviderScheduleHelperService,
   ) {}
 
   async upsert(
     tenantId: string,
     businessUnitId: string,
-    dto: CreateServiceProviderScheduleDto,
+    payload: CreateServiceProviderScheduleDto,
   ) {
-    await this.assertServiceProviderExists(dto.serviceProviderId, tenantId);
+    await this.providerScheduleHelperService.assertServiceProviderExists(
+      payload.serviceProviderId,
+      tenantId,
+    );
 
-    if (dto.scheduleDayBklocks.length === 0) {
-      throw new Error('At least one schedule block is required');
+    if (payload.scheduleDayBklocks.length === 0) {
+      throw new BadRequestException('At least one schedule block is required');
     }
 
-    this.assertValidSheduleBlocks(dto.scheduleDayBklocks);
+    this.providerScheduleHelperService.assertValidSheduleBlocks(
+      payload.scheduleDayBklocks,
+    );
 
-    await this.removeExistingScheduleBlocks(
-      dto.serviceProviderId,
+    await this.providerScheduleHelperService.removeExistingScheduleBlocks(
+      payload.serviceProviderId,
       tenantId,
       businessUnitId,
     );
 
     const now = new Date();
 
-    const createData: any[] = dto.scheduleDayBklocks.map(
+    const createData: any[] = payload.scheduleDayBklocks.map(
       (block: CreateScheduleDayBlockDto) => ({
         id: uuidv7(),
         tenant_id: tenantId,
         business_unit_id: businessUnitId,
-        service_provider_id: dto.serviceProviderId,
+        service_provider_id: payload.serviceProviderId,
         day_of_week: block.dayOfWeek,
         start_time: block.startTime,
         end_time: block.endTime,
@@ -60,7 +67,10 @@ export class ProviderScheduleService {
     businessUnitId: string,
     serviceProviderId: string,
   ) {
-    await this.assertServiceProviderExists(serviceProviderId, tenantId);
+    await this.providerScheduleHelperService.assertServiceProviderExists(
+      serviceProviderId,
+      tenantId,
+    );
 
     return await this.prisma.service_provider_schedule.findMany({
       where: {
@@ -77,80 +87,15 @@ export class ProviderScheduleService {
     businessUnitId: string,
     serviceProviderId: string,
   ) {
-    await this.assertServiceProviderExists(serviceProviderId, tenantId);
+    await this.providerScheduleHelperService.assertServiceProviderExists(
+      serviceProviderId,
+      tenantId,
+    );
 
-    await this.removeExistingScheduleBlocks(
+    await this.providerScheduleHelperService.removeExistingScheduleBlocks(
       serviceProviderId,
       tenantId,
       businessUnitId,
     );
-  }
-
-  // ******************************************************************************
-  // Helpers
-  // ******************************************************************************
-  private async assertServiceProviderExists(
-    serviceProviderId: string,
-    tenantId: string,
-  ) {
-    const providerExists = await this.prisma.service_provider.count({
-      where: {
-        id: serviceProviderId,
-        tenant_id: tenantId,
-        business_partner: {
-          tenant_id: tenantId,
-          removed_at: null,
-        },
-      },
-    });
-
-    if (providerExists === 0) {
-      throw new Error('Service provider does not exist for this tenant');
-    }
-  }
-
-  private assertValidSheduleBlocks(blocks: CreateScheduleDayBlockDto[]) {
-    for (const block of blocks) {
-      if (block.dayOfWeek < 0 || block.dayOfWeek > 6) {
-        throw new Error(
-          'dayOfWeek must be between 0 (Sunday) and 6 (Saturday)',
-        );
-      }
-
-      if (!this.utilsService.isValidTime(block.startTime)) {
-        throw new Error(
-          `Invalid startTime format for dayOfWeek ${block.dayOfWeek}. Expected HH:mm`,
-        );
-      }
-
-      if (!this.utilsService.isValidTime(block.endTime)) {
-        throw new Error(
-          `Invalid endTime format for dayOfWeek ${block.dayOfWeek}. Expected HH:mm`,
-        );
-      }
-
-      if (
-        this.utilsService.toMinutes(block.startTime) >=
-        this.utilsService.toMinutes(block.endTime)
-      ) {
-        throw new Error(
-          `startTime must be before endTime for dayOfWeek ${block.dayOfWeek}`,
-        );
-      }
-    }
-  }
-
-  private async removeExistingScheduleBlocks(
-    serviceProviderId: string,
-    tenantId: string,
-    businessUnitId: string,
-  ) {
-    await this.prisma.service_provider_schedule.deleteMany({
-      where: {
-        service_provider_id: serviceProviderId,
-        tenant_id: tenantId,
-        business_unit_id: businessUnitId,
-      },
-    });
   }
 }

@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS service_order_resource_consumption (
     quantity_used numeric(15, 2) default 1 NOT NULL,
     FOREIGN KEY (service_order_id) REFERENCES public.service_order(id),
     FOREIGN KEY (material_resource_id) REFERENCES public.material_resource(id),
-    unique(service_order_id, material_resource_id)
+    unique(service_order_id, material_resource_id)	
 );
 
 --rollback DROP TABLE if exists public.service_order_resource_consumption;
