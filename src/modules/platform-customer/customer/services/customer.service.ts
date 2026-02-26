@@ -8,7 +8,7 @@ import { UtilsService } from '@modules/utils/services/';
 import { CustomerHelperService } from './customer-helper.service';
 import {
   ICustomerSearchResponse,
-  ICustomSearchCustomer,
+  ICustomSearch,
 } from '../interfaces/customer-search.interface';
 import { I18nKeys } from '../constants/i18n.constants';
 
@@ -71,7 +71,7 @@ export class CustomerService {
 
     const lastPage = Math.ceil(total / sanitizedLimit);
 
-    const customers: ICustomSearchCustomer[] =
+    const customers: ICustomSearch[] =
       await this.prisma.business_partner.findMany({
         where,
         skip: (sanitizedPage - 1) * sanitizedLimit,

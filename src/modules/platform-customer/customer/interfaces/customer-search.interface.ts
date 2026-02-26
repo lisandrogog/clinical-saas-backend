@@ -1,6 +1,6 @@
 import { IPaginationMetadata } from '@modules/utils/interfaces';
 
-export interface ICustomSearchCustomer {
+export interface ICustomSearch {
   id: string;
   identification_number: string;
   identification_type_id: number;
