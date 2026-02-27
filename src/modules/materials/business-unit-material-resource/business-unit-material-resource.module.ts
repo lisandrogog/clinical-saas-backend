@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
-import { BusinessUnitMaterialResourceService } from './business-unit-material-resource.service';
-import { BusinessUnitMaterialResourceController } from './business-unit-material-resource.controller';
+import { BusinessUnitMaterialResourceController } from './controllers/business-unit-material-resource.controller';
+import {
+  BusinessUnitMaterialResourceHelperService,
+  BusinessUnitMaterialResourceService,
+} from './services';
+import { PrismaService } from '@core/prisma.service';
+import { UtilsService } from '@modules/utils/services';
 
 @Module({
   controllers: [BusinessUnitMaterialResourceController],
-  providers: [BusinessUnitMaterialResourceService],
+  providers: [
+    BusinessUnitMaterialResourceService,
+    BusinessUnitMaterialResourceHelperService,
+    PrismaService,
+    UtilsService,
+  ],
 })
 export class BusinessUnitMaterialResourceModule {}

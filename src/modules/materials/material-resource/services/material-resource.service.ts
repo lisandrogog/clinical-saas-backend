@@ -10,6 +10,7 @@ import {
   IMaterialResourceSearchResponse,
 } from '../interfaces/material-resource-search.interface';
 import { MaterialResourceTypeHelperService } from '@modules/materials/material-resource-type/services';
+import { UtilsService } from '@modules/utils/services/utils.service';
 
 @Injectable()
 export class MaterialResourceService {
@@ -17,6 +18,7 @@ export class MaterialResourceService {
     private readonly prisma: PrismaService,
     private readonly helper: MaterialResourceHelperService,
     private readonly typeHelper: MaterialResourceTypeHelperService,
+    private readonly utils: UtilsService,
   ) {}
 
   async create(
@@ -65,12 +67,12 @@ export class MaterialResourceService {
       where,
     });
 
-    const lastPage = Math.ceil(total / sanitizedLimit);
+    const lastPage = this.utils.calculateLastPage(total, sanitizedLimit);
 
     const materialResources: IMaterialResourceSearch[] =
       await this.prisma.material_resource.findMany({
         where,
-        skip: (sanitizedPage - 1) * sanitizedLimit,
+        skip: this.utils.calculateSkip(sanitizedPage, sanitizedLimit),
         take: sanitizedLimit,
         select: {
           id: true,
