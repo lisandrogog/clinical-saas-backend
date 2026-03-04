@@ -72,3 +72,29 @@ Relación entre servicios y unidades de negocio (Sede/Sucursal).
 - `PATCH /service-business-unit/:id`: Actualizar asociación.
   - **Payload**: `UpdateServiceBusinessUnitDto`
 - `DELETE /service-business-unit/:id`: Eliminar asociación.
+
+---
+
+## Módulo: Materials Management
+
+### Service Material Resource (`/service-material-resource`)
+Relación entre servicios y recursos materiales.
+
+- `PUT /service-material-resource`: Crear o actualizar la relación de materiales de un servicio.
+  - **Payload**: `CreateServiceMaterialResourceDto`
+- `GET /service-material-resource/:serviceId`: Obtener materiales de un servicio.
+  - **Query**: `BaseSearchPaginationDto`
+- `DELETE /service-material-resource/:serviceId/material/:materialResourceId`: Eliminar una relación material-servicio.
+
+### Business Unit Material Resource (`/business-unit-material-resource`)
+Gestión del inventario de materiales en una unidad de negocio.
+
+- `POST /business-unit-material-resource`: Registrar material en una unidad.
+  - **Payload**: `CreateBusinessUnitMaterialResourceDto`
+- `GET /business-unit-material-resource/units`: Consultar en qué unidades está un material.
+- `GET /business-unit-material-resource/materials`: Consultar materiales de una unidad.
+- `GET /business-unit-material-resource/:id`: Obtener el detalle de un registro por ID.
+- `PATCH /business-unit-material-resource/:id`: Actualizar la cantidad u otros datos del material en la unidad.
+  - **Payload**: `UpdateBusinessUnitMaterialResourceDto`
+- `DELETE /business-unit-material-resource/:id`: Eliminar un registro de inventario.
+

@@ -7,6 +7,7 @@ import { UtilsService } from '@modules/utils/services';
 import { PlatformCustomerModule } from './modules/platform-customer/platform-customer.module';
 import { ServiceProviderModule } from './modules/service-provider/service-provider.module';
 import { MaterialsModule } from './modules/materials/materials.module';
+import { RoomsModule } from './modules/rooms/rooms.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { MaterialsModule } from './modules/materials/materials.module';
     ServiceCatalogModule,
     ServiceProviderModule,
     MaterialsModule,
+    RoomsModule,
   ],
   providers: [AppService, PrismaService, HashService, UtilsService],
 })

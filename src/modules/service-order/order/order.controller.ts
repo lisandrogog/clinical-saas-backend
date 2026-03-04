@@ -62,7 +62,13 @@ export class OrderController {
     @Headers('business-unit-id') businessUnitId: string,
     @Headers('user-id') userId?: string,
   ) {
-    return await this.orderService.update(id, tenantId, businessUnitId, dto, userId);
+    return await this.orderService.update(
+      id,
+      tenantId,
+      businessUnitId,
+      dto,
+      userId,
+    );
   }
 
   @Delete(':id')

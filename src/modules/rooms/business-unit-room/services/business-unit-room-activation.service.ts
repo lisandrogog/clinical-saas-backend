@@ -1,26 +1,35 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
-import { MaterialResourceHelperService } from './material-resource-helper.service';
+import { BusinessUnitRoomHelperService } from './business-unit-room-helper.service';
 
 @Injectable()
-export class MaterialResourceActivationService {
+export class BusinessUnitRoomActivationService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly materialResourceHelperService: MaterialResourceHelperService,
+    private readonly helper: BusinessUnitRoomHelperService,
   ) {}
 
-  async disable(tenantId: string, id: string, userId?: string) {
-    await this.materialResourceHelperService.assertMaterialResourceExists(
+  async disable(
+    tenantId: string,
+    businessUnitId: string,
+    id: string,
+    userId?: string,
+  ) {
+    await this.helper.assertBusinessUnitRoomExistsInTenant(
       tenantId,
+      businessUnitId,
       id,
+      true,
     );
 
-    return await this.prisma.material_resource.update({
+    return await this.prisma.business_unit_room.update({
       where: {
         id,
         tenant_id: tenantId,
+        business_unit_id: businessUnitId,
         removed_at: null,
         active: true,
+        readonly: false,
       },
       data: {
         active: false,
@@ -34,18 +43,27 @@ export class MaterialResourceActivationService {
     });
   }
 
-  async enable(tenantId: string, id: string, userId?: string) {
-    await this.materialResourceHelperService.assertMaterialResourceExists(
+  async enable(
+    tenantId: string,
+    businessUnitId: string,
+    id: string,
+    userId?: string,
+  ) {
+    await this.helper.assertBusinessUnitRoomExistsInTenant(
       tenantId,
+      businessUnitId,
       id,
+      true,
     );
 
-    return await this.prisma.material_resource.update({
+    return await this.prisma.business_unit_room.update({
       where: {
         id,
         tenant_id: tenantId,
+        business_unit_id: businessUnitId,
         removed_at: null,
         active: false,
+        readonly: false,
       },
       data: {
         active: true,

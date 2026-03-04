@@ -10,4 +10,5 @@
 | **Service Provider** | Gestión de doctores/proveedores, agendas y horarios. |
 | **Service Order** | Ciclo de vida de la orden, desde creación, agendamiento, ejecución y cierre. |
 | **Document Workflow** | Motor centralizado para la generación y flujo de documentos clínicos. |
-| **Document Engine Common** | Parámetros para el modot de flujod e documentos. |
+| **Document Engine Common** | Parámetros para el motor de flujo de documentos. |
+| **Materials Management** | Gestión de recursos materiales y su asociación a unidades de negocio y servicios. |

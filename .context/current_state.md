@@ -1,13 +1,11 @@
 # Estado Actual del Trabajo
 
 ## 🎯 Objetivo Inmediato
-- Dependencias del service-providers (service-provider-business-unit, service-provider-service)
 - Crear diccionario de traducciones
 
 ## 📑 Objetivos Próximos
 - Crear modulo de traducciones simplificado (eventualmente será remplazado por módulo dinámico - DB)
 - Módulo de salas? (servicio fisioterapia)
-- Módulo de recursos materiales
 - Agregar servicio para crear orden con item's en una transacción en estado inicial
 - Agregar servicio para agendar orden
 - Agregar servicio para gestionar cambio de estados de orden
@@ -18,6 +16,8 @@
 - Remover controladores/métodos que no necesitan estar expuestos
 
 ## ✅ Avances Recientes
+- Módulo de recursos materiales (service-material-resource, business-unit-material-resource)
+- Dependencias del service-providers (service-provider-business-unit, service-provider-service)
 - Módulo service-providers
 - Hacer las migraciones de liquibase para los tipos comunes
 - set price cost nullable, liquibase/ & sql/, dtos, services, controllers
