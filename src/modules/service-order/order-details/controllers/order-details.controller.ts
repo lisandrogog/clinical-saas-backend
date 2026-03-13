@@ -1,33 +1,37 @@
-/* eslint-disable prettier/prettier */
 import {
   Controller,
   Get,
   Post,
   Body,
   Headers,
+  Query,
   Patch,
   Param,
   Delete,
-  Query,
 } from '@nestjs/common';
-import { OrderService } from './order.service';
-import { CreateServiceOrderDto } from './dto/create-service-order.dto';
-import { UpdateServiceOrderDto } from './dto/update-service-order.dto';
+import { OrderDetailsService } from './order-details.service';
+import { CreateServiceOrderDetailDto } from '../dto/create-service-order-detail.dto';
+import { UpdateServiceOrderDetailDto } from '../dto/update-service-order-detail.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags('service-order')
-@Controller('service-order')
-export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+@ApiTags('service-order-details')
+@Controller('service-order-details')
+export class OrderDetailsController {
+  constructor(private readonly orderDetailsService: OrderDetailsService) {}
 
   @Post()
   async create(
-    @Body() dto: CreateServiceOrderDto,
+    @Body() dto: CreateServiceOrderDetailDto,
     @Headers('tenant-id') tenantId: string,
     @Headers('business-unit-id') businessUnitId: string,
     @Headers('user-id') userId?: string,
   ) {
-    return this.orderService.create(tenantId, businessUnitId, dto, userId);
+    return await this.orderDetailsService.create(
+      tenantId,
+      businessUnitId,
+      dto,
+      userId,
+    );
   }
 
   @Get()
@@ -37,7 +41,7 @@ export class OrderController {
     @Query('customerId') customerId?: string,
     @Query('agentId') agentId?: string,
   ) {
-    return await this.orderService.findAll(
+    return await this.orderDetailsService.findAll(
       tenantId,
       businessUnitId,
       customerId,
@@ -51,22 +55,22 @@ export class OrderController {
     @Headers('tenant-id') tenantId: string,
     @Headers('business-unit-id') businessUnitId: string,
   ) {
-    return await this.orderService.findOne(id, tenantId, businessUnitId);
+    return await this.orderDetailsService.findOne(id, tenantId, businessUnitId);
   }
 
   @Patch(':id')
   async update(
     @Param('id') id: string,
-    @Body() dto: UpdateServiceOrderDto,
+    @Body() updateServiceOrderDetailDto: UpdateServiceOrderDetailDto,
     @Headers('tenant-id') tenantId: string,
     @Headers('business-unit-id') businessUnitId: string,
     @Headers('user-id') userId?: string,
   ) {
-    return await this.orderService.update(
+    return await this.orderDetailsService.update(
       id,
       tenantId,
       businessUnitId,
-      dto,
+      updateServiceOrderDetailDto,
       userId,
     );
   }
@@ -78,6 +82,11 @@ export class OrderController {
     @Headers('business-unit-id') businessUnitId: string,
     @Headers('user-id') userId?: string,
   ) {
-    return await this.orderService.remove(id, tenantId, businessUnitId, userId);
+    return await this.orderDetailsService.remove(
+      id,
+      tenantId,
+      businessUnitId,
+      userId,
+    );
   }
 }

@@ -8,8 +8,8 @@ import {
   Delete,
 } from '@nestjs/common';
 import { OrderResourceConsumptionService } from './order-resource-consumption.service';
-import { CreateOrderResourceConsumptionDto } from './dto/create-order-resource-consumption.dto';
-import { UpdateOrderResourceConsumptionDto } from './dto/update-order-resource-consumption.dto';
+import { CreateOrderResourceConsumptionDto } from '../dto/create-order-resource-consumption.dto';
+import { UpdateOrderResourceConsumptionDto } from '../dto/update-order-resource-consumption.dto';
 
 @Controller('order-resource-consumption')
 export class OrderResourceConsumptionController {

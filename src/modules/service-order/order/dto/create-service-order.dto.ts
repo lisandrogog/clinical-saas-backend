@@ -15,4 +15,8 @@ export class CreateServiceOrderDto {
 
   @IsOptional()
   extraData?: Record<string, any>;
+
+  @IsOptional()
+  @IsUUID()
+  businessUnitRoomId?: string;
 }

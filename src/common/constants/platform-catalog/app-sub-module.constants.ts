@@ -20,24 +20,43 @@ export const ApplicationSubModules: IAppModule[] = [
       },
       { name: 'Tenants', code: 'tenant', itemOrder: 2 },
       { name: 'Unidades Operativas', code: 'business_unit', itemOrder: 3 },
-      { name: 'Socios de Negocios', code: 'business_partner', itemOrder: 4 }, // + business_partner_business_unit
+      // { name: 'Socios de Negocios', code: 'business_partner', itemOrder: 4 }, // + business_partner_business_unit
       // { name: 'Industry', code: 'industry', itemOrder: 5 }, // readonly
+    ] as IAppSubModule[],
+  } as IAppModule,
+  {
+    code: ApplicationModule.RESOURCE_MANAGEMENT,
+    name: 'Gestión de Recursos',
+    itemOrder: 2,
+    subModules: [
+      {
+        name: 'Tipos de Recursos Materiales',
+        code: 'material_resource_type',
+        itemOrder: 1,
+      },
+      { name: 'Recursos Materiales', code: 'material_resource', itemOrder: 2 },
+      {
+        name: 'Salas de Unidades Operativas',
+        code: 'business_unit_room',
+        itemOrder: 3,
+      },
     ] as IAppSubModule[],
   } as IAppModule,
   {
     code: ApplicationModule.ACCESS_MANAGEMENT,
     name: 'Roles & Permisos',
-    itemOrder: 2,
+    itemOrder: 3,
     subModules: [
       { name: 'Roles & Permisos', code: 'role', itemOrder: 1 }, // permission
+      { name: 'Usuarios de la Plataforma', code: 'app_user', itemOrder: 2 }, // business_partner + app_user_business_unit
     ] as IAppSubModule[],
   } as IAppModule,
+  /*
   {
     code: ApplicationModule.PLATFORM_USERS,
     name: 'Usuarios de la Plataforma',
     itemOrder: 3,
     subModules: [
-      { name: 'Usuarios de la Plataforma', code: 'app_user', itemOrder: 1 }, // + app_user_business_unit
       {
         name: 'Estados de Usuario de la Plataforma',
         code: 'app_user_status',
@@ -45,6 +64,7 @@ export const ApplicationSubModules: IAppModule[] = [
       },
     ] as IAppSubModule[],
   } as IAppModule,
+   */
   {
     code: ApplicationModule.PLATFORM_CUSTOMER,
     name: 'Clientes de la Plataforma',

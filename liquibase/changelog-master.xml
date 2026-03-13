@@ -72,5 +72,17 @@
         file="changelog/20260226-ddl/016-ddl-create-business-unit-room-material-resource-tables.sql" 
         relativeToChangelogFile="true"
     />
+    <include 
+        file="changelog/20260304-dml/017-dml-upsert-access-management-modules.sql" 
+        relativeToChangelogFile="true"
+    />
+    <include 
+        file="changelog/20260304-dml/018-dml-upsert-resources-management-modules.sql" 
+        relativeToChangelogFile="true"
+    />
+    <include 
+        file="changelog/20260305-ddl/019-ddl-add-service-order-document-number-column.sql" 
+        relativeToChangelogFile="true"
+    />
 
 </databaseChangeLog>
