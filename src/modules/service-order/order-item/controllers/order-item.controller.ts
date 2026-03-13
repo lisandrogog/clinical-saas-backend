@@ -8,9 +8,8 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { OrderItemService } from './order-item.service';
-import { CreateServiceOrderItemDto } from '../dto/create-service-order-item.dto';
-import { UpdateServiceOrderItemDto } from '../dto/update-service-order-item.dto';
+import { OrderItemService } from '../services/order-item.service';
+import { CreateServiceOrderItemDto, UpdateServiceOrderItemDto } from '../dto';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('service-order-item')

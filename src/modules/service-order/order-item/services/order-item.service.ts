@@ -1,8 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { CreateServiceOrderItemDto } from './dto/create-service-order-item.dto';
-import { UpdateServiceOrderItemDto } from './dto/update-service-order-item.dto';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
+import { CreateServiceOrderItemDto, UpdateServiceOrderItemDto } from '../dto';
 
 @Injectable()
 export class OrderItemService {

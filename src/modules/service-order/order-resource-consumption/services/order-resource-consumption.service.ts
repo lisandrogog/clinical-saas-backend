@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrderResourceConsumptionDto } from './dto/create-order-resource-consumption.dto';
-import { UpdateOrderResourceConsumptionDto } from './dto/update-order-resource-consumption.dto';
+import {
+  CreateOrderResourceConsumptionDto,
+  UpdateOrderResourceConsumptionDto,
+} from '../dto';
 
 @Injectable()
 export class OrderResourceConsumptionService {
