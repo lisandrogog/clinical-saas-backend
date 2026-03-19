@@ -5,6 +5,14 @@
 - El aislamiento es a nivel de base de datos usando las columnas `tenant_id` & en menor medida `business_unit_id`.
 - [ IGNORAR ESTA LINEA. PLACEHOLDER ] El `OrganizationInterceptor` extrae el ID del header `x-tenant-id` y lo inyecta en el Request.
 
+## Estándar Modular (NestJS)
+
+La aplicación implementa un patrón estricto de **Triada de Módulos**, diseñado en `.agents/skills/nestjs-modular/SKILL.md`:
+- **Controllers y Routing**: Archivos `*.controller.ts` para capturar requerimientos, segregados completamente de decoradores Swagger que residen obligatoriamente en `*.decorator.ts`.
+- **Triada de Servicios**:
+  - `Core Service` (`.service.ts`): Ejecución de rutinas nativas del negocio mutativo (transacciones `.findMany`, `.createMany`, updates sobre DB).
+  - `Helper Service` (`-helper.service.ts`): Reúne métodos de salvaguarda pre-requisitos (`assertExists`) y procesamiento/limpieza de condiciones `WHERE` dinámicas previas a la inyección al ORM.
+
 ## Flujo de Documentos Clínicos
 
 1. Se crea un Documento de `ServiceOrder` en estado inicial `DRAFT` o `PENDING`.

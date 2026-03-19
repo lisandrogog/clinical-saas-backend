@@ -6,13 +6,25 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
-import { OrderResourceConsumptionService } from '../services/order-resource-consumption.service';
+import { ApiTags } from '@nestjs/swagger';
+import { OrderResourceConsumptionService } from '../services';
 import {
   CreateOrderResourceConsumptionDto,
   UpdateOrderResourceConsumptionDto,
 } from '../dto';
+import {
+  ApiCreateOrderResourceConsumption,
+  ApiGetAllOrderResourceConsumptions,
+  ApiGetOrderResourceConsumptionById,
+  ApiUpdateOrderResourceConsumption,
+  ApiRemoveOrderResourceConsumption,
+} from './order-resource-consumption.decorator';
+import { TenantId, BusinessUnitId } from '@modules/utils/decorators';
+import { BaseSearchPaginationDto } from '@modules/utils/dto';
 
+@ApiTags('order-resource-consumption')
 @Controller('order-resource-consumption')
 export class OrderResourceConsumptionController {
   constructor(
@@ -20,39 +32,82 @@ export class OrderResourceConsumptionController {
   ) {}
 
   @Post()
-  create(
-    @Body()
-    createOrderResourceConsumptionDto: CreateOrderResourceConsumptionDto,
+  @ApiCreateOrderResourceConsumption()
+  async create(
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Body() dto: CreateOrderResourceConsumptionDto,
   ) {
-    return this.orderResourceConsumptionService.create(
-      createOrderResourceConsumptionDto,
+    return await this.orderResourceConsumptionService.create(
+      tenantId,
+      businessUnitId,
+      dto,
     );
   }
 
-  @Get()
-  findAll() {
-    return this.orderResourceConsumptionService.findAll();
+  @Get('order/:serviceOrderId')
+  @ApiGetAllOrderResourceConsumptions()
+  async findAll(
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceOrderId') serviceOrderId: string,
+    @Query() searchFilters: BaseSearchPaginationDto,
+  ) {
+    return await this.orderResourceConsumptionService.findAll(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+      searchFilters,
+    );
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderResourceConsumptionService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
+  @Get(':id/order/:serviceOrderId')
+  @ApiGetOrderResourceConsumptionById()
+  async findOne(
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceOrderId') serviceOrderId: string,
     @Param('id') id: string,
-    @Body()
-    updateOrderResourceConsumptionDto: UpdateOrderResourceConsumptionDto,
   ) {
-    return this.orderResourceConsumptionService.update(
-      +id,
-      updateOrderResourceConsumptionDto,
+    return await this.orderResourceConsumptionService.findOne(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+      id,
     );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderResourceConsumptionService.remove(+id);
+  @Patch(':id/order/:serviceOrderId')
+  @ApiUpdateOrderResourceConsumption()
+  async update(
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceOrderId') serviceOrderId: string,
+    @Param('id') id: string,
+    @Body() dto: UpdateOrderResourceConsumptionDto,
+  ) {
+    return await this.orderResourceConsumptionService.update(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+      id,
+      dto,
+    );
+  }
+
+  @Delete(':id/order/:serviceOrderId')
+  @ApiRemoveOrderResourceConsumption()
+  async remove(
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceOrderId') serviceOrderId: string,
+    @Param('id') id: string,
+  ) {
+    return await this.orderResourceConsumptionService.remove(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+      id,
+    );
   }
 }

@@ -8,9 +8,23 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { OrderItemService } from '../services/order-item.service';
-import { CreateServiceOrderItemDto, UpdateServiceOrderItemDto } from '../dto';
+import { OrderItemService } from '../services';
+import {
+  CreateServiceOrderItemDto,
+  UpdateServiceOrderItemDto,
+  CreateManyServiceOrderItemsDto,
+} from '../dto';
 import { ApiTags } from '@nestjs/swagger';
+import {
+  ApiCreateOrderItem,
+  ApiGetAllOrderItems,
+  ApiGetOrderItemById,
+  ApiUpdateOrderItem,
+  ApiRemoveOrderItem,
+  ApiCreateManyOrderItems,
+  ApiRemoveAllOrderItems,
+} from './order-item.decorator';
+import { TenantId, BusinessUnitId } from '@modules/utils/decorators';
 
 @ApiTags('service-order-item')
 @Controller('service-order-item')
@@ -18,18 +32,20 @@ export class OrderItemController {
   constructor(private readonly orderItemService: OrderItemService) {}
 
   @Post()
+  @ApiCreateOrderItem()
   async create(
     @Body() dto: CreateServiceOrderItemDto,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
   ) {
     return await this.orderItemService.create(tenantId, businessUnitId, dto);
   }
 
   @Get('order/:serviceOrderId')
+  @ApiGetAllOrderItems()
   async findAll(
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
     @Param('serviceOrderId') serviceOrderId: string,
   ) {
     return await this.orderItemService.findAll(
@@ -40,46 +56,77 @@ export class OrderItemController {
   }
 
   @Get(':id/order/:serviceOrderId')
+  @ApiGetOrderItemById()
   async findOne(
-    @Param('id') id: string,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
     @Param('serviceOrderId') serviceOrderId: string,
+    @Param('id') id: string,
   ) {
     return await this.orderItemService.findOne(
-      id,
       tenantId,
       businessUnitId,
       serviceOrderId,
+      id,
     );
   }
 
   @Patch(':id/order/:serviceOrderId')
+  @ApiUpdateOrderItem()
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateServiceOrderItemDto,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
     @Param('serviceOrderId') serviceOrderId: string,
   ) {
     return await this.orderItemService.update(
-      id,
-      dto,
       tenantId,
       businessUnitId,
       serviceOrderId,
+      id,
+      dto,
     );
   }
 
   @Delete(':id/order/:serviceOrderId')
+  @ApiRemoveOrderItem()
   async remove(
-    @Param('id') id: string,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
     @Param('serviceOrderId') serviceOrderId: string,
+    @Param('id') id: string,
   ) {
     return await this.orderItemService.remove(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
       id,
+    );
+  }
+
+  @Post('many')
+  @ApiCreateManyOrderItems()
+  async createMany(
+    @Body() dto: CreateManyServiceOrderItemsDto,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+  ) {
+    return await this.orderItemService.createMany(
+      tenantId,
+      businessUnitId,
+      dto,
+    );
+  }
+
+  @Delete('all/order/:serviceOrderId')
+  @ApiRemoveAllOrderItems()
+  async removeAll(
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
+    @Param('serviceOrderId') serviceOrderId: string,
+  ) {
+    return await this.orderItemService.removeAll(
       tenantId,
       businessUnitId,
       serviceOrderId,

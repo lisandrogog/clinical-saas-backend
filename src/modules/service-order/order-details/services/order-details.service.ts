@@ -5,10 +5,18 @@ import {
   CreateServiceOrderDetailDto,
   UpdateServiceOrderDetailDto,
 } from '../dto';
+import { OrderDetailsHelperService } from './order-details-helper.service';
+import { BaseSearchPaginationDto } from '@modules/utils/dto';
+import { UtilsService } from '@modules/utils/services';
+import { IOrderDetailSearchResponse } from '../interfaces';
 
 @Injectable()
 export class OrderDetailsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly helper: OrderDetailsHelperService,
+    private readonly utils: UtilsService,
+  ) {}
 
   async create(
     tenantId: string,
@@ -16,7 +24,11 @@ export class OrderDetailsService {
     dto: CreateServiceOrderDetailDto,
     userId?: string,
   ) {
-    await this.assertExistsOrder(dto.serviceOrderId, tenantId, businessUnitId);
+    await this.helper.assertExistsOrder(
+      dto.serviceOrderId,
+      tenantId,
+      businessUnitId,
+    );
 
     const id = uuidv7();
 
@@ -39,58 +51,75 @@ export class OrderDetailsService {
 
   async findAll(
     tenantId: string,
-    businessUnitId?: string,
+    businessUnitId: string,
+    searchFilters: BaseSearchPaginationDto,
     customerId?: string,
     agentId?: string,
-  ) {
-    return await this.prisma.service_order_details.findMany({
-      where: {
-        service_order: {
-          tenant_id: tenantId,
-          business_unit_id: businessUnitId,
-          customer_id: customerId,
-          agent_id: agentId,
-          removed_at: null,
+  ): Promise<IOrderDetailSearchResponse> {
+    const where = this.helper.applySearchFilters(
+      tenantId,
+      businessUnitId,
+      searchFilters,
+      customerId,
+      agentId,
+    );
+
+    const page = searchFilters.page || 1;
+    const limit = searchFilters.limit || 10;
+    const skip = this.utils.calculateSkip(page, limit);
+
+    const [total, data] = await this.prisma.$transaction([
+      this.prisma.service_order_details.count({ where }),
+      this.prisma.service_order_details.findMany({
+        where,
+        select: {
+          id: true,
+          service_order_id: true,
+          symptoms: true,
+          diagnosis: true,
+          treatment_plan: true,
+          prescription: true,
+          extra_data: true,
+          start_at: true,
+          end_at: true,
+          created_at: true,
+          created_by: true,
         },
-        removed_at: null,
-      },
-      orderBy: {
-        created_at: 'desc',
-      },
-    });
+        skip,
+        take: limit,
+        orderBy: {
+          created_at: 'desc',
+        },
+      }),
+    ]);
+
+    return this.utils.wrapPaginatedResponse(
+      data,
+      total,
+      page,
+      limit,
+    ) as IOrderDetailSearchResponse;
   }
 
-  async findOne(id: string, tenantId: string, businessUnitId: string) {
+  async findOne(tenantId: string, businessUnitId: string, id: string) {
+    await this.helper.assertExistsOrderDetail(id, tenantId, businessUnitId);
+
     return await this.prisma.service_order_details.findFirst({
-      where: {
-        id,
-        service_order: {
-          tenant_id: tenantId,
-          business_unit_id: businessUnitId,
-          removed_at: null,
-        },
-        removed_at: null,
-      },
+      where: { id },
     });
   }
 
   async update(
-    id: string,
     tenantId: string,
     businessUnitId: string,
+    id: string,
     dto: UpdateServiceOrderDetailDto,
     userId?: string,
   ) {
+    await this.helper.assertExistsOrderDetail(id, tenantId, businessUnitId);
+
     return await this.prisma.service_order_details.update({
-      where: {
-        id,
-        service_order: {
-          tenant_id: tenantId,
-          business_unit_id: businessUnitId,
-          removed_at: null,
-        },
-        removed_at: null,
-      },
+      where: { id },
       data: {
         symptoms: dto.symptoms,
         diagnosis: dto.diagnosis,
@@ -106,54 +135,19 @@ export class OrderDetailsService {
   }
 
   async remove(
-    id: string,
     tenantId: string,
     businessUnitId: string,
+    id: string,
     userId?: string,
   ) {
+    await this.helper.assertExistsOrderDetail(id, tenantId, businessUnitId);
+
     return await this.prisma.service_order_details.update({
-      where: {
-        id,
-        service_order: {
-          tenant_id: tenantId,
-          business_unit_id: businessUnitId,
-          removed_at: null,
-        },
-        removed_at: null,
-      },
+      where: { id },
       data: {
         removed_at: new Date(),
         removed_by: userId,
       },
     });
-  }
-
-  // ******************************************************************************
-  // Helpers
-  // ******************************************************************************
-
-  private async assertExistsOrder(
-    serviceOrderId: string,
-    tenantId: string,
-    businessUnitId: string,
-    customerId?: string,
-    agentId?: string,
-  ) {
-    const existsOrder = await this.prisma.service_order.count({
-      where: {
-        id: serviceOrderId,
-        tenant_id: tenantId,
-        business_unit_id: businessUnitId,
-        customer_id: customerId,
-        agent_id: agentId,
-        removed_at: null,
-      },
-    });
-
-    if (existsOrder === 0) {
-      throw new Error(
-        `Service order with ID ${serviceOrderId} does not exist for the given tenant, business unit, customer and agent`,
-      );
-    }
   }
 }

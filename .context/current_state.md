@@ -5,7 +5,6 @@
 
 ## 📑 Objetivos Próximos
 - Crear modulo de traducciones simplificado (eventualmente será remplazado por módulo dinámico - DB)
-- Módulo de salas? (servicio fisioterapia)
 - Agregar servicio para crear orden con item's en una transacción en estado inicial
 - Agregar servicio para agendar orden
 - Agregar servicio para gestionar cambio de estados de orden
@@ -16,6 +15,10 @@
 - Remover controladores/métodos que no necesitan estar expuestos
 
 ## ✅ Avances Recientes
+- Consolidación de la arquitectura modular de triada (Core y Helper Service) en los módulos de `service-order`.
+- Separación estricta de decoradores Swagger (`*.decorator.ts`) e integración de `BaseSearchPaginationDto` para estandarizar búsquedas.
+- Creación de `.agents/skills/nestjs-modular/SKILL.md` para asistir a las guías de código generativo.
+- Módulo de salas? (servicio fisioterapia)
 - Módulo de recursos materiales (service-material-resource, business-unit-material-resource)
 - Dependencias del service-providers (service-provider-business-unit, service-provider-service)
 - Módulo service-providers
@@ -45,6 +48,7 @@
 - Integración oauth/oauth2.
 - Pruebas unitarias, modulares y e2e
 - Agregar entidad transaccional de "permiso" o "vacación", para bloquear espacios de agenda de profesionales.
+- Agregar entidad maestra para manejo de stoks de recursos por bu
 
 ## 📂 Archivos en Foco
 

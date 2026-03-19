@@ -1,39 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
+import { Prisma } from '@prisma/client';
 import { uuidv7 } from 'uuidv7';
-import { CreateServiceOrderItemDto, UpdateServiceOrderItemDto } from '../dto';
+import {
+  CreateServiceOrderItemDto,
+  UpdateServiceOrderItemDto,
+  CreateManyServiceOrderItemsDto,
+} from '../dto';
+import { OrderItemHelperService } from './order-item-helper.service';
 
 @Injectable()
 export class OrderItemService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly helper: OrderItemHelperService,
+  ) {}
 
   async create(
     tenantId: string,
     businessUnitId: string,
-    createServiceOrderItemDto: CreateServiceOrderItemDto,
+    payload: CreateServiceOrderItemDto,
   ) {
-    const order = await this.prisma.service_order.findFirst({
-      where: {
-        id: createServiceOrderItemDto.serviceOrderId,
-        tenant_id: tenantId,
-        business_unit_id: businessUnitId,
-        removed_at: null,
-      },
-    });
-
-    if (!order) {
-      throw new Error('Service order not found');
-    }
+    await this.helper.assertExistsOrder(
+      tenantId,
+      businessUnitId,
+      payload.serviceOrderId,
+    );
 
     const id = uuidv7();
 
     return await this.prisma.service_order_item.create({
       data: {
         id,
-        service_order_id: createServiceOrderItemDto.serviceOrderId,
-        service_id: createServiceOrderItemDto.serviceId,
-        quantity: createServiceOrderItemDto.quantity || 1,
-        unit_price: createServiceOrderItemDto.unitPrice || 0,
+        service_order_id: payload.serviceOrderId,
+        service_id: payload.serviceId,
+        quantity: payload.quantity || 1,
+        unit_price: payload.unitPrice || 0,
       },
     });
   }
@@ -59,11 +61,18 @@ export class OrderItemService {
   }
 
   async findOne(
-    id: string,
     tenantId: string,
     businessUnitId: string,
     serviceOrderId: string,
+    id: string,
   ) {
+    await this.helper.assertExistsOrderItem(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+      id,
+    );
+
     return await this.prisma.service_order_item.findFirst({
       where: {
         id,
@@ -78,17 +87,17 @@ export class OrderItemService {
   }
 
   async update(
-    id: string,
-    updateServiceOrderItemDto: UpdateServiceOrderItemDto,
     tenantId: string,
     businessUnitId: string,
     serviceOrderId: string,
+    id: string,
+    payload: UpdateServiceOrderItemDto,
   ) {
-    await this.assertExistsOrderItem(
-      id,
+    await this.helper.assertExistsOrderItem(
       tenantId,
       businessUnitId,
       serviceOrderId,
+      id,
     );
 
     return await this.prisma.service_order_item.update({
@@ -102,24 +111,24 @@ export class OrderItemService {
         },
       },
       data: {
-        service_id: updateServiceOrderItemDto.serviceId,
-        quantity: updateServiceOrderItemDto.quantity,
-        unit_price: updateServiceOrderItemDto.unitPrice,
+        service_id: payload.serviceId,
+        quantity: payload.quantity,
+        unit_price: payload.unitPrice,
       },
     });
   }
 
   async remove(
-    id: string,
     tenantId: string,
     businessUnitId: string,
     serviceOrderId: string,
+    id: string,
   ) {
-    await this.assertExistsOrderItem(
-      id,
+    await this.helper.assertExistsOrderItem(
       tenantId,
       businessUnitId,
       serviceOrderId,
+      id,
     );
 
     return await this.prisma.service_order_item.delete({
@@ -135,30 +144,72 @@ export class OrderItemService {
     });
   }
 
-  // ******************************************************************************
-  // Helpers
-  // ******************************************************************************
+  async createMany(
+    tenantId: string,
+    businessUnitId: string,
+    payload: CreateManyServiceOrderItemsDto,
+  ) {
+    if (!payload.serviceOrderId || !payload.items.length) {
+      return { count: 0 };
+    }
 
-  private async assertExistsOrderItem(
-    id: string,
+    const serviceOrderId = payload.serviceOrderId;
+
+    await this.helper.assertExistsOrder(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+    );
+
+    const itemsToCreate = payload.items.map((item) => ({
+      id: uuidv7(),
+      service_order_id: payload.serviceOrderId,
+      service_id: item.serviceId,
+      quantity: item.quantity || 1,
+      unit_price: item.unitPrice || 0,
+    }));
+
+    return await this.prisma.$transaction(async (tx) => {
+      const createdItems = await tx.service_order_item.createMany({
+        data: itemsToCreate,
+      });
+
+      await this.helper.recalculateOrderTotal(
+        tx as Prisma.TransactionClient,
+        serviceOrderId,
+      );
+
+      return createdItems;
+    });
+  }
+
+  async removeAll(
     tenantId: string,
     businessUnitId: string,
     serviceOrderId: string,
   ) {
-    const orderItem = await this.prisma.service_order_item.findFirst({
-      where: {
-        id,
-        service_order_id: serviceOrderId,
-        service_order: {
-          tenant_id: tenantId,
-          business_unit_id: businessUnitId,
-          removed_at: null,
-        },
-      },
-    });
+    await this.helper.assertExistsOrder(
+      tenantId,
+      businessUnitId,
+      serviceOrderId,
+    );
 
-    if (!orderItem) {
-      throw new Error('Service order item not found');
-    }
+    await this.prisma.$transaction(async (tx) => {
+      await tx.service_order_item.deleteMany({
+        where: {
+          service_order_id: serviceOrderId,
+          service_order: {
+            tenant_id: tenantId,
+            business_unit_id: businessUnitId,
+            removed_at: null,
+          },
+        },
+      });
+
+      await this.helper.recalculateOrderTotal(
+        tx as Prisma.TransactionClient,
+        serviceOrderId,
+      );
+    });
   }
 }

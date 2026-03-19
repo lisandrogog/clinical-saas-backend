@@ -1,15 +1,7 @@
-import { IsOptional, IsUUID } from 'class-validator';
+import { IsUUID } from 'class-validator';
+import { CreateOrderItemDto } from './create-order-item.dto';
 
-export class CreateServiceOrderItemDto {
+export class CreateServiceOrderItemDto extends CreateOrderItemDto {
   @IsUUID()
   serviceOrderId: string;
-
-  @IsUUID()
-  serviceId: string;
-
-  @IsOptional()
-  quantity?: number = 1;
-
-  @IsOptional()
-  unitPrice?: number = 0;
 }
