@@ -23,3 +23,4 @@ Backend para una plataforma SaaS multi-tenant de gestión médica y pediátrica.
 - **No Duplicación:** No mantener copias locales en `src/modules/**/dto` o `src/modules/**/interfaces` si el tipo ya existe en shared-common.
 - **Base de Datos:** No usar SQL crudo a menos que sea necesario; priorizar Prisma API para consultas. Las migraciones via **Liquibase** son la única fuente de verdad para el esquema de la base de datos.
 - **Multi-tenancy:** Siempre validar el `tenantId` en las consultas.
+- **Operabilidad API:** Mantener `GET /health` (liveness) y `GET /health/ready` (readiness con check DB) como endpoints técnicos sin headers multi-tenant obligatorios.

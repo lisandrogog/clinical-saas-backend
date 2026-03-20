@@ -1,6 +1,7 @@
 ## Índice de documentos de la carpeta de contexto
 
 > Nota operativa para agentes: el submódulo `src/shared-common` centraliza DTOs e interfaces transversales del ecosistema.
+> Nota operativa de disponibilidad: los endpoints `GET /health` (liveness) y `GET /health/ready` (readiness con DB) están documentados en `api_specs.md` y `api_endpoint_catalog.md`.
 
 - `api_specs.md`: Especificaciones de la API (Endpoints).
 - `api_endpoint_catalog.md`: Catálogo tabular de endpoints (agrupador, método, input/output).

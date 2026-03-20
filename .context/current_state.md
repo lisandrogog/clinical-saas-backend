@@ -23,6 +23,9 @@
 - Creación de `.agents/skills/nestjs-modular/SKILL.md` para asistir a las guías de código generativo.
 - Integración del submódulo git `src/shared-common` para centralizar DTOs e interfaces transversales entre proyectos del ecosistema.
 - Ajuste de lineamientos: los tipos comunes ya no deben mantenerse directamente en este proyecto si existen en shared-common.
+- Implementación de endpoints operativos de salud:
+  - `GET /health` (liveness del proceso).
+  - `GET /health/ready` (readiness con verificación de DB vía Prisma y timeout configurable con `HEALTH_DB_TIMEOUT_MS`).
 - Módulo de salas? (servicio fisioterapia)
 - Módulo de recursos materiales (service-material-resource, business-unit-material-resource)
 - Dependencias del service-providers (service-provider-business-unit, service-provider-service)

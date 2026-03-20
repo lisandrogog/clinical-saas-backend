@@ -13,6 +13,7 @@ Backend para una plataforma SaaS multi-tenant de gestión médica y pediátrica,
 - [Submódulo Shared Common](#-submódulo-shared-common)
 - [Configuración](#️-configuración)
 - [Uso](#-uso)
+- [Health Checks](#-health-checks)
 - [Testing](#-testing)
 - [Estándares de Código](#-estándares-de-código)
 - [Documentación Adicional](#-documentación-adicional)
@@ -219,6 +220,37 @@ Una vez iniciado el servidor, acceder a:
 ```bash
 http://localhost:3000/api-docs
 ```
+
+## ❤️ Health Checks
+
+El backend expone endpoints de salud para monitoreo y despliegue:
+
+- `GET /health`: liveness del proceso NestJS (no consulta base de datos).
+- `GET /health/ready`: readiness con verificación de base de datos PostgreSQL vía Prisma.
+
+### Uso recomendado en plataforma
+
+- **Liveness probe**: apuntar a `GET /health`.
+- **Readiness probe**: apuntar a `GET /health/ready`.
+
+### Timeout configurable para check de base de datos
+
+`/health/ready` usa timeout configurable con la variable de entorno:
+
+```env
+HEALTH_DB_TIMEOUT_MS=3000
+```
+
+Si la base de datos no responde dentro del timeout, el endpoint retorna `503 Service Unavailable`.
+
+### Ejemplos rápidos
+
+```bash
+curl -i http://localhost:3000/health
+curl -i http://localhost:3000/health/ready
+```
+
+> Nota: estos endpoints son operativos y no requieren headers multi-tenant.
 
 ### Comandos de Base de Datos
 

@@ -1,10 +1,27 @@
 # Especificaciones de la API (Endpoints)
 
 ## Configuración Común
+
 - **Headers Requeridos**:
+
   - `tenantId` / `x-tenant-id`: UUID - Identificador de la Organización (Tenant).
   - `businessUnitId` / `x-business-unit-id`: UUID - Identificador de la Unidad de Negocio.
   - `userId` / `x-user-id`: UUID (Opcional) - ID del usuario que realiza la operación.
+
+## Módulo: Health
+
+### Health (`/health`)
+
+- `GET /health`
+  - **Uso**: liveness del proceso NestJS.
+  - **Headers**: no requiere `x-tenant-id` ni `x-business-unit-id`.
+  - **Output esperado**: `200 OK`.
+
+- `GET /health/ready`
+  - **Uso**: readiness con verificación de base de datos mediante Prisma (`SELECT 1` + timeout).
+  - **Headers**: no requiere `x-tenant-id` ni `x-business-unit-id`.
+  - **Output esperado**: `200 OK` cuando DB está disponible; `503 Service Unavailable` cuando DB falla o vence timeout.
+  - **Configuración**: `HEALTH_DB_TIMEOUT_MS` (default `3000`).
 
 ---
 

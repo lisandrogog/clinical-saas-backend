@@ -11,6 +11,8 @@ Documento orientado a agentes de IA y desarrolladores para localizar rápidament
 
 | Agrupador | Endpoint | Método | Descripción | Input (DTO + parámetros + headers) | Output |
 | :--- | :--- | :---: | :--- | :--- | :--- |
+| Health | `/health` | `GET` | Liveness del proceso de la API | Body: -; Query: -; Params: -; Headers: - | 200 OK con estado operativo del proceso |
+| Health | `/health/ready` | `GET` | Readiness con verificación de base de datos (Prisma) | Body: -; Query: -; Params: -; Headers: - | 200 OK si DB responde / 503 Service Unavailable si DB falla o timeout |
 | Access Management | `/access-scope` | `POST` | Crear Access Scope | Body: CreateAccessScopeDto; Query: -; Params: -; Headers: x-tenant-id, x-business-unit-id, x-user-id(opcional) | 201 Created (habitual) / 200 OK segun implementación |
 | Access Management | `/access-scope` | `GET` | Listar/consultar Access Scope | Body: -; Query: -; Params: -; Headers: x-tenant-id, x-business-unit-id, x-user-id(opcional) | 200 OK con data (objeto o lista) |
 | Access Management | `/access-scope/:id` | `GET` | Obtener Access Scope por criterio | Body: UpdateAccessScopeDto; Query: -; Params: id; Headers: x-tenant-id, x-business-unit-id, x-user-id(opcional) | 200 OK con data (objeto o lista) |

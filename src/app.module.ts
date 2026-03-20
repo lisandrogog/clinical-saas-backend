@@ -8,6 +8,7 @@ import { PlatformCustomerModule } from './modules/platform-customer/platform-cus
 import { ServiceProviderModule } from './modules/service-provider/service-provider.module';
 import { MaterialsModule } from './modules/materials/materials.module';
 import { RoomsModule } from './modules/rooms/rooms.module';
+import { HealthModule } from './modules/health/health.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { RoomsModule } from './modules/rooms/rooms.module';
     ServiceProviderModule,
     MaterialsModule,
     RoomsModule,
+    HealthModule,
   ],
   providers: [AppService, PrismaService, HashService, UtilsService],
 })

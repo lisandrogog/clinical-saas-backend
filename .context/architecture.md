@@ -21,6 +21,19 @@ La aplicación implementa un patrón estricto de **Triada de Módulos**, diseña
 - Objetivo: evitar divergencias de contrato entre servicios y reducir duplicación de clases DTO/interfaces locales.
 - Regla práctica: antes de crear un nuevo DTO/interface local, verificar primero si ya existe en `src/shared-common`.
 
+## Health Checks y Resiliencia Operativa
+
+- Se incorporan dos endpoints operativos de salud:
+  - `GET /health`: **liveness** del proceso NestJS (sin dependencia externa).
+  - `GET /health/ready`: **readiness** con verificación de conectividad a PostgreSQL vía `PrismaService`.
+- El check de readiness usa timeout configurable por variable `HEALTH_DB_TIMEOUT_MS` (default `3000`).
+- Contrato esperado:
+  - `200 OK` cuando el proceso (liveness) y la base de datos (readiness) están disponibles.
+  - `503 Service Unavailable` en `/health/ready` cuando falla la DB o se excede el timeout.
+- Directriz de despliegue:
+  - Configurar liveness probe sobre `/health`.
+  - Configurar readiness probe sobre `/health/ready`.
+
 ## Flujo de Documentos Clínicos
 
 1. Se crea un Documento de `ServiceOrder` en estado inicial `DRAFT` o `PENDING`.
