@@ -25,5 +25,5 @@ COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 3000
 
-# Apuntamos a la ruta real que viste con ls -R dist
-CMD ["node", "dist/src/main.js"]
+# Nest build genera el entrypoint en dist/main.js
+CMD ["node", "dist/main.js"]
