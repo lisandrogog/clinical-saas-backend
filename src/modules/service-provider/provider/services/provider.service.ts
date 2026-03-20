@@ -1,15 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateServiceProviderDto } from '../dto/';
-import { UpdateServiceProviderDto } from '../dto/';
+import {
+  CreateServiceProviderDto,
+  UpdateServiceProviderDto,
+  IProviderSearch,
+  IProviderSearchResponse,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 import { UtilsService } from '@modules/utils/services';
 import { ProviderHelperService } from './provider-helper.service';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
-import {
-  IProviderSearch,
-  IProviderSearchResponse,
-} from '../interfaces/provider-search.interface';
+
 import { Prisma } from '@prisma/client';
 import { I18nKeys } from '../constants/i18n.constants';
 

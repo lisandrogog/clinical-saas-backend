@@ -6,8 +6,10 @@ import { UtilsService } from '@modules/utils/services';
 import {
   IServiceSearchResponse,
   ISingleServiceSearch,
-} from '../interfaces/service-search.interface';
-import { CreateServiceDto, SearchServiceDto, UpdateServiceDto } from '../dto';
+  CreateServiceDto,
+  SearchServiceDto,
+  UpdateServiceDto,
+} from '@shared-common';
 import { Prisma } from '@prisma/client';
 import { I18nKeys } from '../constants/i18n.constants';
 

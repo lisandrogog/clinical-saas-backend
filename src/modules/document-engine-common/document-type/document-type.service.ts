@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDocumentTypeDto } from './dto/create-document-type.dto';
-import { UpdateDocumentTypeDto } from './dto/update-document-type.dto';
+import { CreateDocumentTypeDto, UpdateDocumentTypeDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 
 @Injectable()

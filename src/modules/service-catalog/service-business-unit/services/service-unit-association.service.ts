@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
 import { ServiceBusinessUnitHelperService } from './service-business-unit-helper.service';
-import { AssociateServicesDto, AssociateUnitsDto } from '../dto/';
+import { AssociateServicesDto, AssociateUnitsDto } from '@shared-common';
 import { I18nKeys as ServiceI18nKeys } from '@modules/service-catalog/service/constants/i18n.constants';
 import { I18nKeys } from '../constants/i18n.constants';
 

@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { AppUserStatusService } from './app-user-status.service';
-import { CreateAppUserStatusDto } from './dto/create-app-user-status.dto';
-import { UpdateAppUserStatusDto } from './dto/update-app-user-status.dto';
+import { CreateAppUserStatusDto, UpdateAppUserStatusDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('app-user-status')

@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { OrderService } from '../services/order.service';
-import { CreateServiceOrderDto, UpdateServiceOrderDto } from '../dto';
+import { CreateServiceOrderDto, UpdateServiceOrderDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import {
   ApiCreateOrder,

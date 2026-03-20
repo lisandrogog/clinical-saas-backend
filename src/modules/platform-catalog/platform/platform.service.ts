@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePlatformDto } from './dto/create-platform.dto';
-import { UpdatePlatformDto } from './dto/update-platform.dto';
+import { CreatePlatformDto, UpdatePlatformDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 
 @Injectable()

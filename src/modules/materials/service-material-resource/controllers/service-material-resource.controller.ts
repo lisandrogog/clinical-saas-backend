@@ -8,7 +8,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ServiceMaterialResourceService } from '../services/service-material-resource.service';
-import { CreateServiceMaterialResourceDto } from '../dto';
+import { CreateServiceMaterialResourceDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import {

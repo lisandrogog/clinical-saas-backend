@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   CreateMaterialResourceTypeDto,
   UpdateMaterialResourceTypeDto,
-} from '../dto';
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { MaterialResourceTypeHelperService } from './material-resource-type-helper.service';
 

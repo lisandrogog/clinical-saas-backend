@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreateMaterialResourceDto, UpdateMaterialResourceDto } from '../dto';
+import {
+  CreateMaterialResourceDto,
+  UpdateMaterialResourceDto,
+  IMaterialResourceSearch,
+  IMaterialResourceSearchResponse,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { MaterialResourceHelperService } from './material-resource-helper.service';
 import { uuidv7 } from 'uuidv7';
 import { Prisma } from '@prisma/client';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
-import {
-  IMaterialResourceSearch,
-  IMaterialResourceSearchResponse,
-} from '../interfaces/material-resource-search.interface';
+
 import { MaterialResourceTypeHelperService } from '@modules/materials/material-resource-type/services';
 import { UtilsService } from '@modules/utils/services/utils.service';
 

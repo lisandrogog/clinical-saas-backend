@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateServicesBusinessUnitDto } from '../dto';
+import { CreateServicesBusinessUnitDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { I18nKeys } from '../constants/i18n.constants';
 import { UtilsService } from '@modules/utils/services';

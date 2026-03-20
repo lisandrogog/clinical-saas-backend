@@ -3,15 +3,14 @@ import {
   Get,
   Post,
   Body,
-  Headers,
   Patch,
   Param,
   Delete,
 } from '@nestjs/common';
 import { BusinessUnitService } from './business-unit.service';
-import { CreateBusinessUnitDto } from './dto/create-business-unit.dto';
-import { UpdateBusinessUnitDto } from './dto/update-business-unit.dto';
+import { CreateBusinessUnitDto, UpdateBusinessUnitDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
+import { TenantId, UserId } from '@modules/utils/decorators';
 
 @ApiTags('business-unit')
 @Controller('business-unit')
@@ -21,29 +20,23 @@ export class BusinessUnitController {
   @Post()
   async create(
     @Body() createBusinessUnitDto: CreateBusinessUnitDto,
-    @Headers('user-id') userId?: string,
+    @UserId() userId?: string,
   ) {
     return await this.businessUnitService.create(createBusinessUnitDto, userId);
   }
 
   @Get()
-  async findAll(@Headers('tenant-id') tenantId: string) {
+  async findAll(@TenantId() tenantId: string) {
     return await this.businessUnitService.findAll(tenantId);
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id') id: string,
-    @Headers('tenant-id') tenantId: string,
-  ) {
+  async findOne(@Param('id') id: string, @TenantId() tenantId: string) {
     return await this.businessUnitService.findOne(id, tenantId);
   }
 
   @Get('code/:code')
-  async getByCode(
-    @Param('code') code: string,
-    @Headers('tenant-id') tenantId: string,
-  ) {
+  async getByCode(@Param('code') code: string, @TenantId() tenantId: string) {
     return await this.businessUnitService.getByCode(code, tenantId);
   }
 
@@ -51,8 +44,8 @@ export class BusinessUnitController {
   async update(
     @Param('id') id: string,
     @Body() updateBusinessUnitDto: UpdateBusinessUnitDto,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('user-id') userId?: string,
+    @TenantId() tenantId: string,
+    @UserId() userId?: string,
   ) {
     return await this.businessUnitService.update(
       id,
@@ -65,8 +58,8 @@ export class BusinessUnitController {
   @Delete(':id')
   async remove(
     @Param('id') id: string,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('user-id') userId?: string,
+    @TenantId() tenantId: string,
+    @UserId() userId?: string,
   ) {
     return await this.businessUnitService.remove(id, tenantId, userId);
   }

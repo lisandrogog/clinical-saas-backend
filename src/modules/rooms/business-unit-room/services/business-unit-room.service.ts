@@ -1,15 +1,16 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBusinessUnitRoomDto, UpdateBusinessUnitRoomDto } from '../dto';
+import {
+  CreateBusinessUnitRoomDto,
+  UpdateBusinessUnitRoomDto,
+  IBusinessUnitRoomSearch,
+  IBusinessUnitRoomSearchResponse,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { UtilsService } from '@modules/utils/services';
 import { BusinessUnitRoomHelperService } from './business-unit-room-helper.service';
 import { uuidv7 } from 'uuidv7';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { Prisma } from '@prisma/client';
-import {
-  IBusinessUnitRoomSearch,
-  IBusinessUnitRoomSearchResponse,
-} from '../interfaces/business-unit-room-search.interface';
 
 @Injectable()
 export class BusinessUnitRoomService {

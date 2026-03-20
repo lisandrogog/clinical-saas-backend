@@ -1,15 +1,17 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCustomerDto, UpdateCustomerDto } from '../dto';
+import {
+  CreateCustomerDto,
+  UpdateCustomerDto,
+  ICustomerSearchResponse,
+  ICustomSearch,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { Prisma } from '@prisma/client';
 import { UtilsService } from '@modules/utils/services/';
 import { CustomerHelperService } from './customer-helper.service';
-import {
-  ICustomerSearchResponse,
-  ICustomSearch,
-} from '../interfaces/customer-search.interface';
+
 import { I18nKeys } from '../constants/i18n.constants';
 
 @Injectable()

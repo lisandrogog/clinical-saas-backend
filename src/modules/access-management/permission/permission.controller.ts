@@ -9,9 +9,9 @@ import {
   Delete,
 } from '@nestjs/common';
 import { PermissionService } from './permission.service';
-import { CreatePermissionDto } from './dto/create-permission.dto';
-import { UpdatePermissionDto } from './dto/update-permission.dto';
+import { CreatePermissionDto, UpdatePermissionDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
+import { UserId } from '@modules/utils/decorators';
 
 @ApiTags('permission')
 @Controller('permission')
@@ -19,10 +19,7 @@ export class PermissionController {
   constructor(private readonly permissionService: PermissionService) {}
 
   @Post()
-  async create(
-    @Body() dto: CreatePermissionDto,
-    @Headers('user-id') userId?: string,
-  ) {
+  async create(@Body() dto: CreatePermissionDto, @UserId() userId?: string) {
     return await this.permissionService.create(dto, userId);
   }
 
@@ -55,13 +52,13 @@ export class PermissionController {
   async update(
     @Param('id') id: string,
     @Body() updatePermissionDto: UpdatePermissionDto,
-    @Headers('user-id') userId?: string,
+    @UserId() userId?: string,
   ) {
     return await this.permissionService.update(id, updatePermissionDto, userId);
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string, @Headers('user-id') userId?: string) {
+  async remove(@Param('id') id: string, @UserId() userId?: string) {
     return await this.permissionService.remove(id, userId);
   }
 }

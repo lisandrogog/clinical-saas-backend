@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { AccessScopeService } from './access-scope.service';
-import { CreateAccessScopeDto } from './dto/create-access-scope.dto';
-import { UpdateAccessScopeDto } from './dto/update-access-scope.dto';
+import { CreateAccessScopeDto, UpdateAccessScopeDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('access-scope')

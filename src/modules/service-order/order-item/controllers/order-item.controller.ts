@@ -13,7 +13,7 @@ import {
   CreateServiceOrderItemDto,
   UpdateServiceOrderItemDto,
   CreateManyServiceOrderItemsDto,
-} from '../dto';
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import {
   ApiCreateOrderItem,

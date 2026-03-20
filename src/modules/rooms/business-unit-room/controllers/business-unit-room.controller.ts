@@ -12,7 +12,10 @@ import {
   BusinessUnitRoomActivationService,
   BusinessUnitRoomService,
 } from '../services';
-import { CreateBusinessUnitRoomDto, UpdateBusinessUnitRoomDto } from '../dto';
+import {
+  CreateBusinessUnitRoomDto,
+  UpdateBusinessUnitRoomDto,
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import {

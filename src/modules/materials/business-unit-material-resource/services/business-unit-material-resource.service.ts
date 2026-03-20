@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   CreateBusinessUnitMaterialResourceDto,
   UpdateBusinessUnitMaterialResourceDto,
-} from '../dto/';
+} from '@shared-common';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { PrismaService } from '@core/prisma.service';
 import { Prisma } from '@prisma/client';

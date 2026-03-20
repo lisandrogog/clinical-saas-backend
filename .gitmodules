@@ -1,0 +1,3 @@
+[submodule "src/shared-common"]
+	path = src/shared-common
+	url = https://github.com/lisandrogog/clinical-saas-shared

@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { ProviderServiceService } from '../services/provider-service.service';
-import { CreateServiceProviderServiceDto } from '../dto';
+import { CreateServiceProviderServiceDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import {

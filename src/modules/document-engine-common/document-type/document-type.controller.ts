@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { DocumentTypeService } from './document-type.service';
-import { CreateDocumentTypeDto } from './dto/create-document-type.dto';
-import { UpdateDocumentTypeDto } from './dto/update-document-type.dto';
+import { CreateDocumentTypeDto, UpdateDocumentTypeDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('document-type')

@@ -8,10 +8,18 @@
 ## Estándar Modular (NestJS)
 
 La aplicación implementa un patrón estricto de **Triada de Módulos**, diseñado en `.agents/skills/nestjs-modular/SKILL.md`:
+
 - **Controllers y Routing**: Archivos `*.controller.ts` para capturar requerimientos, segregados completamente de decoradores Swagger que residen obligatoriamente en `*.decorator.ts`.
 - **Triada de Servicios**:
   - `Core Service` (`.service.ts`): Ejecución de rutinas nativas del negocio mutativo (transacciones `.findMany`, `.createMany`, updates sobre DB).
   - `Helper Service` (`-helper.service.ts`): Reúne métodos de salvaguarda pre-requisitos (`assertExists`) y procesamiento/limpieza de condiciones `WHERE` dinámicas previas a la inyección al ORM.
+
+## Tipos Compartidos (Git Submodule)
+
+- El repositorio backend integra `src/shared-common` como **git submodule** para centralizar DTOs e interfaces transversales.
+- Los módulos de negocio deben importar estos tipos desde shared-common (alias `@shared-common` o ruta definida en `tsconfig`).
+- Objetivo: evitar divergencias de contrato entre servicios y reducir duplicación de clases DTO/interfaces locales.
+- Regla práctica: antes de crear un nuevo DTO/interface local, verificar primero si ya existe en `src/shared-common`.
 
 ## Flujo de Documentos Clínicos
 

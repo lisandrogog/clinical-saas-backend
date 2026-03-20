@@ -8,8 +8,9 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AppUserBusinessUnitService } from './app-user-business-unit.service';
-import { CreateAppUserBusinessUnitDto } from './dto/create-app-user-business-unit.dto';
+import { CreateAppUserBusinessUnitDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
+import { BusinessUnitId, TenantId, UserId } from '@modules/utils/decorators';
 
 @ApiTags('app-user-business-unit')
 @Controller('app-user-business-unit')
@@ -21,15 +22,15 @@ export class AppUserBusinessUnitController {
   @Post()
   async create(
     @Body() dto: CreateAppUserBusinessUnitDto,
-    @Headers('user-id') userId?: string,
+    @UserId() userId?: string,
   ) {
     return this.appUserBusinessUnitService.create(dto, userId);
   }
 
   @Get('users')
   async getUsers(
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
   ) {
     return await this.appUserBusinessUnitService.getUsers(
       tenantId,
@@ -38,26 +39,17 @@ export class AppUserBusinessUnitController {
   }
 
   @Get('units')
-  async getUnits(
-    @Headers('tenant-id') tenantId: string,
-    @Headers('app-user-id') appUserId: string,
-  ) {
-    return await this.appUserBusinessUnitService.getUnits(tenantId, appUserId);
+  async getUnits(@TenantId() tenantId: string, @UserId() userId: string) {
+    return await this.appUserBusinessUnitService.getUnits(tenantId, userId);
   }
 
   @Get(':id')
-  async findOne(
-    @Param('id') id: string,
-    @Headers('tenant-id') tenantId: string,
-  ) {
+  async findOne(@Param('id') id: string, @TenantId() tenantId: string) {
     return await this.appUserBusinessUnitService.findOne(id, tenantId);
   }
 
   @Delete(':id')
-  async remove(
-    @Param('id') id: string,
-    @Headers('tenant-id') tenantId: string,
-  ) {
+  async remove(@Param('id') id: string, @TenantId() tenantId: string) {
     return await this.appUserBusinessUnitService.remove(id, tenantId);
   }
 }

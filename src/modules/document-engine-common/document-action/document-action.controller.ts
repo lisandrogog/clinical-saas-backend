@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { DocumentActionService } from './document-action.service';
-import { CreateDocumentActionDto } from './dto/create-document-action.dto';
-import { UpdateDocumentActionDto } from './dto/update-document-action.dto';
+import {
+  CreateDocumentActionDto,
+  UpdateDocumentActionDto,
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('document-action')

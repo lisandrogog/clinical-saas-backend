@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBusinessPartnerBusinessUnitDto } from './dto/create-business-partner-business-unit.dto';
+import { CreateBusinessPartnerBusinessUnitDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 

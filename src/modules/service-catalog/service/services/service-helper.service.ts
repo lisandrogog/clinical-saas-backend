@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
 import { Prisma } from '@prisma/client';
-import { SearchServiceDto } from '../dto';
+import { SearchServiceDto } from '@shared-common';
 import { UtilsService } from '@modules/utils/services';
 import { I18nKeys } from '../constants/i18n.constants';
 import { I18nKeys as ServiceCategoryI18nKeys } from '@modules/service-catalog/service-category/constants/i18n.constants';

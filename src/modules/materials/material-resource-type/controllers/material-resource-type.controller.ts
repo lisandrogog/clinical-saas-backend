@@ -11,7 +11,7 @@ import { MaterialResourceTypeService } from '../services';
 import {
   CreateMaterialResourceTypeDto,
   UpdateMaterialResourceTypeDto,
-} from '../dto';
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import {

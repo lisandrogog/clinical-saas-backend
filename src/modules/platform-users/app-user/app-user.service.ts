@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAppUserDto } from './dto/create-app-user.dto';
-import { UpdateAppUserDto } from './dto/update-app-user.dto';
+import { CreateAppUserDto, UpdateAppUserDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { HashService } from '@modules/utils/services/hash.service';
 import { uuidv7 } from 'uuidv7';

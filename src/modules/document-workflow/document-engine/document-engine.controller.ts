@@ -8,8 +8,10 @@ import {
   Delete,
 } from '@nestjs/common';
 import { DocumentEngineService } from './document-engine.service';
-import { CreateDocumentEngineDto } from './dto/create-document-engine.dto';
-import { UpdateDocumentEngineDto } from './dto/update-document-engine.dto';
+import {
+  CreateDocumentEngineDto,
+  UpdateDocumentEngineDto,
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('document-engine')

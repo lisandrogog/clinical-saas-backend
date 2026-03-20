@@ -13,7 +13,7 @@ import {
   AssociateUnitsDto,
   CreateServiceBusinessUnitDto,
   UpdateServiceBusinessUnitDto,
-} from '../dto';
+} from '@shared-common';
 import { TenantId, UserId } from '@modules/utils/decorators';
 import { ApiTags } from '@nestjs/swagger';
 import {

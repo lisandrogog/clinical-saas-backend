@@ -1,12 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateServiceCategoryDto } from '../dto/create-service-category.dto';
-import { UpdateServiceCategoryDto } from '../dto/update-service-category.dto';
+import {
+  CreateServiceCategoryDto,
+  UpdateServiceCategoryDto,
+  ICategoryServiceSearchResponse,
+} from '@shared-common';
 import { uuidv7 } from 'uuidv7';
 import { PrismaService } from '@core/prisma.service';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { Prisma } from '@prisma/client';
 import { UtilsService } from '@modules/utils/services';
-import { ICategoryServiceSearchResponse } from '../interfaces/category-service-search.interface';
+
 import { ServiceCategoryHelperService } from './service-category-helper.service';
 import { I18nKeys } from '../constants/i18n.constants';
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAppSubModuleDto } from './dto/create-app-sub-module.dto';
-import { UpdateAppSubModuleDto } from './dto/update-app-sub-module.dto';
+import { CreateAppSubModuleDto, UpdateAppSubModuleDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 
 @Injectable()

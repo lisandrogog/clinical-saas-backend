@@ -2,17 +2,16 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import {
   CreateServiceBusinessUnitDto,
   UpdateServiceBusinessUnitDto,
-} from '../dto';
+  IBusinessUnitSearchResponse,
+  ISingleServiceUnitSearch,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { ServiceBusinessUnitHelperService } from './service-business-unit-helper.service';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { Prisma } from '@prisma/client';
 import { UtilsService } from '@modules/utils/services';
-import { IServiceSearchResponse } from '@modules/service-catalog/service/interfaces/service-search.interface';
-import {
-  IBusinessUnitSearchResponse,
-  ISingleServiceUnitSearch,
-} from '../interfaces/business-unit-search.interface';
+import { IServiceSearchResponse } from '@shared-common';
+
 import { I18nKeys } from '../constants/i18n.constants';
 
 @Injectable()

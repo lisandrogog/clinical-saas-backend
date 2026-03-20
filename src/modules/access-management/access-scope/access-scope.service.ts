@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAccessScopeDto } from './dto/create-access-scope.dto';
-import { UpdateAccessScopeDto } from './dto/update-access-scope.dto';
+import { CreateAccessScopeDto, UpdateAccessScopeDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 
 @Injectable()

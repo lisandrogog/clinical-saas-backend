@@ -9,7 +9,11 @@ import {
   Query,
   ParseUUIDPipe,
 } from '@nestjs/common';
-import { CreateServiceDto, UpdateServiceDto, SearchServiceDto } from '../dto';
+import {
+  CreateServiceDto,
+  UpdateServiceDto,
+  SearchServiceDto,
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { TenantId, UserId } from '@modules/utils/decorators';
 import { ServiceService, ServiceActivationService } from '../services';

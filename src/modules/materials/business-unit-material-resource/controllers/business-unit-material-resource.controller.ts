@@ -13,7 +13,7 @@ import { BusinessUnitMaterialResourceService } from '../services';
 import {
   CreateBusinessUnitMaterialResourceDto,
   UpdateBusinessUnitMaterialResourceDto,
-} from '../dto';
+} from '@shared-common';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import { ApiTags } from '@nestjs/swagger';
 import {

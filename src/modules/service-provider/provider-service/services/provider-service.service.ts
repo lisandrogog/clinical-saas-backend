@@ -2,11 +2,12 @@ import { Injectable } from '@nestjs/common';
 import {
   CreateServiceProviderServiceDto,
   CreateServicesBusinessUnitDto,
-} from '../dto';
+  ICreateProviderService,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 import { ProviderServiceHelperService } from './provider-service-helper.service';
-import { ICreateProviderService } from '../interfaces/create-provider-service.interface';
+
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { Prisma } from '@prisma/client';
 

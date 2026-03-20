@@ -11,6 +11,8 @@
     "^@modules/(.*)$": "<rootDir>/../src/modules/$1",
     "^@utils/(.*)$": "<rootDir>/../src/utils/$1",
     "^@enums/(.*)$": "<rootDir>/../src/common/enums/$1",
-    "^@constants/(.*)$": "<rootDir>/../src/common/constants/$1"
+    "^@constants/(.*)$": "<rootDir>/../src/common/constants/$1",
+    "^@shared-common/(.*)$": "<rootDir>/../src/shared-common/src/$1",
+    "^@shared-common": "<rootDir>/../src/shared-common/src/index.ts"
   }
 }

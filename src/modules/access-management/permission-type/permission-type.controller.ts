@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { PermissionTypeService } from './permission-type.service';
-import { CreatePermissionTypeDto } from './dto/create-permission-type.dto';
-import { UpdatePermissionTypeDto } from './dto/update-permission-type.dto';
+import {
+  CreatePermissionTypeDto,
+  UpdatePermissionTypeDto,
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('permission-type')

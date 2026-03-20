@@ -5,7 +5,7 @@ import {
   AssociateUnitsDto,
   CreateServiceBusinessUnitDto,
   UpdateServiceBusinessUnitDto,
-} from '../dto';
+} from '@shared-common';
 
 export function ApiCreateServiceBusinessUnit() {
   return applyDecorators(

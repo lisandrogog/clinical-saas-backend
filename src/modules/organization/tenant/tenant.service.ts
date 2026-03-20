@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTenantDto } from './dto/create-tenant.dto';
-import { UpdateTenantDto } from './dto/update-tenant.dto';
+import { CreateTenantDto, UpdateTenantDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 

@@ -5,7 +5,7 @@ import { UtilsService } from '@modules/utils/services/utils.service';
 import {
   CreateServiceProviderScheduleDto,
   CreateScheduleDayBlockDto,
-} from '../dto';
+} from '@shared-common';
 import { ProviderScheduleHelperService } from './provider-schedule-helper.service';
 
 @Injectable()

@@ -13,7 +13,7 @@ import { OrderResourceConsumptionService } from '../services';
 import {
   CreateOrderResourceConsumptionDto,
   UpdateOrderResourceConsumptionDto,
-} from '../dto';
+} from '@shared-common';
 import {
   ApiCreateOrderResourceConsumption,
   ApiGetAllOrderResourceConsumptions,

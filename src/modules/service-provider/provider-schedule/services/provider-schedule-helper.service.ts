@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
 import { UtilsService } from '@modules/utils/services/utils.service';
-import { CreateScheduleDayBlockDto } from '../dto';
+import { CreateScheduleDayBlockDto } from '@shared-common';
 
 @Injectable()
 export class ProviderScheduleHelperService {

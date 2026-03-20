@@ -6,6 +6,8 @@
 - **Async:** Siempre usar `async/await` en lugar de `.then()`.
 - **Inyección de Dependencias:** Usar `constructor(private readonly service: Service) {}`.
 - **DTOs:** Todos los inputs de controllers deben tener un DTO con `@IsString()`, `@IsOptional()`, etc.
+- **DTOs e Interfaces Compartidas:** Priorizar tipos de `src/shared-common` para contratos transversales.
+- **Imports de Tipos Compartidos:** Usar el barrel de shared-common (`@shared-common` si aplica) o la ruta configurada en `tsconfig`; evitar imports relativos a DTOs duplicados locales.
 
 ## Base de Datos (Prisma)
 

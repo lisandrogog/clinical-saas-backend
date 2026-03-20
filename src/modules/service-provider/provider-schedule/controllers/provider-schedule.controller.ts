@@ -8,7 +8,7 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ProviderScheduleService } from '../services/provider-schedule.service';
-import { CreateServiceProviderScheduleDto } from '../dto/create-service-provider-schedule.dto';
+import { CreateServiceProviderScheduleDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import {
   ApiUpsertProviderSchedule,

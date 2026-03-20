@@ -13,8 +13,10 @@ import {
   MaterialResourceService,
   MaterialResourceActivationService,
 } from '../services';
-import { CreateMaterialResourceDto } from '../dto';
-import { UpdateMaterialResourceDto } from '../dto';
+import {
+  CreateMaterialResourceDto,
+  UpdateMaterialResourceDto,
+} from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import { TenantId, UserId } from '@modules/utils/decorators';

@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
 import { UtilsService } from '@modules/utils/services';
-import { BusinessUnitRoomMaterialDto } from '../dto';
+import { BusinessUnitRoomMaterialDto } from '@shared-common';
 import { Prisma } from '@prisma/client';
 
 @Injectable()

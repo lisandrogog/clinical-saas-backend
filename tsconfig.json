@@ -28,6 +28,8 @@
       "@enums/*": ["src/common/enums/*"],
       "@constants/*": ["src/common/constants/*"],
       "@i18n/*": ["src/common/i18n/*"],
+      "@shared-common": ["src/shared-common/src/index.ts"],
+      "@shared-common/*": ["src/shared-common/src/*"],
     }
   },
 }

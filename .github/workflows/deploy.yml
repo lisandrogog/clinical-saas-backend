@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Run Liquibase Migration
         uses: docker://liquibase/liquibase:4.25.0
@@ -38,6 +40,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Log in to GHCR
         uses: docker/login-action@v3

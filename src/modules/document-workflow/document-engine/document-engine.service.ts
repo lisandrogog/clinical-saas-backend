@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDocumentEngineDto } from './dto/create-document-engine.dto';
-import { UpdateDocumentEngineDto } from './dto/update-document-engine.dto';
+import {
+  CreateDocumentEngineDto,
+  UpdateDocumentEngineDto,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 

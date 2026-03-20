@@ -4,11 +4,11 @@ import { uuidv7 } from 'uuidv7';
 import {
   CreateServiceOrderDetailDto,
   UpdateServiceOrderDetailDto,
-} from '../dto';
+  IOrderDetailSearchResponse,
+} from '@shared-common';
 import { OrderDetailsHelperService } from './order-details-helper.service';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { UtilsService } from '@modules/utils/services';
-import { IOrderDetailSearchResponse } from '../interfaces';
 
 @Injectable()
 export class OrderDetailsService {

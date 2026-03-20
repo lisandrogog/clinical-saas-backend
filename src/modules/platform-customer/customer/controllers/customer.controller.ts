@@ -10,8 +10,7 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { CustomerService } from '../services/customer.service';
-import { CreateCustomerDto } from '../dto/create-customer.dto';
-import { UpdateCustomerDto } from '../dto/update-customer.dto';
+import { CreateCustomerDto, UpdateCustomerDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { TenantId, UserId } from '@modules/utils/decorators';

@@ -1,14 +1,14 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { BusinessUnitRoomMaterialHelperService } from './business-unit-room-material-helper.service';
-import { CreateBusinessUnitRoomMaterialDto } from '../dto';
+import {
+  CreateBusinessUnitRoomMaterialDto,
+  IRoomMaterialSearch,
+  IRoomMaterialSearchResponse,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { UtilsService } from '@modules/utils/services';
 import { uuidv7 } from 'uuidv7';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
-import {
-  IRoomMaterialSearch,
-  IRoomMaterialSearchResponse,
-} from '../interfaces/material-resource-search.interface';
 
 @Injectable()
 export class BusinessUnitRoomMaterialService {

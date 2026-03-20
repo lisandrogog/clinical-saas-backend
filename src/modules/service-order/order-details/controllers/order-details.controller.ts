@@ -13,7 +13,7 @@ import { OrderDetailsService } from '../services';
 import {
   CreateServiceOrderDetailDto,
   UpdateServiceOrderDetailDto,
-} from '../dto';
+} from '@shared-common';
 import {
   ApiCreateOrderDetail,
   ApiGetAllOrderDetails,

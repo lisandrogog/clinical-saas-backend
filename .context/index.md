@@ -1,6 +1,9 @@
 ## Índice de documentos de la carpeta de contexto
 
+> Nota operativa para agentes: el submódulo `src/shared-common` centraliza DTOs e interfaces transversales del ecosistema.
+
 - `api_specs.md`: Especificaciones de la API (Endpoints).
+- `api_endpoint_catalog.md`: Catálogo tabular de endpoints (agrupador, método, input/output).
 - `architecture.md`: Arquitectura del Sistema.
 - `context.md`: Contexto Global: Backend SaaS Médico.
 - `current_state.md`: Estado Actual del Trabajo.

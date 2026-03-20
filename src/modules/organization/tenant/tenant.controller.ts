@@ -3,15 +3,14 @@ import {
   Get,
   Post,
   Body,
-  Headers,
   Patch,
   Param,
   Query,
 } from '@nestjs/common';
 import { TenantService } from './tenant.service';
-import { CreateTenantDto } from './dto/create-tenant.dto';
-import { UpdateTenantDto } from './dto/update-tenant.dto';
+import { CreateTenantDto, UpdateTenantDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
+import { UserId } from '@modules/utils/decorators';
 
 @ApiTags('tenant')
 @Controller('tenant')
@@ -19,10 +18,7 @@ export class TenantController {
   constructor(private readonly tenantService: TenantService) {}
 
   @Post()
-  async create(
-    @Body() dto: CreateTenantDto,
-    @Headers('user-id') userId?: string,
-  ) {
+  async create(@Body() dto: CreateTenantDto, @UserId() userId?: string) {
     return await this.tenantService.create(dto, userId);
   }
 
@@ -56,7 +52,7 @@ export class TenantController {
   async update(
     @Param('id') id: string,
     @Body() dto: UpdateTenantDto,
-    @Headers('user-id') userId?: string,
+    @UserId() userId?: string,
   ) {
     return await this.tenantService.update(id, dto, userId);
   }

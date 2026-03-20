@@ -1,17 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Headers,
-  Put,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { AppModuleService } from './app-module.service';
-import { CreateAppModuleDto } from './dto/create-app-module.dto';
-import { UpdateAppModuleDto } from './dto/update-app-module.dto';
+import { CreateAppModuleDto, UpdateAppModuleDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
+import { PlatformId } from '@modules/utils/decorators';
 
 @ApiTags('app-module')
 @Controller('app-module')
@@ -24,7 +15,7 @@ export class AppModuleController {
   }
 
   @Get()
-  async findAll(@Headers('platform-id') platformId: string) {
+  async findAll(@PlatformId() platformId: string) {
     return await this.appModuleService.findAll(+platformId);
   }
 
@@ -36,7 +27,7 @@ export class AppModuleController {
   @Get('code/:code')
   async getByCode(
     @Param('code') code: string,
-    @Headers('platform-id') platformId: string,
+    @PlatformId() platformId: string,
   ) {
     return await this.appModuleService.getByCode(code, +platformId);
   }

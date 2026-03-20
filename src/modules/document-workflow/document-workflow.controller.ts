@@ -1,6 +1,7 @@
-import { Controller, Get, Headers, Param, Post, Query } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { DocumentWorkflowService } from './document-workflow.service';
+import { BusinessUnitId, TenantId } from '@modules/utils/decorators';
 
 @ApiTags('document-workflow')
 @Controller('document-workflow')
@@ -12,8 +13,8 @@ export class DocumentWorkflowController {
   @Get('actions/:documentId')
   async getActionsByServiceOrderId(
     @Param('documentId') documentId: string,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
   ) {
     return await this.documentWorkflowService.getActionsByServiceOrderId({
       documentId,
@@ -25,8 +26,8 @@ export class DocumentWorkflowController {
   @Post('actions/:documentId')
   async executeAction(
     @Param('documentId') documentId: string,
-    @Headers('tenant-id') tenantId: string,
-    @Headers('business-unit-id') businessUnitId: string,
+    @TenantId() tenantId: string,
+    @BusinessUnitId() businessUnitId: string,
     @Query('actionCode') actionCode: string,
   ) {
     return await this.documentWorkflowService.executeAction(

@@ -3,15 +3,13 @@ import { BusinessUnitRoomServiceHelperService } from './business-unit-room-servi
 import {
   BusinessUnitRoomServiceDto,
   BusinessUnitRoomServicesDto,
-} from '../dto';
+  IRoomServiceSearch,
+  IRoomServiceSearchResponse,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { UtilsService } from '@modules/utils/services';
 import { uuidv7 } from 'uuidv7';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
-import {
-  IRoomServiceSearch,
-  IRoomServiceSearchResponse,
-} from '../interfaces/room-service-search.interface';
 
 @Injectable()
 export class BusinessUnitRoomServiceService {

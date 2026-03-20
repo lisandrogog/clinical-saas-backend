@@ -1,9 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateServiceMaterialResourceDto } from '../dto';
+import {
+  CreateServiceMaterialResourceDto,
+  ICreateServiceMaterialResource,
+} from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 import { ServiceMaterialResourceHelperService } from './service-material-resource-helper.service';
-import { ICreateServiceMaterialResource } from '../interfaces/create-service-material-resource.interface';
+
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { Prisma } from '@prisma/client';
 import { UtilsService } from '@modules/utils/services';

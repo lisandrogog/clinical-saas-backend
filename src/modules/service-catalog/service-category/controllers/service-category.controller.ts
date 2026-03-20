@@ -10,7 +10,10 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { ServiceCategoryService } from '../services/service-category.service';
-import { CreateServiceCategoryDto, UpdateServiceCategoryDto } from '../dto';
+import {
+  CreateServiceCategoryDto,
+  UpdateServiceCategoryDto,
+} from '@shared-common';
 import { TenantId, UserId } from '@modules/utils/decorators';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';

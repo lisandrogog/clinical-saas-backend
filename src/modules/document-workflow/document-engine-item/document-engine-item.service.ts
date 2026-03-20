@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateDocumentEngineItemDto } from './dto/create-document-engine-item.dto';
+import { CreateDocumentEngineItemDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { isArray } from 'class-validator';
 import { uuidv7 } from 'uuidv7';

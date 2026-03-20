@@ -9,7 +9,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { BusinessUnitRoomMaterialService } from '../services';
-import { CreateBusinessUnitRoomMaterialDto } from '../dto';
+import { CreateBusinessUnitRoomMaterialDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 import { ApiCommonDecorator } from '@modules/utils/controllers/common.decorator';
 import {

@@ -10,6 +10,7 @@ Backend para una plataforma SaaS multi-tenant de gestión médica y pediátrica,
 - [Módulos Principales](#-módulos-principales)
 - [Requisitos Previos](#-requisitos-previos)
 - [Instalación](#-instalación)
+- [Submódulo Shared Common](#-submódulo-shared-common)
 - [Configuración](#️-configuración)
 - [Uso](#-uso)
 - [Testing](#-testing)
@@ -43,6 +44,7 @@ Sistema backend para gestión clínica multi-tenant que permite a múltiples org
 | **Testing** | Jest | ^30.0.0 |
 | **Validación** | class-validator | ^0.14.3 |
 | **Documentación API** | Swagger | ^11.2.6 |
+| **Tipos Compartidos** | Git Submodule `src/shared-common` | - |
 
 ## 🏗 Arquitectura
 
@@ -65,6 +67,7 @@ DRAFT → PENDING → SCHEDULED → IN_PROGRESS → COMPLETED
 ```
 
 **Estados disponibles:**
+
 - `DRAFT`: Borrador inicial
 - `PENDING`: Pendiente de agendamiento
 - `SCHEDULED`: Agendado
@@ -78,7 +81,7 @@ El `DocumentWorkflowService` gestiona las transiciones de estado bajo demanda.
 
 - **Modular**: Cada dominio está encapsulado en su propio módulo NestJS
 - **Separación de Responsabilidades**: Controllers manejan entrada/salida, Services contienen lógica de negocio
-- **DTOs**: Validación obligatoria con class-validator en todos los endpoints
+- **DTOs e Interfaces**: Se consumen desde `src/shared-common` como fuente centralizada para tipos transversales
 - **Transacciones**: Uso de `$transaction` de Prisma para operaciones críticas
 
 ## 📦 Módulos Principales
@@ -106,21 +109,32 @@ El `DocumentWorkflowService` gestiona las transiciones de estado bajo demanda.
 1. **Clonar el repositorio**
 
 ```bash
-git clone <repository-url>
+git clone --recurse-submodules <repository-url>
 cd clinical-saas-backend
 ```
 
-2. **Instalar dependencias**
+1. **Inicializar y verificar submódulos**
+
+Si el repositorio ya fue clonado sin `--recurse-submodules`, ejecutar:
+
+```bash
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+Validar que exista contenido en `src/shared-common/` antes de compilar o ejecutar tests.
+
+1. **Instalar dependencias**
 
 ```bash
 npm install
 ```
 
-3. **Configurar variables de entorno**
+1. **Configurar variables de entorno**
 
 Crear un archivo `.env` en la raíz del proyecto (ver sección [Configuración](#️-configuración))
 
-4. **Ejecutar migraciones de Base de Datos**
+1. **Ejecutar migraciones de Base de Datos**
 
 Se utiliza Liquibase para gestionar las migraciones de la base de datos. Para el entorno local:
 
@@ -128,7 +142,7 @@ Se utiliza Liquibase para gestionar las migraciones de la base de datos. Para el
 npm run db:migrate:local
 ```
 
-5. **Generar Cliente Prisma**
+1. **Generar Cliente Prisma**
 
 Para actualizar los tipos de TypeScript y el cliente Prisma después de las migraciones:
 
@@ -138,11 +152,28 @@ npm run prisma:pull
 npm run prisma:gen
 ```
 
-6. **Ejecutar seeders (opcional)**
+1. **Ejecutar seeders (opcional)**
 
 ```bash
 npm run seed:dev
 ```
+
+## 🔁 Submódulo Shared Common
+
+El proyecto incluye el submódulo git `src/shared-common`, que centraliza DTOs e interfaces reutilizables para múltiples servicios del ecosistema.
+
+- **Fuente oficial de tipos transversales:** DTOs e interfaces compartidas viven en `src/shared-common`.
+- **Regla de colaboración:** Evitar crear o mantener duplicados locales de DTOs/interfaces en módulos de `src/modules/*` cuando el tipo ya exista en shared-common.
+- **Convención de imports:** Priorizar el barrel de shared-common (por ejemplo `@shared-common` si está configurado) o la ruta de import definida por `tsconfig`.
+
+### Flujo recomendado al actualizar ramas
+
+```bash
+git pull
+git submodule update --init --recursive
+```
+
+Si la referencia del submódulo cambió en la rama remota, este comando sincroniza `src/shared-common` con el commit esperado por el backend.
 
 ## ⚙️ Configuración
 
@@ -185,13 +216,14 @@ npm run start:prod
 
 Una vez iniciado el servidor, acceder a:
 
-```
+```bash
 http://localhost:3000/api-docs
 ```
 
 ### Comandos de Base de Datos
 
 #### Prisma (ORM & Types)
+
 ```bash
 # Refrescar el esquema de la base de datos
 npm run prisma:pull
@@ -207,6 +239,7 @@ npm run seed:dev
 ```
 
 #### Liquibase (Migraciones)
+
 ```bash
 # Ejecutar migraciones en entorno local
 npm run db:migrate:local
@@ -235,6 +268,7 @@ npm run test:cov
 - **Estructura**: Seguir estrictamente el patrón de módulos de NestJS
 - **Lógica de Negocio**: Debe residir en Services, no en Controllers
 - **Validación**: Uso obligatorio de DTOs con class-validator para cada endpoint
+- **Tipos Compartidos**: DTOs e interfaces transversales deben obtenerse de `src/shared-common`
 - **Base de Datos**: Priorizar Prisma API sobre SQL crudo
 - **Multi-tenancy**: Siempre validar el `tenantId` en las consultas
 - **Migraciones**: Son la única fuente de verdad para el esquema de la base de datos

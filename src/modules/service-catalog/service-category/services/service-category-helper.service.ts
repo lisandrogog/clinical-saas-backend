@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '@core/prisma.service';
-import { CreateServiceCategoryDto } from '../dto/create-service-category.dto';
+import { CreateServiceCategoryDto } from '@shared-common';
 import { I18nKeys } from '../constants/i18n.constants';
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateServiceOrderDto, UpdateServiceOrderDto } from '../dto';
+import { CreateServiceOrderDto, UpdateServiceOrderDto } from '@shared-common';
 import { PrismaService } from '@core/prisma.service';
 import { uuidv7 } from 'uuidv7';
 import { OrderHelperService } from './order-helper.service';
@@ -12,7 +12,7 @@ import {
   ISingleOrderItemSearch,
   ISingleOrderSearch,
   ISingleOrderWrapper,
-} from '../interfaces/service-order-search.interface';
+} from '@shared-common';
 
 @Injectable()
 export class OrderService {

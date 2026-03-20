@@ -3,11 +3,11 @@ import { PrismaService } from '@core/prisma.service';
 import { OrderResourceConsumptionHelperService } from './order-resource-consumption-helper.service';
 import { BaseSearchPaginationDto } from '@modules/utils/dto';
 import { UtilsService } from '@modules/utils/services';
-import { IOrderResourceConsumptionSearchResponse } from '../interfaces';
 import {
+  IOrderResourceConsumptionSearchResponse,
   CreateOrderResourceConsumptionDto,
   UpdateOrderResourceConsumptionDto,
-} from '../dto';
+} from '@shared-common';
 
 @Injectable()
 export class OrderResourceConsumptionService {

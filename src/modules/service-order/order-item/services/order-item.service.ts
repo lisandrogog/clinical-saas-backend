@@ -6,7 +6,7 @@ import {
   CreateServiceOrderItemDto,
   UpdateServiceOrderItemDto,
   CreateManyServiceOrderItemsDto,
-} from '../dto';
+} from '@shared-common';
 import { OrderItemHelperService } from './order-item-helper.service';
 
 @Injectable()

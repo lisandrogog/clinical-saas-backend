@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Put } from '@nestjs/common';
 import { PlatformService } from './platform.service';
-import { CreatePlatformDto } from './dto/create-platform.dto';
-import { UpdatePlatformDto } from './dto/update-platform.dto';
+import { CreatePlatformDto, UpdatePlatformDto } from '@shared-common';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('platform')

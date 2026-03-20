@@ -1,9 +1,11 @@
 # Estado Actual del Trabajo
 
 ## 🎯 Objetivo Inmediato
+
 - Crear diccionario de traducciones
 
 ## 📑 Objetivos Próximos
+
 - Crear modulo de traducciones simplificado (eventualmente será remplazado por módulo dinámico - DB)
 - Agregar servicio para crear orden con item's en una transacción en estado inicial
 - Agregar servicio para agendar orden
@@ -15,16 +17,19 @@
 - Remover controladores/métodos que no necesitan estar expuestos
 
 ## ✅ Avances Recientes
+
 - Consolidación de la arquitectura modular de triada (Core y Helper Service) en los módulos de `service-order`.
 - Separación estricta de decoradores Swagger (`*.decorator.ts`) e integración de `BaseSearchPaginationDto` para estandarizar búsquedas.
 - Creación de `.agents/skills/nestjs-modular/SKILL.md` para asistir a las guías de código generativo.
+- Integración del submódulo git `src/shared-common` para centralizar DTOs e interfaces transversales entre proyectos del ecosistema.
+- Ajuste de lineamientos: los tipos comunes ya no deben mantenerse directamente en este proyecto si existen en shared-common.
 - Módulo de salas? (servicio fisioterapia)
 - Módulo de recursos materiales (service-material-resource, business-unit-material-resource)
 - Dependencias del service-providers (service-provider-business-unit, service-provider-service)
 - Módulo service-providers
 - Hacer las migraciones de liquibase para los tipos comunes
 - set price cost nullable, liquibase/ & sql/, dtos, services, controllers
-- Valida los endpoint y payloads 
+- Valida los endpoint y payloads
 - Búsquedas con filter, search y paginación
 - Agregar fecha de nacimiento y dirección corta al cliente/paciente
 - Verificar que la migración de liquibase se ejecute correctamente en el entorno remoto (CI/CD).
